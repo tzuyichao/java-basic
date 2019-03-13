@@ -27,6 +27,8 @@ public class ReactorDemoApplication {
 
 	@Bean
 	public EventBus createEventBus(Environment env) {
+		// 用這個就知道block的狀況
+		// return EventBus.create();
 		return EventBus.create(env, Environment.THREAD_POOL);
 	}
 
