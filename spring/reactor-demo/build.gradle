@@ -1,0 +1,24 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.3.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.greenrivers'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'io.projectreactor:reactor-bus:2.0.8.RELEASE'
+	// 如果沒用這個會用3.x的reactor-core會有一堆原本在reactor-core的類別不知道跑哪去
+	implementation 'io.projectreactor:reactor-core:2.0.8.RELEASE'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
