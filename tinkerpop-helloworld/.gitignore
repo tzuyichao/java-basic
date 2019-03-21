@@ -29,3 +29,6 @@ HELP.md
 ### Mac ###
 .DS_Store
 
+### project ##
+/log/
+

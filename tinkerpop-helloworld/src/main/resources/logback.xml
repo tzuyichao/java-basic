@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <appender name="time_based_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/example.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/example.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="basic" level="INFO">
+        <appender-ref ref="time_based_file"/>
+        <appender-ref ref="STDOUT"></appender-ref>
+    </logger>
+</configuration>
