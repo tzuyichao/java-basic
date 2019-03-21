@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'org.greenrivers'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
+    implementation 'org.apache.tinkerpop:tinkergraph-gremlin:3.4.0'
+    testImplementation 'junit:junit:4.12'
+}
