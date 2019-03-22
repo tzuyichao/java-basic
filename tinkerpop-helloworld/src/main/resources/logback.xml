@@ -6,7 +6,6 @@
             <fileNamePattern>log/example.%d{yyyy-MM-dd-HH-mm}.zip</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
-
         <encoder>
             <pattern>%d %relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>

@@ -2,6 +2,7 @@ package basic;
 
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Edge;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,10 @@ public class VertexStepsLab {
             logger.info("edge label: {} weight: {}", edge.label(), edge.value("weight").toString());
             logger.info("in vertex name: {}", edge.inVertex().value("name").toString());
             logger.info("out vertex name: {}", edge.outVertex().value("name").toString());
+        });
+        List<Vertex> markoBoth = graphTraversalSource.V().has("name", "marko").both().toList();
+        markoBoth.forEach(vertex -> {
+            logger.info(vertex.value("name").toString());
         });
     }
 }

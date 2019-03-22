@@ -18,8 +18,11 @@ public class SideEffectLab {
         final Vertex toNode = graphTraversalSource.V().has("name", "peter").next();
 
         Path path =graphTraversalSource.V(fromNode)
-                .repeat(both().simplePath().sideEffect(tv -> {
-                    System.out.println(tv.get().value("name").toString());
+                .repeat(both().sideEffect(tv -> {
+                    System.out.println("both: " + tv.get().value("name").toString());
+                })
+                        .simplePath().sideEffect(tv -> {
+                    System.out.println("simplePath: " + tv.get().value("name").toString());
                 }))
                 .until(is(toNode))
                 .path()
