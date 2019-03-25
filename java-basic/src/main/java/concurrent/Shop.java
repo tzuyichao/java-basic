@@ -13,7 +13,7 @@ public class Shop {
         random = new Random();
     }
 
-    public static void delay() {
+    private static void delay() {
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -54,5 +54,13 @@ public class Shop {
             }
         }).start();
         return priceFutute;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

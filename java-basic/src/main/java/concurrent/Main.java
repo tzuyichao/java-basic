@@ -7,6 +7,9 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.Future;
 
+/**
+ * from Moder Java in Action
+ */
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger("Lab");
     private static final String Product = "Mac Book Air";
