@@ -3,11 +3,11 @@ package scheduler.main;
 import org.apache.commons.daemon.Daemon;
 import org.apache.commons.daemon.DaemonContext;
 import org.apache.commons.daemon.DaemonInitException;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
+import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import scheduler.job.DemoJob;
 
 public class SchedulerDaemon implements Daemon {
     private static final Logger logger = LoggerFactory.getLogger(SchedulerDaemon.class);
@@ -15,28 +15,41 @@ public class SchedulerDaemon implements Daemon {
 
     @Override
     public void init(DaemonContext context) throws DaemonInitException, Exception {
-        System.out.println("init");
+        logger.info("init");
+
         scheduler = StdSchedulerFactory.getDefaultScheduler();
-        System.out.println(scheduler.toString());
-        scheduler.getJobGroupNames().forEach(System.out::println);
     }
 
     @Override
     public void start() throws Exception {
-        System.out.println("start");
+        logger.info("start");
+        JobKey testJobKey = new JobKey("test", "default");
+        JobDetail testJobDetail = JobBuilder.newJob(DemoJob.class)
+                .withIdentity(testJobKey)
+                .usingJobData("name", "test")
+                .build();
+
+        Trigger testTrigger = TriggerBuilder.newTrigger()
+                .withIdentity("testTrigger", "default")
+                .usingJobData("name", "test123")
+                .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
+                .build();
+
         scheduler.start();
+        logger.info("Starting create schedule jobs");
+        scheduler.scheduleJob(testJobDetail, testTrigger);
     }
 
     @Override
     public void stop() throws Exception {
-        System.out.println("stop");
+        logger.info("stop");
         scheduler.shutdown();
     }
 
     @Override
     public void destroy() {
         try {
-            System.out.println("destroy");
+            logger.info("destroy");
             scheduler.shutdown();
         } catch (SchedulerException e) {
             e.printStackTrace();
