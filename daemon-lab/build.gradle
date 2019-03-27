@@ -23,6 +23,7 @@ dependencies {
     compile group: 'javax.transaction', name: 'jta', version: '1.1'
     compile 'ch.qos.logback.contrib:logback-json-core:0.1.5'
     compile 'org.slf4j:slf4j-api:1.7.26'
+    compile 'org.springframework:spring-context:5.1.5.RELEASE'
 }
 
 //jar {
