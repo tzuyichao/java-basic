@@ -15,7 +15,7 @@ public class ScanTest {
         provider.addIncludeFilter(new AnnotationTypeFilter(
                 ((Class<? extends Annotation>) ClassUtils.forName("scheduler.annotation.Job", cl)), false));
 
-        Set<BeanDefinition> candiates = provider.findCandidateComponents("scheduler.annotated.job");
-        candiates.forEach(beanDefinition -> System.out.println(beanDefinition));
+        Set<BeanDefinition> candidates = provider.findCandidateComponents("scheduler.annotated.job");
+        candidates.forEach(beanDefinition -> System.out.println(beanDefinition));
     }
 }
