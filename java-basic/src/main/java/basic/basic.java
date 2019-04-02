@@ -9,6 +9,11 @@ public class basic {
 
         int[] result = twoSum(nums, target);
         Arrays.stream(result).forEach(System.out::println);
+
+        // String#indexOf()
+        String path = "/2/1/50/129";
+        System.out.println(path.substring(path.indexOf("50") + "50".length()));
+        System.out.println(path.substring("/2/1/50".length()));
     }
 
     public static int[] twoSum(int[] nums, int target) throws SolutionNotFoundException {
@@ -20,5 +25,19 @@ public class basic {
             }
         }
         return new int[] {-1, -1};
+    }
+    public static Integer basicMath(String op, int v1, int v2)
+    {
+        switch (op) {
+            case "+":
+                return v1 + v2;
+            case "-":
+                return v1 - v2;
+            case "*":
+                return v1 * v2;
+            case "/":
+                return v1 / v2;
+        }
+        return 0;
     }
 }
