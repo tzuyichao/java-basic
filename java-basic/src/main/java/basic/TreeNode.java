@@ -38,14 +38,13 @@ public class TreeNode<T> {
         this.marked = marked;
     }
 
-    private void recursiveFind(T id, Set<T> visited, Set<TreeNode> result) {
-        visited.add(this.id);
+    private void recursiveFind(T id, Set<TreeNode> result) {
         if(getId().equals(id)) {
             result.add(this);
             return;
         } else {
             for(TreeNode treeNode: this.children) {
-                treeNode.recursiveFind(id, visited, result);
+                treeNode.recursiveFind(id, result);
             }
         }
     }
@@ -54,10 +53,9 @@ public class TreeNode<T> {
         if(getId().equals(id)) {
             return this;
         } else {
-            Set<T> visited = new HashSet<>();
             Set<TreeNode> result = new HashSet<>();
             for(TreeNode treeNode: this.children) {
-                recursiveFind(id, visited, result);
+                treeNode.recursiveFind(id, result);
             }
             if(result.size() == 0) {
                 return null;
@@ -68,6 +66,24 @@ public class TreeNode<T> {
                 return result.stream().findFirst().get();
             }
         }
+    }
+
+    private void recursiveFind(Set<TreeNode> result) {
+        if(isMarked()) {
+            result.add(this);
+        } else {
+            for(TreeNode treeNode: this.children) {
+                treeNode.recursiveFind(result);
+            }
+        }
+    }
+
+    public TreeNode[] findMarkTransition() {
+        Set<TreeNode> resultTreeNodes = new HashSet<>();
+
+        recursiveFind(resultTreeNodes);
+
+        return resultTreeNodes.toArray(new TreeNode[0]);
     }
 
     public void add(T parentContent, T currentContent) {

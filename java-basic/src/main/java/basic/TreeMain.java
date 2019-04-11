@@ -54,8 +54,16 @@ public class TreeMain {
         logger.info("Forest Count: {}", forest.keySet().size());
         forest.keySet().forEach(key -> {
             forest.get(key).find("50").setMarked(true);
+            forest.get(key).find("126").setMarked(true);
+            forest.get(key).find("137").setMarked(true);
             logger.info(forest.get(key).toString());
             logger.info("50 is marked: {}", forest.get(key).find("50").isMarked());
+            logger.info("126 is marked: {}", forest.get(key).find("126").isMarked());
+            logger.info("137 is marked: {}", forest.get(key).find("137").isMarked());
+            TreeNode[] subTreeRoots = forest.get(key).findMarkTransition();
+            for(TreeNode node: subTreeRoots) {
+                logger.info("node: {}", node.getId());
+            }
         });
     }
 }
