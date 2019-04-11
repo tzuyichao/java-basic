@@ -64,6 +64,12 @@ public class TreeMain {
             for(TreeNode node: subTreeRoots) {
                 logger.info("node: {}", node.getId());
             }
+            logger.info("After set 2 marked = true");
+            forest.get(key).find("2").setMarked(true);
+            subTreeRoots = forest.get(key).findMarkTransition();
+            for(TreeNode node: subTreeRoots) {
+                logger.info("node: {}", node.getId());
+            }
         });
     }
 }
