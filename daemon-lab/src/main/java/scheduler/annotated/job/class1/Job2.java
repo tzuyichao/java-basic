@@ -1,7 +1,7 @@
 package scheduler.annotated.job.class1;
 
-import scheduler.annotation.Job;
+import scheduler.annotation.JobExec;
 
-@Job
+@JobExec
 public class Job2 {
 }
