@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class QuartzJobDiscoverer implements JobDiscoverer<Job> {
+public class QuartzJobDiscoverer implements JobDiscoverer {
     private static final Logger logger = LoggerFactory.getLogger(QuartzJobDiscoverer.class);
     private String scanPackage;
 

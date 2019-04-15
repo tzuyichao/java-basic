@@ -1,5 +1,5 @@
 package scheduler.discover;
 
-public interface JobDiscoverer<T> {
+public interface JobDiscoverer {
     Class[] find();
 }
