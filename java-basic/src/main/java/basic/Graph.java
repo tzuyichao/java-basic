@@ -22,6 +22,14 @@ public class Graph {
         }
     }
 
+    public int getV() {
+        return v;
+    }
+
+    public List<Integer> getLink(int v) {
+        return adj[v];
+    }
+
     public void print() {
         for(int i=0; i<v; i++) {
             System.out.print(i + ":");
