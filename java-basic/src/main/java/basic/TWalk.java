@@ -11,7 +11,7 @@ public class TWalk {
         this.g = g;
     }
 
-    public void bsf(String start) {
+    public void bfs(String start) {
         Queue<String> queue = new PriorityQueue<>();
         Map<String, Boolean> visited = new ConcurrentHashMap<>();
         Map<String, String> pred = new ConcurrentHashMap<>();
@@ -36,7 +36,7 @@ public class TWalk {
         }
     }
 
-    public List<String> bsf(String start, String target) {
+    public List<String> bfs(String start, String target) {
         Queue<String> queue = new PriorityQueue<>();
         Map<String, Boolean> visited = new ConcurrentHashMap<>();
         Map<String, String> pred = new ConcurrentHashMap<>();

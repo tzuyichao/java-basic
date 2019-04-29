@@ -25,10 +25,10 @@ public class TGraphTest {
 
         System.out.println("WALK:");
         TWalk walk = new TWalk(graph);
-        walk.bsf("1");
+        walk.bfs("1");
 
         System.out.println("Path:");
-        List<String> solution = walk.bsf("1", "13");
+        List<String> solution = walk.bfs("1", "13");
         solution.forEach(node -> System.out.print(node + " "));
     }
 }
