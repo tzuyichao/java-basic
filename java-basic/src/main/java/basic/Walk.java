@@ -9,7 +9,34 @@ public class Walk {
         this.g = g;
     }
 
-    public void bsf(int start) {
+    public void dfs(int start) {
+        Stack<Integer> stack = new Stack<>();
+        boolean[] visited = new boolean[g.getV()];
+        int[] pred = new int[g.getV()];
+        for(int i=0; i<visited.length; i++) {
+            visited[i] = false;
+            pred[i] = -1;
+        }
+
+        stack.push(start);
+        while(!stack.empty()) {
+            int v = stack.pop();
+            if(visited[v] == false) {
+                for (int w : g.getLink(v)) {
+                    pred[w] = v;
+                    if(!stack.contains(w)) {
+                        stack.push(w);
+                    }
+                }
+            }
+            visited[v] = true;
+        }
+        for(int i=0; i<pred.length; i++) {
+            System.out.println(i + ": " + pred[i]);
+        }
+    }
+
+    public void bfs(int start) {
         Queue<Integer> queue = new PriorityQueue<>();
         boolean[] visited = new boolean[g.getV()];
         int[] pred = new int[g.getV()];
@@ -34,7 +61,7 @@ public class Walk {
         }
     }
 
-    public List<Integer> bsf(int start, int end) {
+    public List<Integer> bfs(int start, int end) {
         Queue<Integer> queue = new PriorityQueue<>();
         boolean[] visited = new boolean[g.getV()];
         int[] pred = new int[g.getV()];
@@ -106,8 +133,9 @@ public class Walk {
 
         g.print();
 
-        System.out.println("bsf:");
+        System.out.println("bfs:");
         Walk walk = new Walk(g);
-        walk.bsf(1);
+        walk.bfs(1);
+
     }
 }

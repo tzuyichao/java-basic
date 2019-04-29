@@ -18,10 +18,13 @@ public class WalkTest {
         graph.print();
 
         Walk walk = new Walk(graph);
-        System.out.println("bsf from 0:");
-        walk.bsf(0);
+        System.out.println("bfs from 0:");
+        walk.bfs(0);
+        System.out.println("dfs from 0:");
+        walk.dfs(0);
 
-        List<Integer> solution = walk.bsf(0, 9);
+        System.out.println("Prepare from 0 to 9:");
+        List<Integer> solution = walk.bfs(0, 9);
         System.out.println("Solution from 0 to 9:");
         System.out.println(solution);
     }
