@@ -2,6 +2,8 @@ package basic;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class TGraphTest {
     @Test
     public void test_print_graph() {
@@ -24,5 +26,9 @@ public class TGraphTest {
         System.out.println("WALK:");
         TWalk walk = new TWalk(graph);
         walk.bsf("1");
+
+        System.out.println("Path:");
+        List<String> solution = walk.bsf("1", "13");
+        solution.forEach(node -> System.out.print(node + " "));
     }
 }
