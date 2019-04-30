@@ -20,7 +20,7 @@ public class GraphTest {
         graph.addEdge(3, 9);
 
         Walk walk = new Walk(graph);
-        List<Integer> solution = walk.bsf(0, 9);
+        List<Integer> solution = walk.bfs(0, 9);
         System.out.println("Solution from A to J:");
         System.out.println(solution);
         System.out.println("Translate: ");
