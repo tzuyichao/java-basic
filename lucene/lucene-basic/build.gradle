@@ -5,8 +5,8 @@ plugins {
 group 'org.greenrivers.lucene'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = JavaVersion.VERSION_1_10
-targetCompatibility = JavaVersion.VERSION_1_10
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -15,5 +15,10 @@ repositories {
 dependencies {
     implementation 'com.github.magese:ik-analyzer:8.0.0'
     implementation 'org.apache.lucene:lucene-analyzers-smartcn:8.0.0'
+    implementation 'org.deeplearning4j:deeplearning4j-core:0.9.1'
+    implementation 'org.deeplearning4j:deeplearning4j-nlp:0.9.1'
+    implementation 'org.nd4j:nd4j-api:0.9.1'
+    implementation 'org.nd4j:nd4j-native:0.9.1'
+    implementation 'org.nd4j:nd4j-native-platform:0.9.1'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
