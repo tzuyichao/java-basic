@@ -1,5 +1,6 @@
 package org.greenrivers.reactordemo.controller;
 
+import org.greenrivers.reactordemo.dto.ResponseBean;
 import org.greenrivers.reactordemo.model.NotificationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ public class NotificationController {
     }
 
     @GetMapping(value = "/startNotification/{param}", produces = {"application/json"})
-    public String startNotification(@PathVariable Integer param) {
+    public ResponseBean<Void> startNotification(@PathVariable Integer param) {
         for(int i = 0; i < param; i++) {
             NotificationData notificationData = new NotificationData();
             notificationData.setId(i);
@@ -28,7 +29,9 @@ public class NotificationController {
             System.out.println("Notification " + i + ": notification task submitted successfully");
 
         }
-        return "{\"message\": \"Task submitted.\"}";
+        ResponseBean<Void> responseBean = new ResponseBean<>();
+        responseBean.setMessage("Task submitted.");
+        return responseBean;
     }
 
 }
