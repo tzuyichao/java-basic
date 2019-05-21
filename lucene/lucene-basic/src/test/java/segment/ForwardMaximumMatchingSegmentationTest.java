@@ -1,6 +1,7 @@
 package segment;
 
 import org.junit.Test;
+import org.nd4j.linalg.api.ops.impl.transforms.Reverse;
 
 import java.util.Comparator;
 import java.util.List;
@@ -37,6 +38,22 @@ public class ForwardMaximumMatchingSegmentationTest {
     @Test
     public void test_process_long_sentence() {
         ForwardMaximumMatchingSegmentation segmenter = new ForwardMaximumMatchingSegmentation();
+        List<SegmentToken> tokens = segmenter.process("Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
+        assertNotNull(tokens);
+        System.out.println(tokens);
+    }
+
+    @Test
+    public void test_rmm_process() {
+        ReverseDirectionMaximumMatchingSegmentation segmenter = new ReverseDirectionMaximumMatchingSegmentation();
+        List<SegmentToken> tokens = segmenter.process("我们在野生动物园玩");
+        assertNotNull(tokens);
+        System.out.println(tokens);
+    }
+
+    @Test
+    public void test_rmm_process_long_sentence() {
+        ReverseDirectionMaximumMatchingSegmentation segmenter = new ReverseDirectionMaximumMatchingSegmentation();
         List<SegmentToken> tokens = segmenter.process("Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
         assertNotNull(tokens);
         System.out.println(tokens);
