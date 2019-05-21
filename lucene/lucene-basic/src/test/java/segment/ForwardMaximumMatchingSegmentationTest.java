@@ -58,4 +58,21 @@ public class ForwardMaximumMatchingSegmentationTest {
         assertNotNull(tokens);
         System.out.println(tokens);
     }
+
+    @Test
+    public void test_rmm_process2() {
+        MaximumMatchingSegmentation segmenter = new ReverseDirectionMaximumMatchingSegmentation();
+        List<SegmentToken> tokens = segmenter.process("研究生命的起源");
+        assertNotNull(tokens);
+        System.out.println(tokens);
+    }
+
+    @Test
+    public void test_process2() {
+        MaximumMatchingSegmentation segmenter = new ForwardMaximumMatchingSegmentation();
+        List<SegmentToken> tokens = segmenter.process("研究生命的起源");
+        assertNotNull(tokens);
+        System.out.println(tokens);
+    }
+
 }
