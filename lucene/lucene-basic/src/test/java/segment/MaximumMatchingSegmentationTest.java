@@ -1,14 +1,13 @@
 package segment;
 
 import org.junit.Test;
-import org.nd4j.linalg.api.ops.impl.transforms.Reverse;
 
 import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 
-public class ForwardMaximumMatchingSegmentationTest {
+public class MaximumMatchingSegmentationTest {
 
     @Test
     public void test_stopWords() {
