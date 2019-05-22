@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentation {
-    private static final Logger logger = LoggerFactory.getLogger("Lab");
+    private static final Logger logger = LoggerFactory.getLogger(ForwardMaximumMatchingSegmentation.class);
 
     public ForwardMaximumMatchingSegmentation() {
     }

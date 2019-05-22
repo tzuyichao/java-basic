@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReverseDirectionMaximumMatchingSegmentation extends MaximumMatchingSegmentation {
-    private static final Logger logger = LoggerFactory.getLogger("Lab");
+    private static final Logger logger = LoggerFactory.getLogger(ReverseDirectionMaximumMatchingSegmentation.class);
 
 
     @Override
