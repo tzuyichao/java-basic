@@ -67,5 +67,15 @@ public abstract class MaximumMatchingSegmentation {
         return new HashMap<>(dictionary);
     }
 
+    public List<SegmentToken> removeStopWords(final List<SegmentToken> tokensNeedFilter) {
+        List<SegmentToken> tokens = new ArrayList<>();
+        tokensNeedFilter.stream().forEach(segmentToken -> {
+            if(!stopWords.contains(segmentToken.getWord())) {
+                tokens.add(segmentToken);
+            }
+        });
+        return tokens;
+    }
+
     public abstract List<SegmentToken> process(final String sentence);
 }

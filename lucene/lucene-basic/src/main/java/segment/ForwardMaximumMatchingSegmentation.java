@@ -41,6 +41,6 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
                 }
             }
         }
-        return tokens;
+        return removeStopWords(tokens);
     }
 }
