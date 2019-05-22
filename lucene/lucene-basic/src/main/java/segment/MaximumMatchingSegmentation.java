@@ -12,7 +12,7 @@ public abstract class MaximumMatchingSegmentation {
     protected static final String DICT_COLUMN_SEPARATOR = " ";
     protected static final int SEGMENT_WINDOW = 16;
     protected static final String DEFAULT_STOP_WORDS_PATH = "/Users/tzuyichao/lab/data/segment/stop_words.txt";
-    protected static final String DEFAULT_DICTIONARY_PATH = "/Users/tzuyichao/lab/data/segment/dict.txt";
+    protected static final String DEFAULT_DICTIONARY_PATH = "/Users/tzuyichao/lab/data/segment/dict.big.txt";
     private static final Logger logger = LoggerFactory.getLogger("Lab");
 
     protected Set<String> stopWords = new HashSet<>();

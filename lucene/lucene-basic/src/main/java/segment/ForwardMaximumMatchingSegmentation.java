@@ -21,7 +21,7 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
         while(currentPos < sentence.length()) {
             logger.debug("remain sentence: {}", sentence.substring(currentPos));
             boolean findToken = false;
-            int forwardIndex = (currentPos + window > sentence.length()?sentence.length()-1:currentPos + window-1);
+            int forwardIndex = (currentPos + window > sentence.length()?sentence.length():currentPos + window-1);
             logger.debug("forwardIndex: {}, currentPos: {}", forwardIndex, currentPos);
             while(!findToken) {
                 if(forwardIndex == currentPos) {
