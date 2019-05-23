@@ -9,6 +9,11 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
     private static final Logger logger = LoggerFactory.getLogger(ForwardMaximumMatchingSegmentation.class);
 
     public ForwardMaximumMatchingSegmentation() {
+        super();
+    }
+
+    public ForwardMaximumMatchingSegmentation(String dicPath, String stopWordsPath) {
+        super(dicPath, stopWordsPath);
     }
 
     @Override
@@ -21,7 +26,7 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
         while(currentPos < sentence.length()) {
             logger.debug("remain sentence: {}", sentence.substring(currentPos));
             boolean findToken = false;
-            int forwardIndex = (currentPos + window > sentence.length()?sentence.length():currentPos + window-1);
+            int forwardIndex = (currentPos + window > sentence.length()?sentence.length():currentPos + window);
             logger.debug("forwardIndex: {}, currentPos: {}", forwardIndex, currentPos);
             while(!findToken) {
                 if(forwardIndex == currentPos) {
@@ -32,10 +37,12 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
                 } else {
                     String candidate = sentence.substring(currentPos, forwardIndex);
                     if(dictionary.keySet().contains(candidate)) {
+                        logger.debug("dic hit: {}", candidate);
                         tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
                         currentPos += candidate.length();
                         findToken = true;
                     } else {
+                        logger.debug("dic hit: {}", candidate);
                         forwardIndex--;
                     }
                 }

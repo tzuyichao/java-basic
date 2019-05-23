@@ -60,7 +60,7 @@ public class MaximumMatchingSegmentationTest {
 
     @Test
     public void test_rmm_process2() {
-        MaximumMatchingSegmentation segmentation = new ReverseDirectionMaximumMatchingSegmentation();
+        MaximumMatchingSegmentation segmentation = new ReverseDirectionMaximumMatchingSegmentation("/Users/tzuyichao/lab/data/segment/test_dic.txt", "/Users/tzuyichao/lab/data/segment/test_stop_words.txt");
         List<SegmentToken> tokens = segmentation.process("研究生命的起源");
         assertNotNull(tokens);
         System.out.println(tokens);
@@ -68,6 +68,14 @@ public class MaximumMatchingSegmentationTest {
 
     @Test
     public void test_process2() {
+        MaximumMatchingSegmentation segmentation = new ForwardMaximumMatchingSegmentation("/Users/tzuyichao/lab/data/segment/test_dic.txt", "/Users/tzuyichao/lab/data/segment/test_stop_words.txt");
+        List<SegmentToken> tokens = segmentation.process("研究生命的起源");
+        assertNotNull(tokens);
+        System.out.println(tokens);
+    }
+
+    @Test
+    public void test_process2_2() {
         MaximumMatchingSegmentation segmentation = new ForwardMaximumMatchingSegmentation();
         List<SegmentToken> tokens = segmentation.process("研究生命的起源");
         assertNotNull(tokens);

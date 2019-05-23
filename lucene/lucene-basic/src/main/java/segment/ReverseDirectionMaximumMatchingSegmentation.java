@@ -10,6 +10,13 @@ import java.util.Objects;
 public class ReverseDirectionMaximumMatchingSegmentation extends MaximumMatchingSegmentation {
     private static final Logger logger = LoggerFactory.getLogger(ReverseDirectionMaximumMatchingSegmentation.class);
 
+    public ReverseDirectionMaximumMatchingSegmentation() {
+        super();
+    }
+
+    public ReverseDirectionMaximumMatchingSegmentation(String dicPath, String stopWordsPath) {
+        super(dicPath, stopWordsPath);
+    }
 
     @Override
     public List<SegmentToken> process(String sentence) {
@@ -32,11 +39,13 @@ public class ReverseDirectionMaximumMatchingSegmentation extends MaximumMatching
                 } else {
                     String candidate = sentence.substring(currentPos, reverseIndex);
                     if(dictionary.keySet().contains(candidate)) {
+                        logger.debug("dic hit: {}", candidate);
                         tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
                         reverseIndex -= candidate.length();
                         currentPos = reverseIndex > SEGMENT_WINDOW?reverseIndex-SEGMENT_WINDOW:0;
                         findToken = true;
                     } else {
+                        logger.debug("dic miss: {}", candidate);
                         currentPos += 1;
                     }
                 }

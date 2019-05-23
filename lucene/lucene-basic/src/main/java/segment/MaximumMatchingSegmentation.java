@@ -10,11 +10,11 @@ import java.util.*;
 
 public abstract class MaximumMatchingSegmentation {
     protected static final String DICT_COLUMN_SEPARATOR = " ";
-    protected static final int SEGMENT_WINDOW = 16;
     protected static final String DEFAULT_STOP_WORDS_PATH = "/Users/tzuyichao/lab/data/segment/stop_words.txt";
     protected static final String DEFAULT_DICTIONARY_PATH = "/Users/tzuyichao/lab/data/segment/dict.big.txt";
     private static final Logger logger = LoggerFactory.getLogger(MaximumMatchingSegmentation.class);
 
+    protected int SEGMENT_WINDOW;
     protected Set<String> stopWords = new HashSet<>();
     protected Map<String, Term> dictionary = new HashMap<>();
 
@@ -54,9 +54,16 @@ public abstract class MaximumMatchingSegmentation {
         }
     }
 
-    MaximumMatchingSegmentation() {
+    public MaximumMatchingSegmentation() {
         initStopWords(DEFAULT_STOP_WORDS_PATH);
         initDictionary(DEFAULT_DICTIONARY_PATH);
+        SEGMENT_WINDOW = 16;
+    }
+
+    public MaximumMatchingSegmentation(String dicPath, String stopWordsPath) {
+        initDictionary(dicPath);
+        initStopWords(stopWordsPath);
+        SEGMENT_WINDOW = dictionary.keySet().stream().max(Comparator.comparingInt(String::length)).get().length();
     }
 
     public Set<String> getStopWords() {
