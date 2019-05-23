@@ -42,7 +42,7 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
                         currentPos += candidate.length();
                         findToken = true;
                     } else {
-                        logger.debug("dic hit: {}", candidate);
+                        logger.debug("dic miss: {}", candidate);
                         forwardIndex--;
                     }
                 }
