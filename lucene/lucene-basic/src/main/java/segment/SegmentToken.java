@@ -1,5 +1,9 @@
 package segment;
 
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter @ToString
 public class SegmentToken {
     private String word;
     private int startOffset;
@@ -9,26 +13,5 @@ public class SegmentToken {
         this.word = word;
         this.startOffset = startOffset;
         this.endOffset = endOffset;
-    }
-
-    public String getWord() {
-        return word;
-    }
-
-    public int getStartOffset() {
-        return startOffset;
-    }
-
-    public int getEndOffset() {
-        return endOffset;
-    }
-
-    @Override
-    public String toString() {
-        return "SegmentToken{" +
-                "word='" + word + '\'' +
-                ", startOffset=" + startOffset +
-                ", endOffset=" + endOffset +
-                '}';
     }
 }

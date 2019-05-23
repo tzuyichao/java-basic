@@ -20,9 +20,9 @@ public class MaximumMatchingSegmentationTest {
     @Test
     public void test_dump_dictionary() {
         ForwardMaximumMatchingSegmentation segmentation = new ForwardMaximumMatchingSegmentation();
-//        segmentation.getDictionary().forEach((term, detail) -> {
-//            System.out.println(detail);
-//        });
+        segmentation.getDictionary().forEach((term, detail) -> {
+            System.out.println(detail);
+        });
         System.out.println(segmentation.getDictionary().keySet().stream().max(Comparator.comparingInt(String::length)).get().length());
     }
 

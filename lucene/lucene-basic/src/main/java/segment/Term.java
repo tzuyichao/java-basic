@@ -1,5 +1,10 @@
 package segment;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter @ToString
 public class Term {
     private String content;
     private Integer freq;
@@ -17,34 +22,5 @@ public class Term {
 
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getFreq() {
-        return freq;
-    }
-
-    public void setFreq(Integer freq) {
-        this.freq = freq;
-    }
-
-    public String getPartOfSpeech() {
-        return partOfSpeech;
-    }
-
-    public void setPartOfSpeech(String partOfSpeech) {
-        this.partOfSpeech = partOfSpeech;
-    }
-
-    @Override
-    public String toString() {
-        return "Term{" +
-                "content='" + content + '\'' +
-                ", freq=" + freq +
-                ", partOfSpeech='" + partOfSpeech + '\'' +
-                '}';
     }
 }

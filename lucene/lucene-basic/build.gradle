@@ -24,6 +24,13 @@ dependencies {
     // jieba java
     implementation 'com.huaban:jieba-analysis:1.0.2'
 
+    // rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+
+    // lombok
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
     implementation 'org.slf4j:slf4j-api:1.7.26'
