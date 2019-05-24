@@ -46,7 +46,7 @@ public abstract class MaximumMatchingSegmentation {
                 Optional<Term> termResult = makeTerm(item);
                 if(termResult.isPresent()) {
                     Term term = termResult.get();
-                    dictionary.put(term.getContent(), term);
+                    dictionary.put(term.getContent().toLowerCase(), term);
                 }
             });
         } catch (IOException e) {

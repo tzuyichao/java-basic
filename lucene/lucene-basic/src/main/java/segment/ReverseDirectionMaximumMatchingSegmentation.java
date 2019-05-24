@@ -19,28 +19,29 @@ public class ReverseDirectionMaximumMatchingSegmentation extends MaximumMatching
     }
 
     @Override
-    public List<SegmentToken> process(String sentence) {
+    public List<SegmentToken> process(final String sentence) {
         Objects.requireNonNull(sentence, "sentence should not be null");
-        int window = (sentence.length() > SEGMENT_WINDOW?SEGMENT_WINDOW:sentence.length());
-        int reverseIndex = sentence.length();
-        int currentPos = sentence.length() - window;
-        logger.debug("window: {}, currentPos: {}, reverseIndex: {}, sentence len: {}", window, currentPos, reverseIndex, sentence.length());
+        String sent = sentence.toLowerCase();
+        int window = (sent.length() > SEGMENT_WINDOW?SEGMENT_WINDOW:sent.length());
+        int reverseIndex = sent.length();
+        int currentPos = sent.length() - window;
+        logger.debug("window: {}, currentPos: {}, reverseIndex: {}, sentence len: {}", window, currentPos, reverseIndex, sent.length());
         List<SegmentToken> tokens = new ArrayList<>();
         while(reverseIndex > 0) {
-            logger.debug("remain sentence: {}, currentPos: {}, reverseIndex: {}", sentence.substring(currentPos, reverseIndex), currentPos, reverseIndex);
+            logger.debug("remain sentence: {}, currentPos: {}, reverseIndex: {}", sent.substring(currentPos, reverseIndex), currentPos, reverseIndex);
             boolean findToken = false;
             while(!findToken) {
                 if(currentPos == reverseIndex-1) {
-                    String candidate = sentence.substring(currentPos, reverseIndex);
+                    String candidate = sent.substring(currentPos, reverseIndex);
                     tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
                     reverseIndex -= candidate.length();
                     currentPos = reverseIndex > SEGMENT_WINDOW?reverseIndex-SEGMENT_WINDOW:0;
                     findToken = true;
                 } else {
-                    String candidate = sentence.substring(currentPos, reverseIndex);
+                    String candidate = sent.substring(currentPos, reverseIndex);
                     if(dictionary.keySet().contains(candidate)) {
                         logger.debug("dic hit: {}", candidate);
-                        tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
+                        tokens.add(new SegmentToken(dictionary.get(candidate).getContent(), currentPos, currentPos+candidate.length()-1));
                         reverseIndex -= candidate.length();
                         currentPos = reverseIndex > SEGMENT_WINDOW?reverseIndex-SEGMENT_WINDOW:0;
                         findToken = true;

@@ -37,7 +37,7 @@ public class MaximumMatchingSegmentationTest {
     @Test
     public void test_process_long_sentence() {
         ForwardMaximumMatchingSegmentation segmentation = new ForwardMaximumMatchingSegmentation();
-        List<SegmentToken> tokens = segmentation.process("Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
+        List<SegmentToken> tokens = segmentation.process("我们的VRF-989是個很棒的產品Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
         assertNotNull(tokens);
         System.out.println(tokens);
     }
@@ -53,7 +53,7 @@ public class MaximumMatchingSegmentationTest {
     @Test
     public void test_rmm_process_long_sentence() {
         ReverseDirectionMaximumMatchingSegmentation segmentation = new ReverseDirectionMaximumMatchingSegmentation();
-        List<SegmentToken> tokens = segmentation.process("Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
+        List<SegmentToken> tokens = segmentation.process("我们的VRF-989是個很棒的產品。Akka是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。");
         assertNotNull(tokens);
         System.out.println(tokens);
     }

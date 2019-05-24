@@ -19,26 +19,27 @@ public class ForwardMaximumMatchingSegmentation extends MaximumMatchingSegmentat
     @Override
     public List<SegmentToken> process(final String sentence) {
         Objects.requireNonNull(sentence, "sentence should not be null");
-        int window = (sentence.length() > SEGMENT_WINDOW?SEGMENT_WINDOW:sentence.length());
-        logger.debug("window: {}, sentence len: {}", window, sentence.length());
+        String sent = sentence.toLowerCase();
+        int window = (sent.length() > SEGMENT_WINDOW?SEGMENT_WINDOW:sent.length());
+        logger.debug("window: {}, sentence len: {}", window, sent.length());
         int currentPos = 0;
         List<SegmentToken> tokens = new ArrayList<>();
-        while(currentPos < sentence.length()) {
-            logger.debug("remain sentence: {}", sentence.substring(currentPos));
+        while(currentPos < sent.length()) {
+            logger.debug("remain sentence: {}", sent.substring(currentPos));
             boolean findToken = false;
-            int forwardIndex = (currentPos + window > sentence.length()?sentence.length():currentPos + window);
+            int forwardIndex = (currentPos + window > sent.length()?sent.length():currentPos + window);
             logger.debug("forwardIndex: {}, currentPos: {}", forwardIndex, currentPos);
             while(!findToken) {
                 if(forwardIndex == currentPos) {
-                    String candidate = sentence.substring(currentPos, forwardIndex+1);
+                    String candidate = sent.substring(currentPos, forwardIndex+1);
                     tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
                     currentPos += 1;
                     findToken = true;
                 } else {
-                    String candidate = sentence.substring(currentPos, forwardIndex);
+                    String candidate = sent.substring(currentPos, forwardIndex);
                     if(dictionary.keySet().contains(candidate)) {
                         logger.debug("dic hit: {}", candidate);
-                        tokens.add(new SegmentToken(candidate, currentPos, currentPos+candidate.length()-1));
+                        tokens.add(new SegmentToken(dictionary.get(candidate).getContent(), currentPos, currentPos+candidate.length()-1));
                         currentPos += candidate.length();
                         findToken = true;
                     } else {
