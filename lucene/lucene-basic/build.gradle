@@ -25,7 +25,8 @@ dependencies {
     implementation 'com.huaban:jieba-analysis:1.0.2'
 
     // rxjava2
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex:rxjava:1.0.12'
+    implementation 'io.reactivex:rxjava-file-utils:0.1.4'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
