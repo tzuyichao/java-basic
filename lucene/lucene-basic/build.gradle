@@ -28,6 +28,8 @@ dependencies {
     implementation 'io.reactivex:rxjava:1.0.12'
     implementation 'io.reactivex:rxjava-file-utils:0.1.4'
 
+    implementation 'com.github.houbb:opencc4j:1.0.2'
+
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
