@@ -52,6 +52,10 @@ public class ReverseDirectionMaximumMatchingSegmentation extends MaximumMatching
                 }
             }
         }
-        return removeStopWords(tokens);
+        if(isFilterStopWords()) {
+            return removeStopWords(tokens);
+        } else {
+            return tokens;
+        }
     }
 }

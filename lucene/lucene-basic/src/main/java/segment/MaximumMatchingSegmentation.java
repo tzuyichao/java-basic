@@ -14,6 +14,7 @@ public abstract class MaximumMatchingSegmentation {
     protected static final String DEFAULT_DICTIONARY_PATH = "/Users/tzuyichao/lab/data/segment/dict.big.txt";
     private static final Logger logger = LoggerFactory.getLogger(MaximumMatchingSegmentation.class);
 
+    protected boolean isFilterStopWords = false;
     protected int SEGMENT_WINDOW;
     protected Set<String> stopWords = new HashSet<>();
     protected Map<String, Term> dictionary = new HashMap<>();
@@ -82,6 +83,14 @@ public abstract class MaximumMatchingSegmentation {
             }
         });
         return tokens;
+    }
+
+    public boolean isFilterStopWords() {
+        return isFilterStopWords;
+    }
+
+    public void setIsFilterStopWords(boolean isFilterStopWords) {
+        this.isFilterStopWords = isFilterStopWords;
     }
 
     public abstract List<SegmentToken> process(final String sentence);
