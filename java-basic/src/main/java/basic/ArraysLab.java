@@ -9,5 +9,11 @@ public class ArraysLab {
         Arrays.spliterator(arr, 0, arr.length-1).forEachRemaining(item -> {
             System.out.println(item);
         });
+        String test = "test";
+        String[] result = test.split(" ");
+        System.out.println(result.length);
+
+        String test2 = "1    3";
+        System.out.println(test2.replaceAll("[ ]+", " "));
     }
 }
