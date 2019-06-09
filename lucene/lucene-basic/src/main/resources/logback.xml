@@ -20,7 +20,7 @@
 <!--    <logger name="Lab" level="DEBUG">-->
 <!--        <appender-ref ref="STDOUT"></appender-ref>-->
 <!--    </logger>-->
-    <root level="DEBUG">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
     </root>
 </configuration>
