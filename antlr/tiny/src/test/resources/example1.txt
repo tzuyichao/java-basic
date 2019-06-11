@@ -1,5 +1,1 @@
-BEGIN
-    BEGIN
-        WRITE hello
-    END
-END
+BEGIN WRITE hello END
