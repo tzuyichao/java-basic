@@ -13,9 +13,10 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.apache.lucene:lucene-suggest:8.1.1'
     implementation 'com.github.magese:ik-analyzer:8.1.0'
     implementation 'org.apache.lucene:lucene-analyzers-smartcn:8.1.1'
-    
+
     // 以下為了測試讀取gensim訓練出來的word2vec model而引用
     implementation 'org.deeplearning4j:deeplearning4j-core:0.9.1'
     implementation 'org.deeplearning4j:deeplearning4j-nlp:0.9.1'
@@ -24,7 +25,7 @@ dependencies {
     implementation 'org.nd4j:nd4j-native-platform:0.9.1'
     // jieba java
     implementation 'com.huaban:jieba-analysis:1.0.2'
-    
+
     // 繁簡轉換
     implementation 'com.github.houbb:opencc4j:1.1.0'
 
