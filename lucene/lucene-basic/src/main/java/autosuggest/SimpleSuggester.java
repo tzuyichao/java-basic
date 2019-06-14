@@ -11,7 +11,10 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.spell.Dictionary;
 import org.apache.lucene.search.spell.LuceneDictionary;
 import org.apache.lucene.search.suggest.Lookup;
+import org.apache.lucene.search.suggest.analyzing.AnalyzingInfixSuggester;
 import org.apache.lucene.search.suggest.analyzing.AnalyzingSuggester;
+import org.apache.lucene.search.suggest.analyzing.FreeTextSuggester;
+import org.apache.lucene.search.suggest.analyzing.FuzzySuggester;
 import org.apache.lucene.store.MMapDirectory;
 import org.apache.lucene.store.Directory;
 
@@ -49,9 +52,34 @@ public class SimpleSuggester {
         IndexReader indexReader = DirectoryReader.open(directory);
         Dictionary dictionary = new LuceneDictionary(indexReader, FIELD_CONTENT);
 
+        System.out.println("AnalyzingSuggester:");
         AnalyzingSuggester analyzingSuggester = new AnalyzingSuggester(directory, FIELD_CONTENT, new StandardAnalyzer());
         analyzingSuggester.build(dictionary);
         List<Lookup.LookupResult> lookupResultList = analyzingSuggester.lookup("humpty", false, 10);
+        for(Lookup.LookupResult result : lookupResultList) {
+            System.out.println(result.key + ":" + result.value);
+        }
+
+        System.out.println("AnalyzingInfixSuggester:");
+        AnalyzingInfixSuggester analyzingInfixSuggester = new AnalyzingInfixSuggester(directory, new StandardAnalyzer());
+        analyzingInfixSuggester.build(dictionary);
+        lookupResultList = analyzingInfixSuggester.lookup("humpty", false, 10);
+        for(Lookup.LookupResult result : lookupResultList) {
+            System.out.println(result.key + ":" + result.value);
+        }
+
+        System.out.println("FreeTextSuggester:");
+        FreeTextSuggester freeTextSuggester = new FreeTextSuggester(new StandardAnalyzer(), new StandardAnalyzer(), 3);
+        freeTextSuggester.build(dictionary);
+        lookupResultList = freeTextSuggester.lookup("h", false, 10);
+        for(Lookup.LookupResult result : lookupResultList) {
+            System.out.println(result.key + ":" + result.value);
+        }
+
+        System.out.println("FuzzySuggester:");
+        FuzzySuggester fuzzySuggester = new FuzzySuggester(directory, FIELD_CONTENT, new StandardAnalyzer());
+        fuzzySuggester.build(dictionary);
+        lookupResultList = fuzzySuggester.lookup("h", false, 10);
         for(Lookup.LookupResult result : lookupResultList) {
             System.out.println(result.key + ":" + result.value);
         }
