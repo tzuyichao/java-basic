@@ -13,8 +13,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.magese:ik-analyzer:8.0.0'
-    implementation 'org.apache.lucene:lucene-analyzers-smartcn:8.0.0'
+    implementation 'com.github.magese:ik-analyzer:8.1.0'
+    implementation 'org.apache.lucene:lucene-analyzers-smartcn:8.1.1'
+    
     // 以下為了測試讀取gensim訓練出來的word2vec model而引用
     implementation 'org.deeplearning4j:deeplearning4j-core:0.9.1'
     implementation 'org.deeplearning4j:deeplearning4j-nlp:0.9.1'
