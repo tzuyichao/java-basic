@@ -9,7 +9,10 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.MMapDirectory;
 import org.apache.lucene.util.BytesRef;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
@@ -28,8 +31,18 @@ public class AdvancedFilteringLab1 {
     }
 
     public static void main(String[] args) throws IOException {
+        Path indexPath = Paths.get("/tmp/lucene");
+        File indexFile = indexPath.toFile();
+        if(indexFile.exists()) {
+            String[] files = indexFile.list();
+            for(String file: files) {
+                String filePath = "/tmp/lucene" + File.separator + file;
+                System.out.println(filePath);
+                Files.delete(Paths.get(filePath));
+            }
+        }
         Analyzer analyzer = new StandardAnalyzer();
-        Directory directory = new MMapDirectory(Paths.get("/tmp/lucene"));
+        Directory directory = new MMapDirectory(indexPath);
         IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
         IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);
         indexWriter.addDocument(makeDocument("First", "Humpty Dumpty sat on a wall,", 100));
@@ -43,7 +56,7 @@ public class AdvancedFilteringLab1 {
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         Query query = new TermQuery(new Term("content", "humpty"));
         TopDocs topDocs = indexSearcher.search(query,100);
-        System.out.println("Searching 'humpty'");
+        System.out.println("===> Searching 'humpty'");
         for(ScoreDoc scoreDoc : topDocs.scoreDocs) {
             Document doc = indexReader.document(scoreDoc.doc);
             System.out.println("doc#: " + scoreDoc.doc);
@@ -51,10 +64,11 @@ public class AdvancedFilteringLab1 {
             System.out.println("content: " + doc.getField("content").stringValue());
             System.out.println("num: " + doc.getField("num").stringValue());
         }
-        System.out.println("Query by content range");
+        System.out.println("===> Query by content range");
         BooleanQuery.Builder builder = new BooleanQuery.Builder();
-        //builder.add(new TermQuery(new Term("content", "humpty")), BooleanClause.Occur.SHOULD);
-        builder.add(new TermRangeQuery("content", new BytesRef("a"), new BytesRef("c"), true, true), BooleanClause.Occur.MUST);
+        builder.add(new TermQuery(new Term("content", "humpty")), BooleanClause.Occur.SHOULD);
+        builder.add(new TermQuery(new Term("content", "dumpty")), BooleanClause.Occur.MUST_NOT);
+        //builder.add(new TermRangeQuery("content", new BytesRef("a"), new BytesRef("c"), true, true), BooleanClause.Occur.MUST);
         BooleanQuery bq = builder.build();
         Query q2 = new ConstantScoreQuery(bq);
         topDocs = indexSearcher.search(q2, 100);
