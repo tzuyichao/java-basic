@@ -1,57 +1,18 @@
 package query.filtering;
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.*;
 import org.apache.lucene.search.*;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.MMapDirectory;
-import org.apache.lucene.util.BytesRef;
-
-import java.io.File;
+import query.DataConstructor;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class AdvancedFilteringLab1 {
-    private static Document makeDocument(String name, String content, int num) {
-        Document doc = new Document();
 
-        StringField nameField = new StringField("name", name, Field.Store.YES);
-        doc.add(nameField);
-        TextField contentField = new TextField("content", content, Field.Store.YES);
-        doc.add(contentField);
-        StoredField numField = new StoredField("num", num);
-        doc.add(numField);
-
-        return doc;
-    }
 
     public static void main(String[] args) throws IOException {
-        Path indexPath = Paths.get("/tmp/lucene");
-        File indexFile = indexPath.toFile();
-        if(indexFile.exists()) {
-            String[] files = indexFile.list();
-            for(String file: files) {
-                String filePath = "/tmp/lucene" + File.separator + file;
-                System.out.println(filePath);
-                Files.delete(Paths.get(filePath));
-            }
-        }
-        Analyzer analyzer = new StandardAnalyzer();
-        Directory directory = new MMapDirectory(indexPath);
-        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
-        IndexWriter indexWriter = new IndexWriter(directory, indexWriterConfig);
-        indexWriter.addDocument(makeDocument("First", "Humpty Dumpty sat on a wall,", 100));
-        indexWriter.addDocument(makeDocument("Second", "Humpty Dumpty had a great fall.", 200));
-        indexWriter.addDocument(makeDocument("Third", "All the king's horses and all the king's men", 300));
-        indexWriter.addDocument(makeDocument("Fourth", "Couldn't put Humpty together again.", 400));
-        indexWriter.commit();
-        indexWriter.close();
-
+        Directory directory = DataConstructor.constructSimpleDataset("/tmp/lucene");
         IndexReader indexReader = DirectoryReader.open(directory);
         IndexSearcher indexSearcher = new IndexSearcher(indexReader);
         Query query = new TermQuery(new Term("content", "humpty"));
