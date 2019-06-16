@@ -39,7 +39,7 @@ public class SimpleSuggester {
         indexWriter.addDocument(document);
 
         document = new Document();
-        document.add(new StringField("content", "All the king's horses and all the king's men", Field.Store.YES));
+        document.add(new StringField("content", "All the king's horses and all the king's men. The following describes how Lucene scoring evolves from underlying information retrieval models to (efficient) implementation.", Field.Store.YES));
         indexWriter.addDocument(document);
 
         document = new Document();
@@ -68,10 +68,12 @@ public class SimpleSuggester {
             System.out.println(result.key + ":" + result.value);
         }
 
+        // Builds an ngram model from the text sent to build and predicts based on the last grams-1
+        // tokens in the request sent to lookup.
         System.out.println("FreeTextSuggester:");
         FreeTextSuggester freeTextSuggester = new FreeTextSuggester(new StandardAnalyzer(), new StandardAnalyzer(), 3);
         freeTextSuggester.build(dictionary);
-        lookupResultList = freeTextSuggester.lookup("h", false, 10);
+        lookupResultList = freeTextSuggester.lookup("f", false, 10);
         for(Lookup.LookupResult result : lookupResultList) {
             System.out.println(result.key + ":" + result.value);
         }
