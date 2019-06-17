@@ -1,25 +1,25 @@
 package query;
 
+
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.search.*;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.RegexpQuery;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-public class TestDisjunctionMaxQuery {
+public class TestRegexQuery {
     public static void main(String[] args) {
         try {
             Directory directory = DataConstructor.constructSimpleDataset("/tmp/lucene");
             IndexReader indexReader = DirectoryReader.open(directory);
             IndexSearcher indexSearcher = new IndexSearcher(indexReader);
 
-            // 第四句會先出來然後才是第一句，因為humpty together的排分會比name的Term Query高分
-            PhraseQuery phraseQuery = new PhraseQuery("content", "humpty", "together");
-            Query disjunctionMaxQuery = new DisjunctionMaxQuery(Arrays.asList(phraseQuery, new TermQuery(new Term("name", "First"))), 0.1f);
-            TopDocs topDocs = indexSearcher.search(disjunctionMaxQuery, 100);
+            RegexpQuery regexpQuery = new RegexpQuery(new Term("content", ".um.*"));
+            TopDocs topDocs = indexSearcher.search(regexpQuery, 100);
             SimpleDatasetUtil.printQueryResult(indexReader, topDocs);
         } catch(IOException e) {
             e.printStackTrace();

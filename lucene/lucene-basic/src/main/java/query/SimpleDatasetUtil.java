@@ -15,13 +15,17 @@ public final class SimpleDatasetUtil {
         if(topDocs.scoreDocs.length == 0) {
             System.out.println("No Data Found");
         }
+        boolean dumpIndexableField = false;
         for(ScoreDoc scoreDoc : topDocs.scoreDocs) {
             Document doc = indexReader.document(scoreDoc.doc);
-            for(IndexableField field : doc.getFields()) {
-                System.out.println("Indexable Field: " + field.name());
+            if(dumpIndexableField == false) {
+                for (IndexableField field : doc.getFields()) {
+                    System.out.println("Indexable Field: " + field.name());
+                }
+                dumpIndexableField = true;
             }
             //System.out.println(doc.toString());
-            System.out.print("doc#: " + scoreDoc.doc);
+            System.out.print("doc#: " + scoreDoc.doc + ", score: " + scoreDoc.score);
             System.out.print(", name: " + doc.getField("name").stringValue());
             System.out.print(", content: " + doc.getField("content").stringValue());
             System.out.println(", numStore: " + doc.getField("numStore").numericValue());
