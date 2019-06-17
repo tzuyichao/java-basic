@@ -20,11 +20,11 @@ public final class SimpleDatasetUtil {
             for(IndexableField field : doc.getFields()) {
                 System.out.println("Indexable Field: " + field.name());
             }
-            System.out.println(doc.toString());
-            System.out.println("doc#: " + scoreDoc.doc);
-            System.out.println("name: " + doc.getField("name").stringValue());
-            System.out.println("content: " + doc.getField("content").stringValue());
-            System.out.println("numStore: " + doc.getField("numStore").numericValue());
+            //System.out.println(doc.toString());
+            System.out.print("doc#: " + scoreDoc.doc);
+            System.out.print(", name: " + doc.getField("name").stringValue());
+            System.out.print(", content: " + doc.getField("content").stringValue());
+            System.out.println(", numStore: " + doc.getField("numStore").numericValue());
         }
     }
 }
