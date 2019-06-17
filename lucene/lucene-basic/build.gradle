@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation 'org.apache.lucene:lucene-suggest:8.1.1'
+    implementation 'org.apache.lucene:lucene-queryparser:8.1.1'
     implementation 'com.github.magese:ik-analyzer:8.1.0'
     implementation 'org.apache.lucene:lucene-analyzers-smartcn:8.1.1'
 

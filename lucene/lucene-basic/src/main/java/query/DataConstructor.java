@@ -22,8 +22,10 @@ public final class DataConstructor {
         doc.add(nameField);
         TextField contentField = new TextField("content", content, Field.Store.YES);
         doc.add(contentField);
-        StoredField numField = new StoredField("num", num);
+        IntPoint numField = new IntPoint("num", num);
         doc.add(numField);
+        StoredField numStoredField = new StoredField("numStore", num);
+        doc.add(numStoredField);
 
         return doc;
     }
