@@ -1,7 +1,6 @@
 package query;
 
 import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.search.ScoreDoc;
@@ -10,6 +9,7 @@ import org.apache.lucene.search.TopDocs;
 import java.io.IOException;
 
 public final class SimpleDatasetUtil {
+    public static final String FIELD_CONTENT = "content";
 
     public static void printQueryResult(IndexReader indexReader, TopDocs topDocs) throws IOException {
         if(topDocs.scoreDocs.length == 0) {
