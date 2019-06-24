@@ -34,6 +34,11 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 
+    // https://mvnrepository.com/artifact/com.chenlb.mmseg4j/mmseg4j-core
+    compile group: 'com.chenlb.mmseg4j', name: 'mmseg4j-core', version: '1.10.0'
+
+
+
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
     implementation 'org.slf4j:slf4j-api:1.7.26'
