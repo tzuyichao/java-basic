@@ -16,5 +16,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.solr/solr-solrj
     compile group: 'org.apache.solr', name: 'solr-solrj', version: '7.7.1'
 
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
