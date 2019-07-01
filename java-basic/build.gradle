@@ -17,6 +17,8 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
     implementation 'org.slf4j:slf4j-api:1.7.26'
+
+    // for parse sumo owl ?
     implementation 'net.sourceforge.owlapi:owlapi-distribution:5.1.11'
     implementation 'org.jdom:jdom2:2.0.6'
     implementation 'jaxen:jaxen:1.1.1'
