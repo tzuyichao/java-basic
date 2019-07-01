@@ -19,12 +19,14 @@ public class CustomAnalyzerLab1 {
                 .addTokenFilter(ShingleFilterFactory.class, shingleFilterFactoryParams)
                 .build();
 
-        TokenStream tokenStream = analyzer.tokenStream("content", "To be, or what?");
-        CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
-        tokenStream.reset();
-        while (tokenStream.incrementToken()) {
-            System.out.println(charTermAttribute.toString());
+        try (TokenStream tokenStream = analyzer.tokenStream("content", "To be, or what?")) {
+            CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
+            tokenStream.reset();
+            while (tokenStream.incrementToken()) {
+                System.out.println(charTermAttribute.toString());
+            }
+        } finally {
+            analyzer.close();
         }
-        analyzer.close();
     }
 }
