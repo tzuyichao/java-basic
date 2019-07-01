@@ -52,7 +52,7 @@ public class SynonymGraphFilterLab1 {
 
         System.out.println("SynonymGraphFilterFactory without flatten graph filter");
 
-        try (TokenStream tokenStream = analyzer1.tokenStream("content", "teh small couch")) {
+        try (TokenStream tokenStream = analyzer1.tokenStream("content", "weeny teh small couch")) {
             dumpTokenStreamInfo(tokenStream);
         } finally {
             analyzer1.close();
@@ -60,7 +60,7 @@ public class SynonymGraphFilterLab1 {
 
         System.out.println("SynonymGraphFilterFactory with flatten graph filter");
 
-        try (TokenStream tokenStream = analyzer2.tokenStream("content", "teh small couch")) {
+        try (TokenStream tokenStream = analyzer2.tokenStream("content", "weeny teh small couch")) {
             dumpTokenStreamInfo(tokenStream);
         } finally {
             analyzer2.close();
