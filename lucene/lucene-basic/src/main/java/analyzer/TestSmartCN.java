@@ -26,6 +26,8 @@ public class TestSmartCN {
 
     public static void main(String[] args) throws Exception {
         String text = "Lucene自带多种分词器，其中对中文分词支持比较好的是smartcn。但smartcn不支援自订词库。上平車這是自訂詞典的詞。";
+        //String text = "\"speech recognition\"";
+        System.out.println("Raw Query String: " + text);
         System.out.println("Standard Analyzer:");
         StandardAnalyzer standardAnalyzer = new StandardAnalyzer();
         print(text, standardAnalyzer);
