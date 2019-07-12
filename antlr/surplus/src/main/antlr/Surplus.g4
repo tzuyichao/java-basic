@@ -1,8 +1,15 @@
 grammar Surplus;
 
+prog
+    : expression EOF                            # program
+    ;
 
 expression
-    :  (NOT)? (phraseExpr | termExpr) ((AND | OR | NOT) (phraseExpr | termExpr))*
+    : NOT expression                            # notExpression
+    | expression AND expression                 # andExpression
+    | expression OR expression                  # orExpression
+    | phraseExpr                                # phraseExpression
+    | termExpr                                  # termExpression
     ;
 
 phraseExpr
@@ -13,26 +20,26 @@ termExpr
     : TERM
     ;
 
+AND
+    : '&&'
+    ;
+
+OR
+    : '||'
+    ;
+
+NOT
+    : '!'
+    ;
+
+WS
+   : [ \t\r\n\u000C] -> skip
+   ;
+
 PHRASE
     : '"' ~ ["\r\n]* '"'
     ;
 
 TERM
-    :  ~["\r\n]*
+    :  ~ ["\r\n!|&]*
     ;
-
-AND
-    : 'AND'
-    ;
-
-OR
-    : 'OR'
-    ;
-
-NOT
-    : 'NOT'
-    ;
-
-WS
-   : [ \t] -> skip
-   ;
