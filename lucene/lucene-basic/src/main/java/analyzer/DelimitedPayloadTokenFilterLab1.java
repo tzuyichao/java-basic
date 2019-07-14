@@ -24,7 +24,6 @@ import static org.apache.lucene.analysis.payloads.DelimitedPayloadTokenFilterFac
 
 public class DelimitedPayloadTokenFilterLab1 {
     private static void dumpTokenStreamInfo(TokenStream tokenStream) throws IOException {
-        ValueDecoderFactory.FloatDecoder floatDecoder = new ValueDecoderFactory.FloatDecoder();
         CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
         PayloadAttribute payloadAttribute = tokenStream.addAttribute(PayloadAttribute.class);
 //        PositionLengthAttribute positionLengthAttribute = tokenStream.addAttribute(PositionLengthAttribute.class);
@@ -32,7 +31,9 @@ public class DelimitedPayloadTokenFilterLab1 {
         tokenStream.reset();
         while (tokenStream.incrementToken()) {
             BytesRef payload =payloadAttribute.getPayload();
-            float payload_content = ByteBuffer.wrap(payload.bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
+            // https://stackoverflow.com/questions/47087884/lucene-convert-bytesref-to-float
+            float payload_content_from_stackoverflow = ByteBuffer.wrap(payload.bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
+            // 看source覺得用這個比較直覺
             float payload_content2 = PayloadHelper.decodeFloat(payload.bytes);
             System.out.println("[" + charTermAttribute.toString() + ", payload=" + payload_content2 + "]");
         }
