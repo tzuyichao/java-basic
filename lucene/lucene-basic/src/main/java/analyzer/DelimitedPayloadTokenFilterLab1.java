@@ -6,6 +6,7 @@ import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
 import org.apache.lucene.analysis.custom.CustomAnalyzer;
 import org.apache.lucene.analysis.payloads.DelimitedPayloadTokenFilterFactory;
 import org.apache.lucene.analysis.payloads.FloatEncoder;
+import org.apache.lucene.analysis.payloads.PayloadHelper;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PayloadAttribute;
@@ -32,7 +33,8 @@ public class DelimitedPayloadTokenFilterLab1 {
         while (tokenStream.incrementToken()) {
             BytesRef payload =payloadAttribute.getPayload();
             float payload_content = ByteBuffer.wrap(payload.bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
-            System.out.println("[" + charTermAttribute.toString() + ", payload=" + payload_content + "]");
+            float payload_content2 = PayloadHelper.decodeFloat(payload.bytes);
+            System.out.println("[" + charTermAttribute.toString() + ", payload=" + payload_content2 + "]");
         }
     }
 
