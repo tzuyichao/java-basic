@@ -30,10 +30,14 @@ public class DelimitedPayloadTokenFilterLab1 {
         while (tokenStream.incrementToken()) {
             BytesRef payload =payloadAttribute.getPayload();
             // https://stackoverflow.com/questions/47087884/lucene-convert-bytesref-to-float
-            float payload_content_from_stackoverflow = ByteBuffer.wrap(payload.bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
-            // 看source覺得用這個比較直覺
-            float payload_content2 = PayloadHelper.decodeFloat(payload.bytes);
-            System.out.println("[" + charTermAttribute.toString() + ", payload=" + payload_content2 + "]");
+            if(payload != null) {
+                float payload_content_from_stackoverflow = ByteBuffer.wrap(payload.bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
+                // 看source覺得用這個比較直覺
+                float payload_content2 = PayloadHelper.decodeFloat(payload.bytes);
+                System.out.println("[" + charTermAttribute.toString() + ", payload=" + payload_content2 + "]");
+            } else {
+                System.out.println("[" + charTermAttribute.toString() + "]");
+            }
         }
     }
 
@@ -43,6 +47,11 @@ public class DelimitedPayloadTokenFilterLab1 {
 //        delimitedPayloadFilterParam.put(DELIMITER_ATTR, "|");
         delimitedPayloadFilterParam.put(ENCODER_ATTR, "float");
 
+        // 如果用standard tokenizer會因為tokenizer把the|1 => "the", "1"，接下來DelimitedPayloadTokenFilter會因為找不到
+        // DELIMITER_ATTR而把payload設定為null
+        // 見 DelimitedPayloadTokenFilter#incrementToken()
+//        Analyzer analyzer = CustomAnalyzer.builder()
+//         .withTokenizer("standard")
         Analyzer analyzer = CustomAnalyzer.builder()
                 .withTokenizer(WhitespaceTokenizerFactory.class)
                 .addTokenFilter("lowercase")
