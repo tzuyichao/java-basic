@@ -16,4 +16,14 @@ public class SurplusEvaluator extends surplus.SurplusBaseListener {
     public void enterTermExpression(surplus.SurplusParser.TermExpressionContext context) {
         System.out.println("enterTermExpression: " + context.getText());
     }
+
+    @Override
+    public void enterExpressionExpression(surplus.SurplusParser.ExpressionExpressionContext context) {
+        System.out.println("enterExpressionExpression");
+    }
+
+    @Override
+    public void exitExpressionExpression(surplus.SurplusParser.ExpressionExpressionContext context) {
+        System.out.println("exitExpressionExpression");
+    }
 }

@@ -8,6 +8,7 @@ expression
     : NOT expression                            # notExpression
     | expression AND expression                 # andExpression
     | expression OR expression                  # orExpression
+    | '(' expression ')'                        # expressionExpression
     | phraseExpr                                # phraseExpression
     | termExpr                                  # termExpression
     ;
@@ -41,5 +42,5 @@ PHRASE
     ;
 
 TERM
-    :  ~ ["\r\n!|&]*
+    :  ~ ["\r\n!|&()]*
     ;
