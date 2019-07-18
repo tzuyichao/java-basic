@@ -20,4 +20,8 @@
     <logger name="Lab" level="INFO">
         <appender-ref ref="STDOUT"></appender-ref>
     </logger>
+
+    <logger name="root" level="INFO">
+        <appender-ref ref="STDOUT"></appender-ref>
+    </logger>
 </configuration>
