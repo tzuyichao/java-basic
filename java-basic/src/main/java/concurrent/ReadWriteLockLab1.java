@@ -52,6 +52,6 @@ public class ReadWriteLockLab1 {
             });
         }
         executorService.shutdown();
-        executorService.awaitTermination(100L, TimeUnit.MILLISECONDS);
+        executorService.awaitTermination(10L, TimeUnit.MILLISECONDS);
     }
 }
