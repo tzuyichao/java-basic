@@ -32,6 +32,7 @@ public class Main {
                 ParseTreeWalker walker = new ParseTreeWalker();
                 SurplusEvaluator evaluator = new SurplusEvaluator();
                 walker.walk(evaluator, parseTree);
+                System.out.println(evaluator.getResult());
             } else {
                 System.out.println("Syntax Error");
                 System.out.println(surplusErrorListener.getSyntaxErrorMessages());
