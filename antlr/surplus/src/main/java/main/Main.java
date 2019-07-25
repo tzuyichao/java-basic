@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             SurplusErrorListener surplusErrorListener = new SurplusErrorListener();
-            CharStream input = CharStreams.fromPath(Paths.get("src/test/resources/example4.txt"));
+            CharStream input = CharStreams.fromPath(Paths.get("src/test/resources/example2.txt"));
             surplus.SurplusLexer lexer = new surplus.SurplusLexer(input);
             lexer.removeErrorListeners();
             lexer.addErrorListener(surplusErrorListener);
