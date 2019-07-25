@@ -25,6 +25,7 @@ hs_err_pid*
 HELP.md
 .gradle
 /build/
+/target/
 !gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
