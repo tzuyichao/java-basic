@@ -24,9 +24,4 @@ dependencies {
     
     // mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
-
-    // for parse sumo owl ?
-    implementation 'net.sourceforge.owlapi:owlapi-distribution:5.1.11'
-    implementation 'org.jdom:jdom2:2.0.6'
-    implementation 'jaxen:jaxen:1.1.1'
 }
