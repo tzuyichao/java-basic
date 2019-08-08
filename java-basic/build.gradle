@@ -20,7 +20,9 @@ dependencies {
     
     // javassist
     implementation 'org.javassist:javassist:3.25.0-GA'
-    
+
+    // apache bcel
+    implementation 'org.apache.bcel:bcel:6.3.1'
     
     // mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
