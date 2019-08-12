@@ -23,6 +23,9 @@ dependencies {
 
     // apache bcel
     implementation 'org.apache.bcel:bcel:6.3.1'
+
+    // cglib
+    implementation 'cglib:cglib:3.2.12'
     
     // mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
