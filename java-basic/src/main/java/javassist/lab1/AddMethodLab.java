@@ -13,7 +13,8 @@ public class AddMethodLab {
             ctClass.addMethod(helloMethod);
 
             Class pointClass = ctClass.toClass();
-            Point point = (Point)pointClass.getDeclaredConstructor().newInstance();
+            //Point point = (Point)pointClass.getDeclaredConstructor().newInstance();
+            Point point = new Point();
             Method helloMeth = pointClass.getDeclaredMethod("hello", String.class);
 
             helloMeth.invoke(point, "testing");
@@ -25,7 +26,7 @@ public class AddMethodLab {
             e.printStackTrace();
         } catch(NoSuchMethodException e) {
             e.printStackTrace();
-        } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch(IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
