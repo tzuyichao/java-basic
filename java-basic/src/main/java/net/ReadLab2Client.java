@@ -13,6 +13,7 @@ public class ReadLab2Client {
             Thread.sleep(3000);
             OutputStream outputStream = socket.getOutputStream();
             outputStream.write("這是測試".getBytes());
+            Thread.sleep(3000);
             outputStream.flush();
             System.err.println("write complete: " + System.currentTimeMillis());
             outputStream.close();
