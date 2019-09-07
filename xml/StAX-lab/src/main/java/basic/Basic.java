@@ -3,6 +3,7 @@ package basic;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
@@ -13,10 +14,17 @@ public class Basic {
         System.out.println("Event Type: " + xmlEvent.getEventType());
         System.out.println("isNamespace: " + xmlEvent.isNamespace());
         System.out.println("isStartDocument: " + xmlEvent.isStartDocument());
+        if(xmlEvent.isStartDocument()) {
+            System.out.println(xmlEvent.toString());
+        }
         System.out.println("isStartElement " + xmlEvent.isStartElement());
         if(xmlEvent.isStartElement()) {
             StartElement startElement = xmlEvent.asStartElement();
             System.out.println("name: " + startElement.getName().getLocalPart());
+        }
+        if(xmlEvent.isEndElement()) {
+            EndElement endElement = xmlEvent.asEndElement();
+            System.out.println("End of " + endElement.getName().getLocalPart());
         }
         System.out.println("==============================");
     }
