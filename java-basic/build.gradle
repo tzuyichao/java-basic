@@ -33,4 +33,6 @@ dependencies {
     
     // mariadb
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
+
+    implementation('commons-codec:commons-codec:1.13')
 }
