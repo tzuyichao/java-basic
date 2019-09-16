@@ -55,12 +55,14 @@ public class TripleDESLab {
         TripleDESLab tripleDESLab = new TripleDESLab("password");
         byte[] salt = tripleDESLab.getSalt();
 //        salt[0] = 10;
-        System.out.println(Hex.encodeHexString(salt));
+        System.out.println("salt: " + Hex.encodeHexString(salt));
 
-        final String target = "2171";
-        byte[] encrypted = tripleDESLab.encrypt(target);
-        System.out.println("Text: " + target);
-        System.out.println("Encrypted: " + Hex.encodeHexString(encrypted));
-        System.out.println("Decrypted: " + new String(tripleDESLab.decrypt(encrypted)));
+        String[] targets = new String[] {"2171", "2429", "2432"};
+        for(String target : targets) {
+            byte[] encrypted = tripleDESLab.encrypt(target);
+            System.out.println("Text: " + target);
+            System.out.println("Encrypted: " + Hex.encodeHexString(encrypted));
+            System.out.println("Decrypted: " + new String(tripleDESLab.decrypt(encrypted)));
+        }
     }
 }
