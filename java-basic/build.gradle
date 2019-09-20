@@ -1,10 +1,12 @@
 plugins {
     id 'java'
+    id 'groovy'
 }
 
 group 'org.greenrivers'
 version '1.0-SNAPSHOT'
 
+compileGroovy.options.compilerArgs += '-indy'
 compileJava.options.encoding = "UTF-8"
 sourceCompatibility = JavaVersion.VERSION_12
 targetCompatibility = JavaVersion.VERSION_12
@@ -35,4 +37,6 @@ dependencies {
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
 
     implementation('commons-codec:commons-codec:1.13')
+
+    implementation('org.codehaus.groovy:groovy-all:2.5.8')
 }
