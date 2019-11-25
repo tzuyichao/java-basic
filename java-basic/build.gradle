@@ -39,4 +39,9 @@ dependencies {
     implementation('commons-codec:commons-codec:1.13')
 
     implementation('org.codehaus.groovy:groovy-all:2.5.8')
+
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    testCompileOnly('org.projectlombok:lombok:1.18.10')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.10')
 }
