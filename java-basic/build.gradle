@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompileOnly group: 'junit', name: 'junit', version: '4.12'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback.contrib:logback-json-core:0.1.5'
     implementation 'org.slf4j:slf4j-api:1.7.26'
