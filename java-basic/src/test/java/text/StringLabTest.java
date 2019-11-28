@@ -15,7 +15,7 @@ public class StringLabTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_makeString_with_null_items() {
-        StringLab.makeString(StringLab.FORMAT, null);
+        StringLab.makeString(StringLab.FORMAT, (Object[]) null);
     }
 
     @Test

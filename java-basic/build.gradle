@@ -23,17 +23,13 @@ dependencies {
 
     implementation 'org.openjdk.jmh:jmh-core:1.21'
     implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
-    
-    // javassist
+
     implementation 'org.javassist:javassist:3.25.0-GA'
 
-    // apache bcel
     implementation 'org.apache.bcel:bcel:6.3.1'
 
-    // cglib
     implementation 'cglib:cglib:3.2.12'
-    
-    // mariadb
+
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
 
     implementation('commons-codec:commons-codec:1.13')
