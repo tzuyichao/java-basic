@@ -43,6 +43,7 @@ HELP.md
 *.iml
 *.ipr
 /out/
+/target/
 
 ### NetBeans ###
 /nbproject/private/
