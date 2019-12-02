@@ -32,6 +32,7 @@ public class DiscardServer {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
             ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+            System.out.println("Server Started");
             channelFuture.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();

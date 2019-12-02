@@ -27,6 +27,8 @@ public class DiscardClient {
                 }
             });
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
+            System.out.println("Client connected");
+            System.out.println(channelFuture.channel().localAddress());
             channelFuture.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();

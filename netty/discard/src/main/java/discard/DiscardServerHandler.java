@@ -23,6 +23,8 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
 //        }
     }
 
+
+
     @Override
     public void exceptionCaught(ChannelHandlerContext context, Throwable cause) {
         cause.printStackTrace();

@@ -3,29 +3,31 @@ package discard;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 
-public class DiscardClientHandler extends ChannelInboundHandlerAdapter {
-    private ByteBuf firstMessage;
+public class DiscardClientHandler extends SimpleChannelInboundHandler<Object> {
+    private ByteBuf content;
+    private ChannelHandlerContext ctx;
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        firstMessage = ctx.alloc().directBuffer(10).writeZero(10);
-        ctx.writeAndFlush(firstMessage.retainedDuplicate());
-    }
+        System.out.println("channelActive");
+        this.ctx = ctx;
 
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ctx.write(msg);
+        // Initialize the message.
+        content = ctx.alloc().directBuffer(10).writeZero(10);
+
+        ctx.writeAndFlush(content.retainedDuplicate());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        firstMessage.release();
+        content.release();
     }
 
     @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.flush();
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+
     }
 
     @Override
