@@ -4,14 +4,16 @@ plugins {
 
 group 'org.greenrivers.netty'
 version '1.0-SNAPSHOT'
-
-sourceCompatibility = JavaVersion.VERSION_12
+//
+//sourceCompatibility = JavaVersion.VERSION_12
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation('io.netty:netty-all:4.1.41.Final')
+    implementation('io.netty:netty-all:4.1.43.Final')
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

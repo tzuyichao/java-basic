@@ -40,7 +40,7 @@ public class DiscardServer {
     }
 
     public static void main(String[] args) throws Exception {
-        final int port = 8080;
+        final int port = 8088;
         new DiscardServer(port).run();
     }
 }
