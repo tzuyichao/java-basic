@@ -5,7 +5,8 @@
 ### discard0
 
     java -jar -Dssl=true .\build\libs\discard-1.0-SNAPSHOT.jar
-   
+
+### 雜記   
 #### AbstractBootstrap 
 
 Netty 4.1原始碼中使用Concurrent的Collection的例子，以io.netty.bootstrap.AbstractBootstrap class來看
