@@ -2,6 +2,7 @@ package handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInboundHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -31,6 +32,9 @@ public class InboundHandlerDemoTest {
         channel.writeInbound(byteBuf);
         channel.flush();
 
-        channel.close();
+        ChannelFuture channelFuture = channel.close();
+        channelFuture.addListener((f) -> {
+            System.out.println(f.toString());
+        });
     }
 }
