@@ -18,6 +18,17 @@ test {
     }
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "discard0.DiscardServer"
+    }
+    from {
+        configurations.compileClasspath.collect {
+            it.isDirectory()? it: zipTree(it)
+        }
+    }
+}
+
 dependencies {
     implementation('io.netty:netty-all:4.1.43.Final')
 
