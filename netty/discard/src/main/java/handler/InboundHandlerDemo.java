@@ -16,4 +16,22 @@ public class InboundHandlerDemo extends ChannelInboundHandlerAdapter {
         log.info("invoked: channelRegistered");
         super.channelRegistered(ctx);
     }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        log.info("invoked: channelUnregistered");
+        super.channelUnregistered(ctx);
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("invoked: channelActive");
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("invoked: channelInactive");
+        super.channelInactive(ctx);
+    }
 }
