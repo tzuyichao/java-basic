@@ -16,27 +16,4 @@ public class InboundHandlerDemo extends ChannelInboundHandlerAdapter {
         log.info("invoked: channelRegistered");
         super.channelRegistered(ctx);
     }
-
-    public static void main(String[] args) {
-        final ChannelInboundHandler channelInboundHandler = new InboundHandlerDemo();
-        ChannelInitializer channelInitializer = new ChannelInitializer<EmbeddedChannel>() {
-            @Override
-            protected void initChannel(EmbeddedChannel ch) throws Exception {
-                ch.pipeline().addLast(channelInboundHandler);
-            }
-        };
-
-        EmbeddedChannel channel = new EmbeddedChannel(channelInitializer);
-
-        ByteBuf byteBuf = Unpooled.buffer();
-        byteBuf.writeInt(10);
-
-        channel.writeInbound(byteBuf);
-        channel.flush();
-
-        channel.writeInbound(byteBuf);
-        channel.flush();
-
-        channel.close();
-    }
 }

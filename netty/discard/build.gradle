@@ -11,6 +11,13 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 dependencies {
     implementation('io.netty:netty-all:4.1.43.Final')
 
@@ -22,4 +29,5 @@ dependencies {
     compileOnly('org.projectlombok:lombok:1.18.10')
     testAnnotationProcessor("org.projectlombok:lombok:1.18.10")
     testCompileOnly("org.projectlombok:lombok:1.18.10")
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
 }
