@@ -18,15 +18,30 @@ test {
     }
 }
 
-jar {
+task jarDiscardServer(type: Jar) {
     manifest {
         attributes "Main-Class": "discard0.DiscardServer"
     }
+    baseName = 'discard-server'
     from {
         configurations.compileClasspath.collect {
             it.isDirectory()? it: zipTree(it)
         }
     }
+    with jar
+}
+
+task jarDiscardClient(type: Jar) {
+    manifest {
+        attributes "Main-Class": "discard0.DiscardClient"
+    }
+    baseName = 'discard-client'
+    from {
+        configurations.compileClasspath.collect {
+            it.isDirectory()? it: zipTree(it)
+        }
+    }
+    with jar
 }
 
 dependencies {
