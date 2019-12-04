@@ -29,4 +29,4 @@ Netty 4.1原始碼中使用Concurrent的Collection的例子，以io.netty.bootst
             return self();
         }
  
-跟過去版本使用LinkedHashMap搭配synchronized可以搭配食用。   
+跟過去版本使用LinkedHashMap搭配synchronized的寫法可以搭配食用。   
