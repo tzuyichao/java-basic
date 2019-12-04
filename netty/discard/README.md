@@ -7,7 +7,7 @@
     java -jar -Dssl=true .\build\libs\discard-1.0-SNAPSHOT.jar
 
 ### 雜記   
-#### AbstractBootstrap 
+#### AbstractBootstrap裡concurrent collection使用的例子
 
 Netty 4.1原始碼中使用Concurrent的Collection的例子，以io.netty.bootstrap.AbstractBootstrap class來看
 
