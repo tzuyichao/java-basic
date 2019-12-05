@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class OutPipelineTest {
+class OutPipelineTest {
     static class OutHandlerA extends ChannelOutboundHandlerAdapter {
         @Override
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
@@ -32,6 +32,7 @@ public class OutPipelineTest {
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
             log.info("OutHandlerB2 invoked");
 //            super.write(ctx, msg, promise);
+//            ctx.fireChannelInactive();
         }
     }
 
@@ -54,11 +55,12 @@ public class OutPipelineTest {
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("Done.");
     }
 
     @Test
-    public void test_outbound_pipeline() {
-        ChannelInitializer initializer = new ChannelInitializer<EmbeddedChannel>() {
+    void test_outbound_pipeline() {
+        ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<>() {
             @Override
             protected void initChannel(EmbeddedChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
@@ -71,8 +73,8 @@ public class OutPipelineTest {
     }
 
     @Test
-    public void test_cutting_pipeline() {
-        ChannelInitializer initializer = new ChannelInitializer<EmbeddedChannel>() {
+    void test_cutting_pipeline() {
+        ChannelInitializer<EmbeddedChannel>  initializer = new ChannelInitializer<>() {
             @Override
             protected void initChannel(EmbeddedChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
