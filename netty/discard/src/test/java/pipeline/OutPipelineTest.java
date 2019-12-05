@@ -44,10 +44,10 @@ class OutPipelineTest {
         }
     }
 
-    private void execute(ChannelInitializer<EmbeddedChannel> initializer) {
+    private void executeOutbound(ChannelInitializer<EmbeddedChannel> initializer, int val) {
         EmbeddedChannel channel = new EmbeddedChannel(initializer);
         ByteBuf byteBuf = Unpooled.buffer();
-        byteBuf.writeInt(10);
+        byteBuf.writeInt(val);
 
         channel.writeOutbound(byteBuf);
         try {
@@ -69,7 +69,7 @@ class OutPipelineTest {
                 pipeline.addLast(new OutHandlerC());
             }
         };
-        execute(initializer);
+        executeOutbound(initializer, 10);
     }
 
     @Test
@@ -83,6 +83,6 @@ class OutPipelineTest {
                 pipeline.addLast(new OutHandlerC());
             }
         };
-        execute(initializer);
+        executeOutbound(initializer, 10);
     }
 }
