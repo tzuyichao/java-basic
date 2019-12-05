@@ -27,11 +27,32 @@ public class OutPipelineTest {
         }
     }
 
+    static class OutHandlerB2 extends ChannelOutboundHandlerAdapter {
+        @Override
+        public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+            log.info("OutHandlerB2 invoked");
+//            super.write(ctx, msg, promise);
+        }
+    }
+
     static class OutHandlerC extends ChannelOutboundHandlerAdapter {
         @Override
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
             log.info("OutHandlerC invoked");
             super.write(ctx, msg, promise);
+        }
+    }
+
+    private void execute(ChannelInitializer<EmbeddedChannel> initializer) {
+        EmbeddedChannel channel = new EmbeddedChannel(initializer);
+        ByteBuf byteBuf = Unpooled.buffer();
+        byteBuf.writeInt(10);
+
+        channel.writeOutbound(byteBuf);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -46,15 +67,20 @@ public class OutPipelineTest {
                 pipeline.addLast(new OutHandlerC());
             }
         };
-        EmbeddedChannel channel = new EmbeddedChannel(initializer);
-        ByteBuf byteBuf = Unpooled.buffer();
-        byteBuf.writeInt(10);
+        execute(initializer);
+    }
 
-        channel.writeOutbound(byteBuf);
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Test
+    public void test_cutting_pipeline() {
+        ChannelInitializer initializer = new ChannelInitializer<EmbeddedChannel>() {
+            @Override
+            protected void initChannel(EmbeddedChannel ch) throws Exception {
+                ChannelPipeline pipeline = ch.pipeline();
+                pipeline.addLast(new OutHandlerA());
+                pipeline.addLast(new OutHandlerB2());
+                pipeline.addLast(new OutHandlerC());
+            }
+        };
+        execute(initializer);
     }
 }
