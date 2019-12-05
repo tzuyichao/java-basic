@@ -28,7 +28,6 @@ public class EchoServer {
         }
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        final EchoServerHandler handler = new EchoServerHandler();
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup);
@@ -42,7 +41,7 @@ public class EchoServer {
                     if(sslContext != null) {
                         pipeline.addLast(sslContext.newHandler(ch.alloc()));
                     }
-                    pipeline.addLast(handler);
+                    pipeline.addLast( new EchoServerHandler());
                 }
             });
             ChannelFuture future = bootstrap.bind(PORT).sync();
