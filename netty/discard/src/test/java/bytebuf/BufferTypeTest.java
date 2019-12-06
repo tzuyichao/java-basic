@@ -14,7 +14,7 @@ public class BufferTypeTest {
     @Test
     void test_heap_buffer() throws UnsupportedEncodingException {
         ByteBuf buffer = ByteBufAllocator.DEFAULT.heapBuffer();
-        buffer.writeBytes("test test".getBytes(StandardCharsets.UTF_8));
+        buffer.writeBytes("test test".getBytes());
         log.info("{}", buffer);
         if(buffer.hasArray()) {
             byte[] values = buffer.array();
@@ -28,14 +28,12 @@ public class BufferTypeTest {
         buffer.release();
     }
 
-    /**
-     * TODO: 中文會亂碼 感覺是低等錯誤
-     */
     @Test
     void test_direct_buffer() {
         ByteBuf buffer = ByteBufAllocator.DEFAULT.buffer();
-        byte[] data = "test 測試 test".getBytes(StandardCharsets.UTF_8);
+        byte[] data = "test 測試 test".getBytes();
         log.info("data: {}", ByteBufUtil.hexDump(data));
+        log.info("str: {}", new String(data, 0, data.length, StandardCharsets.UTF_8));
         buffer.writeBytes(data);
         log.info("{}", buffer);
         if(buffer.hasArray()) {
