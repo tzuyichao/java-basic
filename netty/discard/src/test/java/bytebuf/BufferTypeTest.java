@@ -35,6 +35,7 @@ public class BufferTypeTest {
         log.info("data: {}", ByteBufUtil.hexDump(data));
         log.info("str: {}", new String(data, 0, data.length, StandardCharsets.UTF_8));
         buffer.writeBytes(data);
+        log.info("\n{}", ByteBufUtil.prettyHexDump(buffer));
         log.info("{}", buffer);
         if(buffer.hasArray()) {
             byte[] values = buffer.array();
