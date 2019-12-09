@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 @Slf4j
 public class ReadWriteTest {
-    void inspect(ByteBuf buffer) {
+    static void inspect(ByteBuf buffer) {
         log.info("{}", buffer);
         log.info("is readable: {}", buffer.isReadable());
         log.info("is writable: {}", buffer.isWritable());
