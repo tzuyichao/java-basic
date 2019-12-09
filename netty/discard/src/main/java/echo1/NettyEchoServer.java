@@ -1,10 +1,7 @@
 package echo1;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -14,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public final class NettyEchoServer {
-    public void runServer() {
+    public void runServer() throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -30,9 +27,11 @@ public final class NettyEchoServer {
                 pipeline.addLast(NettyEchoServerHandler.INSTANCE);
             }
         });
+        ChannelFuture f = b.bind(8089).sync();
+        f.channel().closeFuture().sync();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         new NettyEchoServer().runServer();
     }
 }
