@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group 'org.greenrivers.crawler.crawler4j'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_12
+
+repositories {
+    mavenCentral()
+    // for com.sleepycat:je:5.0.84.
+    maven {
+        url "https://repo.boundlessgeo.com/main/"
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task runQuickStart(type: JavaExec) {
+    group = "Execution"
+    description = "Run the Quick Start"
+    classpath = sourceSets.main.runtimeClasspath
+    main = "quickstart.Controller"
+}
+
+dependencies {
+    implementation('edu.uci.ics:crawler4j:4.4.0')
+
+    implementation('org.slf4j:slf4j-api:1.7.29')
+    implementation('ch.qos.logback:logback-core:1.2.3')
+    implementation('ch.qos.logback:logback-classic:1.2.3')
+
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.10")
+    testCompileOnly("org.projectlombok:lombok:1.18.10")
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+}
