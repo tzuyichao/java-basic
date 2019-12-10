@@ -15,20 +15,25 @@ public final class NettyEchoServer {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-        ServerBootstrap b = new ServerBootstrap();
-        b.group(bossGroup, workerGroup);
-        b.channel(NioServerSocketChannel.class);
-        b.option(ChannelOption.TCP_NODELAY, true);
-        b.handler(new LoggingHandler(LogLevel.INFO));
-        b.childHandler(new ChannelInitializer<SocketChannel>() {
-            @Override
-            protected void initChannel(SocketChannel ch) throws Exception {
-                ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(NettyEchoServerHandler.INSTANCE);
-            }
-        });
-        ChannelFuture f = b.bind(8089).sync();
-        f.channel().closeFuture().sync();
+        try {
+            ServerBootstrap b = new ServerBootstrap();
+            b.group(bossGroup, workerGroup);
+            b.channel(NioServerSocketChannel.class);
+            b.option(ChannelOption.TCP_NODELAY, true);
+            b.handler(new LoggingHandler(LogLevel.INFO));
+            b.childHandler(new ChannelInitializer<SocketChannel>() {
+                @Override
+                protected void initChannel(SocketChannel ch) throws Exception {
+                    ChannelPipeline pipeline = ch.pipeline();
+                    pipeline.addLast(NettyEchoServerHandler.INSTANCE);
+                }
+            });
+            ChannelFuture f = b.bind(8089).sync();
+            f.channel().closeFuture().sync();
+        } finally {
+            bossGroup.shutdownGracefully();
+            workerGroup.shutdownGracefully();
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {
