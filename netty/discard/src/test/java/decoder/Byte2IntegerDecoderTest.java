@@ -7,16 +7,16 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import org.junit.jupiter.api.Test;
 
 public class Byte2IntegerDecoderTest {
-    @Test
-    void test_Byte2IntegerDecoder() {
+    private void test_decoder(ByteToMessageDecoder decoder) {
         ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<EmbeddedChannel>() {
             @Override
             protected void initChannel(EmbeddedChannel ch) throws Exception {
                 ChannelPipeline pipeline = ch.pipeline();
-                pipeline.addLast(new Byte2IntegerDecoder());
+                pipeline.addLast(decoder);
                 pipeline.addLast(new IntegerProcessHandler());
             }
         };
@@ -26,6 +26,15 @@ public class Byte2IntegerDecoderTest {
             buf.writeInt(idx);
             channel.writeInbound(buf);
         }
+    }
 
+    @Test
+    void test_Byte2IntegerDecoder() {
+        test_decoder(new Byte2IntegerDecoder());
+    }
+
+    @Test
+    void test_Byte2IntegerReplay() {
+        test_decoder(new Byte2IntegerReplayDecoder());
     }
 }
