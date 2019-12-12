@@ -37,4 +37,22 @@ public class Byte2IntegerDecoderTest {
     void test_Byte2IntegerReplay() {
         test_decoder(new Byte2IntegerReplayDecoder());
     }
+
+    @Test
+    void test_IntegerAddDecoder() {
+        ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<EmbeddedChannel>() {
+            @Override
+            protected void initChannel(EmbeddedChannel ch) throws Exception {
+                ChannelPipeline pipeline = ch.pipeline();
+                pipeline.addLast(new IntegerAddDecoder());
+                pipeline.addLast(new IntegerProcessHandler());
+            }
+        };
+        EmbeddedChannel channel = new EmbeddedChannel(initializer);
+        for(int idx = 0; idx < 101; idx++) {
+            ByteBuf buf = ByteBufAllocator.DEFAULT.buffer();
+            buf.writeInt(idx);
+            channel.writeInbound(buf);
+        }
+    }
 }
