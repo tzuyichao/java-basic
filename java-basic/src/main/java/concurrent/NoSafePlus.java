@@ -13,10 +13,12 @@ public final class NoSafePlus {
     public static final int MAX_TURN = 1000000;
 
     static class NoSafeCounter implements Runnable {
+        // 問題的根源
         private int amount = 0;
 
         public void increase() {
-            amount++;
+            //amount++;
+            amount += 1;
         }
 
         @Override
@@ -26,6 +28,7 @@ public final class NoSafePlus {
                 ++turn;
                 //synchronized (this) {
                     increase();
+                //amount++;
                 //}
             }
         }
