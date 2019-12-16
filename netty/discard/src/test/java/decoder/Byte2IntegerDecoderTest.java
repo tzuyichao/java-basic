@@ -6,7 +6,6 @@ import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.embedded.EmbeddedChannel;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.junit.jupiter.api.Test;
 
