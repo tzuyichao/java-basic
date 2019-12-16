@@ -7,19 +7,20 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.embedded.EmbeddedChannel;
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class StringReplayDecoderTest {
-    private String content = "testing ";
+    private String content = "瘋狂創客圈 testing ";
 
 
     public StringReplayDecoderTest() {
     }
 
-    private int randInMod(int bound) throws NoSuchAlgorithmException {
+    static int randInMod(int bound) throws NoSuchAlgorithmException {
         final SecureRandom random = SecureRandom.getInstanceStrong();
         return random.nextInt(bound) + 1;
     }
@@ -45,7 +46,7 @@ public class StringReplayDecoderTest {
             }
         };
         EmbeddedChannel channel = new EmbeddedChannel(initializer);
-        byte[] bytes = content.getBytes();
+        byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
         for(int i=0; i<100; i++) {
             int randomNum = randInMod(3);
             ByteBuf buffer = ByteBufAllocator.DEFAULT.buffer();
