@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class StringReplayDecoderTest {
     private String content = "testing ";
 
@@ -19,7 +21,17 @@ public class StringReplayDecoderTest {
 
     private int randInMod(int bound) throws NoSuchAlgorithmException {
         final SecureRandom random = SecureRandom.getInstanceStrong();
-        return (random.nextInt(10) % bound) + 1;
+        return random.nextInt(bound) + 1;
+    }
+
+    @Test
+    void test_randInMod() throws NoSuchAlgorithmException {
+        for(int i=0; i<100; i++) {
+            int random = randInMod(3);
+            if(random > 3 || random < 1) {
+                fail("wrong");
+            }
+        }
     }
 
     @Test
