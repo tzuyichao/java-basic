@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,28 @@ public class BuiltinDecoderTest {
                 buffer.writeBytes(CONTENT.getBytes(StandardCharsets.UTF_8));
             }
             buffer.writeBytes(SPLITTER_TAB.getBytes(StandardCharsets.UTF_8));
+            channel.writeInbound(buffer);
+        }
+    }
+
+    @Test
+    void test_LengthFieldBaseFrameDecoder() throws NoSuchAlgorithmException {
+        ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<EmbeddedChannel>() {
+            @Override
+            protected void initChannel(EmbeddedChannel ch) throws Exception {
+                ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(20480, 0, 4, 0, 4));
+                ch.pipeline().addLast(new StringDecoder(StandardCharsets.UTF_8));
+                ch.pipeline().addLast(new StringProcessHandler());
+            }
+        };
+        EmbeddedChannel channel = new EmbeddedChannel(initializer);
+        for(int i=0; i<100; i++) {
+            int random = randInMod(3);
+            ByteBuf buffer = ByteBufAllocator.DEFAULT.buffer();
+            buffer.writeInt(CONTENT.getBytes(StandardCharsets.UTF_8).length * random);
+            for(int j=0; j<random; j++) {
+                buffer.writeBytes(CONTENT.getBytes(StandardCharsets.UTF_8));
+            }
             channel.writeInbound(buffer);
         }
     }
