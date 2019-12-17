@@ -71,7 +71,7 @@ public class BuiltinDecoderTest {
     }
 
     @Test
-    void test_LengthFieldBaseFrameDecoder() throws NoSuchAlgorithmException {
+    void test_LengthFieldBasedFrameDecoder() throws NoSuchAlgorithmException {
         ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<EmbeddedChannel>() {
             @Override
             protected void initChannel(EmbeddedChannel ch) throws Exception {
@@ -88,6 +88,36 @@ public class BuiltinDecoderTest {
             for(int j=0; j<random; j++) {
                 buffer.writeBytes(CONTENT.getBytes(StandardCharsets.UTF_8));
             }
+            channel.writeInbound(buffer);
+        }
+    }
+
+    /**
+     * ----------------------------------------
+     * | length | version | content           |
+     * ----------------------------------------
+     *   4 byte   2 byte    n bytes
+     */
+    @Test
+    void test_LengthFieldBasedFrameDecoder2() {
+        final int VERSION = 100;
+        ChannelInitializer<EmbeddedChannel> initializer = new ChannelInitializer<EmbeddedChannel>() {
+            @Override
+            protected void initChannel(EmbeddedChannel ch) throws Exception {
+                ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 2, 6));
+                ch.pipeline().addLast(new StringDecoder(StandardCharsets.UTF_8));
+                ch.pipeline().addLast(new StringProcessHandler());
+            }
+        };
+        EmbeddedChannel channel = new EmbeddedChannel(initializer);
+        for(int i=0; i<100; i++) {
+            ByteBuf buffer = ByteBufAllocator.DEFAULT.buffer();
+            log.info("第 {} 次發送", i);
+            String msg = i + CONTENT;
+            byte[] data = msg.getBytes(StandardCharsets.UTF_8);
+            buffer.writeInt(data.length);
+            buffer.writeChar(VERSION);
+            buffer.writeBytes(data);
             channel.writeInbound(buffer);
         }
     }
