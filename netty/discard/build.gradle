@@ -49,6 +49,8 @@ task jarDiscardClient(type: Jar) {
 dependencies {
     implementation('io.netty:netty-all:4.1.43.Final')
 
+    implementation('com.fasterxml.jackson.core:jackson-databind:2.10.1')
+
     implementation('org.slf4j:slf4j-api:1.7.29')
     implementation('ch.qos.logback:logback-core:1.2.3')
     implementation('ch.qos.logback:logback-classic:1.2.3')
