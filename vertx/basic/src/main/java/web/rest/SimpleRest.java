@@ -4,6 +4,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -42,21 +43,52 @@ public class SimpleRest extends AbstractVerticle {
     }
 
     private void handleGetProduct(RoutingContext routingContext) {
-        log.info("called");
+        log.info("handleGetProduct called");
+        String productId = routingContext.request().getParam("productId");
         HttpServerResponse response = routingContext.response();
-        response.end("Hello, World!");
+        if(productId == null) {
+            sendError(400, "product id missing", response);
+        } else {
+            JsonObject product = products.get(productId);
+            if(product == null) {
+                sendError(404, "product not found", response);
+            } else {
+                response.putHeader("content-type", "application/json").end(product.encodePrettily());
+            }
+        }
     }
 
     private void handleAddProduct(RoutingContext routingContext) {
-        log.info("called");
+        log.info("handleAddProduct called");
+        String productId = routingContext.request().getParam("productId");
         HttpServerResponse response = routingContext.response();
-        response.end("Hello, World!");
+        if(productId == null) {
+            sendError(400, "product id missing", response);
+        } else {
+            JsonObject product = routingContext.getBodyAsJson();
+            if(product == null) {
+                sendError(400, "body not found", response);
+            } else {
+                products.put(productId, product);
+                response.end();
+            }
+        }
     }
 
     public void handleListProducts(RoutingContext routingContext) {
-        log.info("called");
+        log.info("handleListProducts called");
         HttpServerResponse response = routingContext.response();
-        response.end("Hello, World!");
+        JsonArray arr = new JsonArray();
+        products.forEach((k, v) -> arr.add(v));
+        response.putHeader("content-type", "application/json").end(arr.encodePrettily());
+    }
+
+    private void sendError(int statusCode, HttpServerResponse response) {
+        response.setStatusCode(statusCode);
+    }
+
+    private void sendError(int statusCode, String message, HttpServerResponse response) {
+        response.setStatusCode(statusCode).putHeader("content-type", "application/json").end(new JsonObject().put("message", message).encodePrettily());
     }
 
     private void setupInitialData() {
