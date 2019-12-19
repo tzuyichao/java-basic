@@ -1,5 +1,17 @@
-plugins {
-    id 'java'
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+
+repositories {
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+    }
 }
 
 group 'org.greenrivers.netty'
@@ -50,6 +62,8 @@ dependencies {
     implementation('io.netty:netty-all:4.1.43.Final')
 
     implementation('com.fasterxml.jackson.core:jackson-databind:2.10.1')
+
+    implementation('com.google.protobuf:protobuf-java:3.0.0')
 
     implementation('org.slf4j:slf4j-api:1.7.29')
     implementation('ch.qos.logback:logback-core:1.2.3')
