@@ -6,10 +6,10 @@ import io.vertx.core.VertxOptions;
 import io.vertx.core.eventbus.EventBus;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public class Sender extends AbstractVerticle {
-    public static final String NEW_CHANNEL = "news-feed";
+import static eventbus.Sender.NEW_CHANNEL;
 
+@Slf4j
+public class Receiver extends AbstractVerticle {
     public static void main(String[] args) {
         VertxOptions options = new VertxOptions();
         Vertx.clusteredVertx(options, res -> {
@@ -17,7 +17,7 @@ public class Sender extends AbstractVerticle {
                 Vertx vertx = res.result();
                 EventBus eventBus = vertx.eventBus();
                 log.info("We now have a clustered event bus: " + eventBus);
-                vertx.deployVerticle(new Sender());
+                vertx.deployVerticle(new Receiver());
             } else {
                 log.info("Failed: " + res.cause());
             }
@@ -28,9 +28,8 @@ public class Sender extends AbstractVerticle {
     public void start() {
         EventBus eventBus = vertx.eventBus();
 
-        vertx.setPeriodic(5000, v -> {
-            eventBus.publish(NEW_CHANNEL, "some news!");
-            log.info("publish some news!");
-        });
+        eventBus.consumer(NEW_CHANNEL, message -> log.info("receive news on consumer 1: {}", message.body()));
+
+        log.info("Ready");
     }
 }
