@@ -21,6 +21,23 @@ compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 sourceCompatibility = JavaVersion.VERSION_12
 
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/protobuf'
+        }
+        java {
+            srcDirs = ["src/main/java", "${protobuf.generatedFilesBaseDir}/main/java"]
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        path = '/local/protobuf3/bin/protoc.exe'
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -63,7 +80,7 @@ dependencies {
 
     implementation('com.fasterxml.jackson.core:jackson-databind:2.10.1')
 
-    implementation('com.google.protobuf:protobuf-java:3.0.0')
+    implementation('com.google.protobuf:protobuf-java:3.11.1')
 
     implementation('org.slf4j:slf4j-api:1.7.29')
     implementation('ch.qos.logback:logback-core:1.2.3')

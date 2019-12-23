@@ -1,0 +1,10 @@
+syntax = "proto3";
+package protocol;
+
+option java_package = "protocol";
+option java_outer_classname = "MsgProtos";
+
+message Msg {
+    uint32 id = 1;
+    string content = 2;
+}
