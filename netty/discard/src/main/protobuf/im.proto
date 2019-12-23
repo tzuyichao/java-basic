@@ -1,0 +1,41 @@
+syntax = "proto3";
+package protocol;
+
+option java_package = "protocol";
+option java_outer_classname = "IMProtos";
+
+message ProtoMsg {
+    enum HeaderType {
+        HEART_BEAT_REQUEST = 0;
+        HEART_BEAT_RESPONSE = 1;
+        MESSAGE_REQUEST = 3;
+        MESSAGE_RESPONSE = 4;
+        MESSAGE_NOTIFICATION = 5;
+    }
+
+    message MessageRequest {
+         uint64 msgId = 1;
+         string from = 2;
+         string to = 3;
+         uint64 time = 4;
+    }
+
+    message MessageResponse {
+        uint64 msgId = 1;
+        string from = 2;
+        string to = 3;
+        uint64 time = 4;
+    }
+
+    message MessageNotification {
+    }
+
+    message Message {
+        HeaderType type = 1;
+        uint64 sequence = 2;
+        string sessionId = 3;
+        MessageRequest messageRequest = 4;
+        MessageResponse messageResponse = 5;
+        MessageNotification messageNotification = 6;
+    }
+}

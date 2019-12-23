@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Slf4j
-public class ProtobufTest {
+public class ProtoBufTest {
     @Test
     public void test_main() {
         MsgProtos.Msg.Builder builder = MsgProtos.Msg.newBuilder();
