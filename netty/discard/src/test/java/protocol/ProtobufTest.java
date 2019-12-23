@@ -33,7 +33,7 @@ public class ProtobufTest {
 
     @Test
     void test_marshal_unmarshal1() throws IOException {
-        MsgProtos.Msg msg = buildMsg(1, "test");
+        MsgProtos.Msg msg = buildMsg(1, "test　測試");
         byte[]  byteArrayContent = msg.toByteArray();
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -43,6 +43,7 @@ public class ProtobufTest {
         MsgProtos.Msg readMsg = MsgProtos.Msg.parseFrom(data);
         assertEquals(msg.getId(), readMsg.getId());
         assertEquals(msg.getContent(), readMsg.getContent());
+        log.info("msg content: {}", readMsg.getContent());
     }
 
     @Test
@@ -55,7 +56,7 @@ public class ProtobufTest {
         MsgProtos.Msg readMsg = MsgProtos.Msg.parseFrom(data);
         assertEquals(msg.getId(), readMsg.getId());
         assertEquals(msg.getContent(), readMsg.getContent());
-        log.info("msg content: {}", msg.getContent());
+        log.info("msg content: {}", readMsg.getContent());
     }
 
     @Test
@@ -69,6 +70,6 @@ public class ProtobufTest {
         MsgProtos.Msg readMsg = MsgProtos.Msg.parseDelimitedFrom(inputStream);
         assertEquals(msg.getId(), readMsg.getId());
         assertEquals(msg.getContent(), readMsg.getContent());
-        log.info("msg content: {}", msg.getContent());
+        log.info("msg content: {}", readMsg.getContent());
     }
 }
