@@ -10,6 +10,8 @@ import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.Charset;
+
 import static protocol.ProtoBufServer.PORT;
 
 @Slf4j
@@ -55,6 +57,7 @@ public final class ProtoBufClient {
     }
 
     public static void main(String[] args) {
+        log.info("System Default Charset: {}", Charset.defaultCharset());
         new ProtoBufClient().runClient();
     }
 }
