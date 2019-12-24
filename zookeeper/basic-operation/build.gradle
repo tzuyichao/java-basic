@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'org.greenrivers.zookeeper'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.apache.curator:curator-client:4.2.0')
+    implementation('org.apache.curator:curator-framework:4.2.0')
+    implementation('org.apache.curator:curator-recipes:4.2.0')
+
+    implementation('org.slf4j:slf4j-api:1.7.29')
+    implementation('ch.qos.logback:logback-core:1.2.3')
+    implementation('ch.qos.logback:logback-classic:1.2.3')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
