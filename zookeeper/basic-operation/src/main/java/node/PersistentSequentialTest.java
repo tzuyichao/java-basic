@@ -9,7 +9,7 @@ import org.apache.zookeeper.CreateMode;
 @Slf4j
 public final class PersistentSequentialTest {
     private static final String zkPathBase = "/test/persistent";
-    private static final String nodePrefix = "/node-faq-";
+    private static final String nodePrefix = "/faq-dev-";
     private static final String zkPath = zkPathBase + nodePrefix;
     public static final String ZK_ADDRESS = "127.0.0.1:2183,127.0.0.1:2182,127.0.0.1:2181";
 
@@ -28,6 +28,7 @@ public final class PersistentSequentialTest {
                         .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
                         .forPath(zkPath);
                 log.info("create {}", path);
+                log.info("faq id: {}", path.substring(zkPath.length()));
             }
             client.delete()
                     .deletingChildrenIfNeeded()
