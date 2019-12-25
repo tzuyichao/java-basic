@@ -6,6 +6,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.api.transaction.CuratorOp;
 import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.curator.utils.CloseableUtils;
 import org.apache.zookeeper.data.Stat;
 
 import java.nio.charset.StandardCharsets;
@@ -50,7 +51,7 @@ public final class TransactionTest {
             } catch(Exception e) {
                 e.printStackTrace();
             }
-            client.close();
+            CloseableUtils.closeQuietly(client);
         }
     }
 }
