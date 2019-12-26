@@ -6,6 +6,8 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 
+import java.util.List;
+
 @Slf4j
 public final class PersistentSequentialTest {
     private static final String zkPathBase = "/test/persistent";
@@ -30,6 +32,19 @@ public final class PersistentSequentialTest {
                 log.info("create {}", path);
                 log.info("faq id: {}", path.substring(zkPath.length()));
             }
+            client.delete()
+                    .forPath(zkPath + "0000000009");
+            for(int i=0; i<10; i++) {
+                String path = client.create()
+                        .creatingParentsIfNeeded()
+                        .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
+                        .forPath(zkPath);
+                log.info("create {}", path);
+                log.info("faq id: {}", path.substring(zkPath.length()));
+            }
+            log.info("list nodes");
+            List<String> children = client.getChildren().forPath(zkPathBase);
+            children.forEach(path -> log.info("Path: {}", path));
             client.delete()
                     .deletingChildrenIfNeeded()
                     .forPath(zkPathBase);
