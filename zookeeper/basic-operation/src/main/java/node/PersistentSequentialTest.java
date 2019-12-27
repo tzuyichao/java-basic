@@ -8,6 +8,9 @@ import org.apache.zookeeper.CreateMode;
 
 import java.util.List;
 
+/**
+ * /id/[env]/[app]/[resource]_
+ */
 @Slf4j
 public final class PersistentSequentialTest {
     private static final String zkPathBase = "/test/persistent";
