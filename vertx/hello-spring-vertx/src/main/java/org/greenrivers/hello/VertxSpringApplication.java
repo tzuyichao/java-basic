@@ -1,6 +1,7 @@
 package org.greenrivers.hello;
 
 import io.vertx.core.Vertx;
+import org.greenrivers.hello.verticle.DocumentVerticle;
 import org.greenrivers.hello.verticle.ServerVerticle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +18,9 @@ public class VertxSpringApplication {
     @Autowired
     private ServerVerticle serverVerticle;
 
+    @Autowired
+    private DocumentVerticle documentVerticle;
+
     public static void main(String[] args) {
         SpringApplication.run(VertxSpringApplication.class, args);
     }
@@ -25,5 +29,6 @@ public class VertxSpringApplication {
     public void deployVerticle() {
         final Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(serverVerticle);
+        vertx.deployVerticle(documentVerticle);
     }
 }
