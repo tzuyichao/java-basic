@@ -70,8 +70,13 @@ public final class ACLLab2 {
             app1ACLList.forEach(acl -> log.info(acl.toString()));
 
             String test = app1Client.create()
+                    .withACL(app1AclList)
                     .forPath(zkApp1Path + "/test", "test".getBytes(StandardCharsets.UTF_8));
             log.info("app1 create {}", test);
+            log.info("app1 delete {}", test);
+            app1Client.delete()
+                    .forPath(test);
+            log.info("app1 delete {} completed.", test);
             String nodeShouldNotAllowed = zkPathBase + "/test";
             try {
                 app1Client.create()
@@ -80,13 +85,19 @@ public final class ACLLab2 {
             } catch(Exception e) {
                 log.info("app1 create {} failed", nodeShouldNotAllowed);
             }
-            app1Client.delete()
-                    .deletingChildrenIfNeeded()
+            try {
+                app1Client.delete()
+                        .forPath(zkApp1Path);
+                log.info("app1 delete {} SUCCESS", zkApp1Path);
+            } catch (Exception e) {
+                log.info("app1 delete {} failed", zkApp1Path);
+            }
+            adminClient.delete()
                     .forPath(zkApp1Path);
-            // 如果admin沒有app完整權限，而app1沒有刪除的話這個操作會失敗
+            log.info("admin delete {}", zkApp1Path);
+            // 如果admin沒有app完整或刪除權限，而app1沒有刪除的話這個操作會失敗
             // KeeperErrorCode = NoAuth for /test/acl/app1
             adminClient.delete()
-                    .deletingChildrenIfNeeded()
                     .forPath(zkPathBase);
             log.info("admin delete {}", zkPathBase);
         } catch(Exception e) {
