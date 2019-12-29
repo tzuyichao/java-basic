@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Delete的意思是當前node的子node的刪除權限
+ */
 @Slf4j
 public final class ACLLab2 {
     private static final String zkPathBase = "/test/acl";
