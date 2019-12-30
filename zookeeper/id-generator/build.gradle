@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'org.greenrivers.zookeeper'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.apache.curator:curator-client:4.2.0')
+    implementation('org.apache.curator:curator-framework:4.2.0')
+    implementation('org.apache.curator:curator-recipes:4.2.0')
+
+    implementation('org.slf4j:slf4j-api:1.7.29')
+    implementation('ch.qos.logback:logback-core:1.2.3')
+    implementation('ch.qos.logback:logback-classic:1.2.3')
+
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.10")
+    testCompileOnly("org.projectlombok:lombok:1.18.10")
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.2')
+}
