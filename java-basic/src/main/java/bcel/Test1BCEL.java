@@ -61,9 +61,9 @@ public final class Test1BCEL {
                 constantPoolGen);
         ObjectType p_stream = new ObjectType("java.io.PrintStream");
 
-        instructionList.append(instructionFactory.createNew("HelloJVM"));
+        instructionList.append(instructionFactory.createNew(ClassName));
         instructionList.append(InstructionFactory.createDup(1));
-        instructionList.append(instructionFactory.createInvoke("HelloJVM",
+        instructionList.append(instructionFactory.createInvoke(ClassName,
                 "<init>",
                 Type.VOID,
                 new Type[] {},
@@ -74,7 +74,7 @@ public final class Test1BCEL {
                 p_stream,
                 (short) Constants.GETSTATIC));
         instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
-        instructionList.append(instructionFactory.createInvoke("HelloJVM",
+        instructionList.append(instructionFactory.createInvoke(ClassName,
                 "test1",
                 Type.INT,
                 Type.NO_ARGS,
@@ -89,7 +89,7 @@ public final class Test1BCEL {
                 p_stream,
                 (short) Constants.GETSTATIC));
         instructionList.append(InstructionFactory.createLoad(Type.OBJECT, 1));
-        instructionList.append(instructionFactory.createInvoke("HelloJVM",
+        instructionList.append(instructionFactory.createInvoke(ClassName,
                 "test1",
                 Type.DOUBLE,
                 Type.NO_ARGS,
