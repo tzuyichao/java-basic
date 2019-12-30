@@ -6,10 +6,12 @@ plugins {
 group 'org.greenrivers'
 version '1.0-SNAPSHOT'
 
-compileGroovy.options.compilerArgs += '--indy'
-compileJava.options.encoding = "UTF-8"
-sourceCompatibility = JavaVersion.VERSION_12
-targetCompatibility = JavaVersion.VERSION_12
+java {
+    compileGroovy.options.compilerArgs += '--indy'
+    compileJava.options.encoding = "UTF-8"
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
+}
 
 repositories {
     mavenCentral()
