@@ -32,7 +32,7 @@ public final class TreeCacheTest {
                 @Override
                 public void childEvent(CuratorFramework client, TreeCacheEvent event) throws Exception {
                     if(event.getData() == null) {
-                        log.info("data is null");
+                        log.info("data is null type: {}", event.getType());
                         return;
                     }
                     switch (event.getType()) {
@@ -52,6 +52,7 @@ public final class TreeCacheTest {
             });
             cache.start();
 
+            log.info("{} create nodes", Thread.currentThread().getName());
             for(int i=0; i<2; i++) {
                 client.create()
                         .withMode(CreateMode.EPHEMERAL)
@@ -59,12 +60,14 @@ public final class TreeCacheTest {
             }
             TimeUnit.SECONDS.sleep(2);
 
+            log.info("{} setDate for exist nodes", Thread.currentThread().getName());
             for(int i=0; i<2; i++) {
                 client.setData()
                         .forPath(zkPathBase + "/n" + i, "test".getBytes(StandardCharsets.UTF_8));
             }
             TimeUnit.SECONDS.sleep(2);
 
+            log.info("{} delete {}", Thread.currentThread().getName(), zkPathBase);
             client.delete().deletingChildrenIfNeeded().forPath(zkPathBase);
             TimeUnit.SECONDS.sleep(2);
 
