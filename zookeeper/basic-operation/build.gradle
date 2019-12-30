@@ -5,7 +5,10 @@ plugins {
 group 'org.greenrivers.zookeeper'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
+}
 
 repositories {
     mavenCentral()
