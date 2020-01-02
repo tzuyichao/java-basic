@@ -16,9 +16,10 @@ public final class InterProcessMutexLab {
     public static final String ZK_ADDRESS = "127.0.0.1:2183,127.0.0.1:2182,127.0.0.1:2181";
 
     private int counter;
+    private ExecutorService executorService;
 
     public void run(CuratorFramework client) {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        executorService = Executors.newFixedThreadPool(10);
 
             final InterProcessMutex mutex = new InterProcessMutex(client, zkPath);
             for(int i=0; i<10; i++) {
@@ -49,6 +50,7 @@ public final class InterProcessMutexLab {
             lab.run(client);
             TimeUnit.SECONDS.sleep(30);
             log.info("counter: {}", lab.counter);
+            lab.executorService.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
