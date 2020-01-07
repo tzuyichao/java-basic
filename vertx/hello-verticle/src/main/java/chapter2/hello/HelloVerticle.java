@@ -5,8 +5,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 @Slf4j
 public final class HelloVerticle extends AbstractVerticle {
     // single thread so does not need synchronized or AtomicLong
