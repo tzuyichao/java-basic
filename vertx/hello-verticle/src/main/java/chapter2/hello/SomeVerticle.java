@@ -1,9 +1,6 @@
 package chapter2.hello;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,6 +25,11 @@ public class SomeVerticle extends AbstractVerticle {
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        vertx.deployVerticle(new SomeVerticle());
+        vertx.deployVerticle(new SomeVerticle(), new Handler<AsyncResult<String>>() {
+            @Override
+            public void handle(AsyncResult<String> event) {
+                log.info("event: {}", event);
+            }
+        });
     }
 }
