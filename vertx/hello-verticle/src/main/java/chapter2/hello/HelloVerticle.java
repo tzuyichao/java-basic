@@ -9,7 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public final class HelloVerticle extends AbstractVerticle {
-    private AtomicInteger counter = new AtomicInteger(0);
+    // single thread so does not need synchronized or AtomicLong
+    private long counter = 0;
 
     @Override
     public void start(Future<Void> startFuture) throws Exception {
@@ -19,7 +20,7 @@ public final class HelloVerticle extends AbstractVerticle {
 
         vertx.createHttpServer()
                 .requestHandler(req -> {
-                    log.info("Request #{} from {}", counter.getAndIncrement(), req.remoteAddress());
+                    log.info("Request #{} from {}", counter++, req.remoteAddress());
                     req.response().end("It works!");
                 })
                 .listen(8088);
