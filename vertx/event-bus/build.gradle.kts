@@ -29,3 +29,9 @@ tasks.create<JavaExec>("run") {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_12
 }
+
+tasks.withType<JavaCompile>().configureEach {
+    options.apply {
+        encoding = "UTF-8"
+    }
+}
