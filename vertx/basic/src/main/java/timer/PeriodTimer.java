@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * from https://www.codingame.com/playgrounds/1676/scheduling-tasks-with-eclipse-vert-x/delayed-tasks
+ */
 @Slf4j
 public class PeriodTimer {
     public static void main(String[] args) {
