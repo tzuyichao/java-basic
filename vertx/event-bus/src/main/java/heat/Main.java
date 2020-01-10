@@ -8,6 +8,6 @@ public class Main {
         vertx.deployVerticle("heat.HeatSensor");
         vertx.deployVerticle("heat.Listener");
         vertx.deployVerticle("heat.SensorData");
-        vertx.deployVerticle("heat.AverageRequester");
+        vertx.deployVerticle("heat.HttpServer");
     }
 }
