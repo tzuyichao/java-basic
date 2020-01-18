@@ -9,8 +9,11 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,13 +32,14 @@ public class GroupMemberLab {
                 .retryPolicy(retryPolicy)
                 .build()) {
             client.start();
-            for(int i=0; i<10; i++) {
+            for (int i = 0; i < 10; i++) {
                 executor.submit(new TestGroupMember(client, i));
             }
-            TimeUnit.MINUTES.sleep(10);
+            TimeUnit.SECONDS.sleep(30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        executor.shutdownNow();
     }
 
     static class TestGroupMember implements Runnable {
