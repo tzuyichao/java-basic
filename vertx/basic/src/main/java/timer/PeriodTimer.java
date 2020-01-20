@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class PeriodTimer {
     public static void main(String[] args) {
+        System.out.println(TimeUnit.HOURS.toMillis(1));
         Vertx vertx = Vertx.vertx();
         log.info("Running");
         vertx.setTimer(TimeUnit.SECONDS.toMillis(5), id -> {
