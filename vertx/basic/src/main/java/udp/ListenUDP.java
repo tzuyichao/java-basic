@@ -16,6 +16,9 @@ public final class ListenUDP {
                 socket.handler(packet -> {
                     log.info("handling {}", packet.data());
                     log.info("sender: {}", packet.sender());
+                    socket.send(packet.data(), packet.sender().port(), packet.sender().host(), sendBackResult -> {
+                        log.info("send back success? {}", sendBackResult.succeeded());
+                    });
                 });
             } else {
                 log.error("Listen Failed {}", asyncResult.cause());

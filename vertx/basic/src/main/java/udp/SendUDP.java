@@ -13,5 +13,8 @@ public final class SendUDP {
         socket.send("hello there", 1234, "127.0.0.1", asyncResult -> {
             log.info("send success? {}", asyncResult.succeeded());
         });
+        socket.handler(datagramPacket -> {
+            log.info("{}", datagramPacket.data());
+        });
     }
 }
