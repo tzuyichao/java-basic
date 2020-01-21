@@ -1,6 +1,10 @@
 package main;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.cli.Argument;
+import io.vertx.core.cli.CLI;
+import io.vertx.core.cli.CommandLine;
+import io.vertx.core.cli.Option;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.JksOptions;
 import io.vertx.ext.auth.shiro.ShiroAuthOptions;
@@ -13,16 +17,19 @@ import io.vertx.ext.shell.term.SSHTermOptions;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class HelloCommandLab {
+public class HelloCLICommandLab {
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-        CommandBuilder builder = CommandBuilder.command("hello");
+        CLI helloCli = CLI.create("hello")
+                .addArgument(new Argument().setArgName("my-arg"))
+                .addOption(new Option().setShortName("m").setLongName("my-option"));
+        CommandBuilder builder = CommandBuilder.command(helloCli);
         builder.processHandler(process -> {
-            log.info("session: {}", process.session());
             process.write("Hello, World!\n");
-            for(String arg : process.args()) {
-                process.write(String.format("Argument: %s\n", arg));
-            }
+            CommandLine commandLine = process.commandLine();
+            String argumentValue = commandLine.getArgumentValue(0);
+            String optionValue = commandLine.getOptionValue("my-option");
+            process.write(String.format("The argument is %s and the option is %s\n", argumentValue, optionValue));
             process.end();
         });
         CommandRegistry registry = CommandRegistry.getShared(vertx);
