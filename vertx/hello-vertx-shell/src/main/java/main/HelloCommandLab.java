@@ -19,6 +19,9 @@ public class HelloCommandLab {
         CommandBuilder builder = CommandBuilder.command("hello");
         builder.processHandler(process -> {
             process.write("Hello, World!\n");
+            for(String arg : process.args()) {
+                process.write(String.format("Argument: %s\n", arg));
+            }
             process.end();
         });
         CommandRegistry registry = CommandRegistry.getShared(vertx);
