@@ -19,11 +19,7 @@ public class ShellServerLab {
         Vertx vertx = Vertx.vertx();
         ShellServer shellServer = ShellServer.create(vertx);
 
-        Router router = Router.router(vertx);
-        Router shellRouter = Router.router(vertx);
-        router.mountSubRouter("/shell", shellRouter);
-
-        TermServer httpTermServer = TermServer.createHttpTermServer(vertx, router, new HttpTermOptions()
+        TermServer httpTermServer = TermServer.createHttpTermServer(vertx, new HttpTermOptions()
                 .setHost("localhost").setPort(8080)
                 .setAuthOptions(new ShiroAuthOptions()
                         .setType(ShiroAuthRealmType.PROPERTIES)
