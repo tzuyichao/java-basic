@@ -9,6 +9,9 @@ import io.vertx.ext.shell.ShellServiceOptions;
 import io.vertx.ext.shell.term.HttpTermOptions;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * http://localhost:8080/shell.html
+ */
 @Slf4j
 public class SimpleHTTP {
     public static void main(String[] args) {
