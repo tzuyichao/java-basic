@@ -5,6 +5,10 @@ import org.apache.bcel.generic.*;
 
 import java.io.IOException;
 
+/**
+ * 建立一個Class裡面有兩個method name test1，這兩個method signature都一樣只有return type不一樣
+ * Java Compiler不允許但是JVM本身支援的情境
+ */
 public final class Test1BCEL {
     public static void main(String[] args) {
         final String ClassName = "HelloJVM";
