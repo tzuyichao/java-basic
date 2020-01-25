@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
-public class TaskController {
+public class TaskHandler {
     private static final ThreadPoolExecutor bizThreadPoolExecutor = new ThreadPoolExecutor(
             8,
             8,
