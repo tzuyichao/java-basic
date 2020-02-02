@@ -24,7 +24,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:1.7.26'
 
     implementation 'org.openjdk.jmh:jmh-core:1.21'
-    implementation 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+    annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
 
     implementation 'org.javassist:javassist:3.25.0-GA'
 
