@@ -11,6 +11,11 @@ import java.util.regex.Pattern;
 
 /**
  * Sample from Java系統性能優化實戰
+ *
+ * Benchmark                            Mode  Cnt    Score   Error  Units
+ * StringSearchBenchmark.compileSearch  avgt   25  107.672 ± 3.950  ns/op
+ * StringSearchBenchmark.contain        avgt   25    8.996 ± 0.040  ns/op
+ * StringSearchBenchmark.search         avgt   25  305.901 ± 3.357  ns/op
  */
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
