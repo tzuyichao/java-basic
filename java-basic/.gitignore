@@ -34,3 +34,4 @@ HELP.md
 /log/
 
 /*.class
+/src/main/generated/
