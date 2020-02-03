@@ -1,9 +1,12 @@
 package lang;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 
+@Slf4j
 public class MethodHandleLab1 {
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException {
         Object receiver = "a";
@@ -13,7 +16,7 @@ public class MethodHandleLab1 {
         int returnValue;
         try {
             returnValue = (int) methodHandle.invoke(receiver);
-            System.out.println("hashCode of " + receiver + " is " + returnValue);
+            log.info("hashCode of " + receiver + " is " + returnValue);
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
