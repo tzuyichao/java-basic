@@ -6,6 +6,9 @@ import reactor.netty.tcp.TcpClient;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * https://github.com/reactor/reactor-netty/issues/375
+ */
 @Slf4j
 public class HelloClientApplication {
     public static void main(String[] args) {
