@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.netty.Connection;
 import reactor.netty.tcp.TcpClient;
 
+import java.nio.charset.StandardCharsets;
+
 @Slf4j
 public class HelloClientApplication {
     public static void main(String[] args) {
@@ -12,10 +14,13 @@ public class HelloClientApplication {
                 .port(8080)
                 .handle((inbound, outbound) -> {
                     log.info("invoked");
-                    inbound.receiveObject()
+                    inbound.receive()
+                            .asString(StandardCharsets.UTF_8)
                             .log()
                             .log("[Client received]")
-                            .ofType(String.class)
+                            .doOnNext(s -> {
+                                log.info("received: {}", s);
+                            })
                             .doOnComplete(() -> {
                                 log.info("Completed");
                             })
