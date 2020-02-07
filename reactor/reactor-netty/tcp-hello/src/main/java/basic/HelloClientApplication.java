@@ -13,12 +13,15 @@ public class HelloClientApplication {
                 .handle((inbound, outbound) -> {
                     log.info("invoked");
                     inbound.receiveObject()
+                            .log()
                             .log("[Client received]")
                             .ofType(String.class)
-                            .doOnNext(s -> {
-                                log.info("receive: {}", s);
+                            .doOnComplete(() -> {
+                                log.info("Completed");
                             })
-                            .subscribe();
+                            .subscribe(s -> {
+                                log.info("receive: {}", s);
+                            });
                     log.info("print completed");
                     return outbound;
                 })
