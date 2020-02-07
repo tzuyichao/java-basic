@@ -11,6 +11,7 @@ public class ChannelPipelineLab {
         ChannelPipeline pipeline = channel.pipeline();
         pipeline.addLast(handler1_name, new FirstHandler());
         pipeline.addFirst("handler2", new SecondHandler());
+        pipeline.addLast("handler3", new ThirdHandler());
 
         channel.writeInbound("test");
 
