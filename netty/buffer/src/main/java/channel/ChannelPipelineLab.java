@@ -3,7 +3,9 @@ package channel;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.ChannelPromise;
 import io.netty.channel.embedded.EmbeddedChannel;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ChannelPipelineLab {
     public static void main(String[] args) {
         final String handler1_name = "handler1";
@@ -15,6 +17,7 @@ public class ChannelPipelineLab {
 
         channel.writeInbound("test");
 
+        log.info("remove {}", handler1_name);
         pipeline.remove(handler1_name);
         channel.writeInbound("test2");
 
