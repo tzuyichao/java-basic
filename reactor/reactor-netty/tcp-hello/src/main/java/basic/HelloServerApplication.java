@@ -10,10 +10,10 @@ public class HelloServerApplication {
     public static void main(String[] args) {
         DisposableServer server = TcpServer.create()
                 .host("localhost")
-                .port(8080)
+                .port(8081)
                 .handle((inbound, outbound) -> {
                     log.info("write hello");
-                    return outbound.sendString(Mono.just("hello, world!"));
+                    return outbound.sendString(Mono.just("hello, world!")).neverComplete();
                 })
                 .bindNow();
         log.info("Server Running");
