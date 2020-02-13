@@ -77,13 +77,13 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(JdbcBatchItemWriter<Person> writer) {
+    public Step step1(JdbcBatchItemWriter<Person> writer, TaskExecutor taskExecutor) {
         return stepBuilderFactory.get("step1")
                 .<Person, Person> chunk(10)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer)
-                .taskExecutor(taskExecutor())
+                .taskExecutor(taskExecutor)
                 .build();
     }
 }
