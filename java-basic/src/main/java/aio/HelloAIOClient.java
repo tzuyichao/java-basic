@@ -35,8 +35,12 @@ public class HelloAIOClient {
             @Override
             public void completed(Integer result, Object attachment) {
                 System.out.println("complete: " + result);
-                System.out.println(bb.position());
-                System.out.println("response: " + new String(Arrays.copyOf(bb.array(), bb.position())));
+//                System.out.println(bb.position());
+//                System.out.println(bb.limit());
+                bb.flip();
+//                System.out.println(bb.position());
+//                System.out.println(bb.limit());
+                System.out.println("response: " + new String(Arrays.copyOf(bb.array(), bb.limit())));
             }
 
             @Override
