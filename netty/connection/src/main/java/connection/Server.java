@@ -24,7 +24,7 @@ public class Server {
         serverBootstrap.childOption(ChannelOption.SO_REUSEADDR, true);
         serverBootstrap.childHandler(new ConnectionCountHandler());
 
-        for(int i=0; i<100; i++) {
+        for(int i=0; i<=100; i++) {
             final int port = begin_port + i;
             serverBootstrap.bind(port).addListener(new ChannelFutureListener() {
                 @Override
