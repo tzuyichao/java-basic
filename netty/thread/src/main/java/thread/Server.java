@@ -25,6 +25,7 @@ public class Server {
             protected void initChannel(SocketChannel socketChannel) throws Exception {
                 socketChannel.pipeline().addLast(new FixedLengthFrameDecoder(Long.BYTES));
                 socketChannel.pipeline().addLast(businessGroup, ServerHandler.INSTANCE);
+                //socketChannel.pipeline().addLast(businessGroup, ThreadPooledServerHandler.INSTANCE);
             }
         });
 
