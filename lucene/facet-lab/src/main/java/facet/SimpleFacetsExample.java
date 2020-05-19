@@ -14,23 +14,26 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.MatchAllDocsQuery;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.MMapDirectory;
+import org.apache.lucene.util.IOUtils;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleFacetsExample {
+public class SimpleFacetsExample implements AutoCloseable {
     public static final String FACET_FIELD_PUB_DATE = "Publish Date";
     public static final String FACET_FIELD_AUTHOR = "Author";
+    private Path indexPath = Path.of("./tmpindex");
+    private Path taxoPath = Path.of("./tmptaxo");
 
     private final Directory indexDir;
     private final Directory taxoDir;
     private final FacetsConfig config = new FacetsConfig();
 
     public SimpleFacetsExample() throws IOException {
-        indexDir = new MMapDirectory(Path.of("./tmpindex"));
-        taxoDir = new MMapDirectory(Path.of("./tmptaxo"));
+        indexDir = new MMapDirectory(indexPath);
+        taxoDir = new MMapDirectory(taxoPath);
         config.setHierarchical(FACET_FIELD_PUB_DATE, true);
     }
 
@@ -90,12 +93,21 @@ public class SimpleFacetsExample {
         return facetsOnly();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Facet counting example:");
         System.out.println("-----------------------");
-        SimpleFacetsExample example = new SimpleFacetsExample();
-        List<FacetResult> results1 = example.runFacetOnly();
-        System.out.println("Author: " + results1.get(0));
-        System.out.println("Publish Date: " + results1.get(1));
+        try(SimpleFacetsExample example = new SimpleFacetsExample()) {
+            List<FacetResult> results1 = example.runFacetOnly();
+            System.out.println("Author: " + results1.get(0));
+            System.out.println("Publish Date: " + results1.get(1));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void close() throws Exception {
+        IOUtils.rm(indexPath);
+        IOUtils.rm(taxoPath);
     }
 }
