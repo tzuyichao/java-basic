@@ -36,6 +36,7 @@ public class MergeLab {
 
             @Override
             public void onComplete() {
+                // 兩個source emitter都有呼叫onComplete()，這個才會被叫到
                 System.out.println("Done.");
             }
         });
