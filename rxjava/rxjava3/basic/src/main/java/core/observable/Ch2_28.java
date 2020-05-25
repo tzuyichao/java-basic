@@ -12,5 +12,9 @@ public class Ch2_28 {
         Observable<String> source = Observable.just("Alpha", "Beta", "Gamma");
         Single<String> first = source.first("Nil");
         first.subscribe(s -> System.out.println("RECEIVE: " + s));
+
+        Observable<String> empty = Observable.empty();
+        Single<String> firstFromEmpty = empty.first("Nil");
+        firstFromEmpty.subscribe(s -> System.out.println("RECEIVE: " + s));
     }
 }
