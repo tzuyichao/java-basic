@@ -9,13 +9,13 @@ public class Ch2_36 {
     public static void main(String[] args) {
         Observable<Integer> source = Observable.create(observableEmitter -> {
             try {
-                for(int i=0; i<1000; i++) {
+                for(int i=0; i<100; i++) {
                     if(!observableEmitter.isDisposed()) {
                         sleep(100);
                         observableEmitter.onNext(i);
                     }
                     if(observableEmitter.isDisposed()) {
-                        return;
+                        break;
                     }
                 }
                 observableEmitter.onComplete();
