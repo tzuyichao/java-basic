@@ -16,5 +16,9 @@ public class Ch3_7 {
                 .take(3, TimeUnit.SECONDS)
                 .subscribe(s -> System.out.println(LocalDateTime.now().format(f) + " RECEIVED: " + s));
         sleep(5000);
+        Observable.interval(1, TimeUnit.SECONDS)
+                .skip(3, TimeUnit.SECONDS)
+                .subscribe(s -> System.out.println(LocalDateTime.now().format(f) + " RECEIVED: " + s));
+        sleep(5000);
     }
 }
