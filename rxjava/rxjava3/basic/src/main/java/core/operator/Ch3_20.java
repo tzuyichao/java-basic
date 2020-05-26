@@ -17,10 +17,11 @@ public class Ch3_20 {
         .subscribe(s -> {
             System.out.println(s.getKey() + ":" + s.subscribe(i -> System.out.println(i.intValue())));
         });
-        source.window(3, 1)
+        int window = 3;
+        source.window(window, 1)
                 .flatMapSingle(obs -> obs.reduce(0, (total, next) ->
                         total+next))
-                .skipLast(2)
+                .skipLast(window-1)
                 .map(l -> l/3.0)
                 .subscribe(System.out::println);
     }
