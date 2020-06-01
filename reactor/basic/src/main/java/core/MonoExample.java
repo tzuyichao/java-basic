@@ -9,6 +9,8 @@ public class MonoExample {
         Mono.just(1)
                 .map(i -> "foo: " + i)
                 .or(Mono.delay(Duration.ofMillis(100)).map(i -> "bar: " + i))
-                .subscribe(s -> System.out.println(System.currentTimeMillis() + ":" + s));
+                .subscribe(s -> System.out.println(System.currentTimeMillis() + ":" + s),
+                        Throwable::printStackTrace,
+                        () -> System.out.println("Completed."));
     }
 }
