@@ -10,7 +10,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.List;
 
-@ToString
+@ToString(exclude = {"roles"})
 @Data
 @NodeEntity
 public class Movie {
@@ -23,5 +23,5 @@ public class Movie {
     private String tagline;
 
     @Relationship(type="ACTED_IN", direction=Relationship.INCOMING)
-    private List<Person> roles;
+    private List<Role> roles;
 }
