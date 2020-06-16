@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.Collection;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
@@ -52,5 +55,15 @@ public class MovieRepositoryTest {
         Movie movie = movieRepository.findByTitle("The Matrix");
         assertNotNull(movie);
         System.out.println(movie);
+    }
+
+    @Test
+    void test_find_movie_title_containing() {
+        Collection<Movie> movies = movieRepository.findByTitleContaining("matrix");
+        assertNotNull(movies);
+        assertTrue(movies.size() > 0);
+        for(Movie movie : movies) {
+            System.out.println(movie);
+        }
     }
 }
