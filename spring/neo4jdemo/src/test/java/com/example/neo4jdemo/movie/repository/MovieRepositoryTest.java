@@ -35,4 +35,22 @@ public class MovieRepositoryTest {
             System.out.println("==========");
         }
     }
+
+    @Test
+    void test_create_movie() {
+        Movie test = new Movie();
+        test.setReleased(2020);
+        test.setTitle("You never know");
+        System.out.println(test.toString());
+        Movie test_saved = movieRepository.save(test);
+        System.out.println(test_saved);
+        movieRepository.deleteById(test_saved.getId());
+    }
+
+    @Test
+    void test_find_movie_by_title() {
+        Movie movie = movieRepository.findByTitle("The Matrix");
+        assertNotNull(movie);
+        System.out.println(movie);
+    }
 }
