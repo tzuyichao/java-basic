@@ -12,7 +12,7 @@
 	    <maven.compiler.release>12</maven.compiler.release>
 
 		<jaeger.version>0.32.0</jaeger.version>
-		<guava.version>23.0</guava.version>
+		<guava.version>29.0-jre</guava.version>
 		<dropwizard.version>1.1.4</dropwizard.version>
 		<okhttp.version>3.9.0</okhttp.version>
 		<logback.version>1.2.1</logback.version>
