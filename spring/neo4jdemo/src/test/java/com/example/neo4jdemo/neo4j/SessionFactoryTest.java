@@ -1,6 +1,7 @@
 package com.example.neo4jdemo.neo4j;
 
 import org.junit.jupiter.api.Test;
+import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DataNeo4jTest
 public class SessionFactoryTest {
     private SessionFactory sessionFactory;
+    private Configuration configuration;
 
     @Autowired
-    SessionFactoryTest(SessionFactory sessionFactory) {
+    SessionFactoryTest(SessionFactory sessionFactory,
+                       Configuration configuration) {
         this.sessionFactory = sessionFactory;
+        this.configuration = configuration;
+    }
+
+    @Test
+    void test_configuration() {
+        assertNotNull(configuration);
     }
 
     @Test
