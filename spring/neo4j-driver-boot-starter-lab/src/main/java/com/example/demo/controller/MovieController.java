@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.model.MovieValueObject;
+import com.example.demo.neo4j.ResultMapper;
 import lombok.extern.java.Log;
 import org.neo4j.driver.Driver;
 import org.neo4j.driver.Session;
@@ -79,6 +80,7 @@ public class MovieController {
                                 while(pathIterator.hasNext()) {
                                     Path.Segment segment = pathIterator.next();
                                     Node startNode = segment.start();
+                                    ResultMapper resultMapper = new ResultMapper();
 
                                     System.out.println(segment.start().id() + " (" + segment.start().get("name").asString() + ") -> " + segment.end().id() + " (" + segment.end().get("name").asString() + ")");
                                     paths.add(segment.toString());
