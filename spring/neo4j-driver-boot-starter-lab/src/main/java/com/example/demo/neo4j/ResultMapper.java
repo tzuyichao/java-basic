@@ -1,31 +1,18 @@
 package com.example.demo.neo4j;
 
-import lombok.Builder;
-import org.springframework.context.annotation.AnnotationConfigUtils;
+import com.example.demo.controller.model.MovieValueObject;
+import com.example.demo.neo4j.annotation.NodeLabel;
+import org.neo4j.driver.types.Node;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.Map;
-
-@Builder
 public final class ResultMapper {
-    private final String scanPackage;
-
-    public Map<String, Class> resolve(String scanPackage) throws IOException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        assert classLoader != null;
-        String path = scanPackage.replace('.', '/');
-        Enumeration<URL> resourceEnumeration = classLoader.getResources(path);
-        while(resourceEnumeration.hasMoreElements()) {
-            URL resource = resourceEnumeration.nextElement();
-            System.out.println(resource.getFile());
-        }
+    public <T> T readValue(Node node, Class<T> valueType) {
+        NodeLabel nodeLabel = valueType.getAnnotation(NodeLabel.class);
+        System.out.println(nodeLabel.value());
         return null;
     }
 
-    public static void main(String[] args) throws IOException {
-        ResultMapper resultMapper = ResultMapper.builder().scanPackage("com.example.demo.controller.model").build();
-        resultMapper.resolve(resultMapper.scanPackage);
+    public static void main(String[] args) {
+        ResultMapper resultMapper = new ResultMapper();
+        resultMapper.readValue(null, MovieValueObject.class);
     }
 }
