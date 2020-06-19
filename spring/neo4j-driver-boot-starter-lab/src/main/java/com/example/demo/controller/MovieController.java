@@ -26,9 +26,9 @@ public class MovieController {
             return Flux.fromStream(session.run("match (m:Movie) return m order by m.name asc")
                     .list(record -> {
                         String title = record.get("m").asNode().get("title").asString();
-                        MovieValueObject movie = new MovieValueObject();
-                        movie.setTitle(title);
-                        return movie;
+                        return MovieValueObject.builder()
+                                .title(title)
+                                .build();
                     }).stream());
         }
     }
