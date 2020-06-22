@@ -14,25 +14,4 @@ public class Neo4jdemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Neo4jdemoApplication.class, args);
 	}
-
-	public static final String Neo4j_URL = "bolt://localhost:7687";
-
-	@Bean
-	public org.neo4j.ogm.config.Configuration getConfiguration() {
-		log.info("create neo4j configuration");
-		return new org.neo4j.ogm.config.Configuration.Builder().uri(Neo4j_URL).credentials("neo4j", "movies").build();
-	}
-
-	@Bean
-	public SessionFactory sessionFactory() {
-		log.info("create neo4j sessionFactory");
-		return new SessionFactory(getConfiguration(),
-				"com.example.neo4jdemo.movie.model");
-	}
-
-	@Bean
-	public Neo4jTransactionManager transactionManager() {
-		log.info("create neo4j transaction manager");
-		return new Neo4jTransactionManager(sessionFactory());
-	}
 }

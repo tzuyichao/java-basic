@@ -5,6 +5,7 @@ import com.example.neo4jdemo.movie.model.Person;
 import com.example.neo4jdemo.movie.model.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
 @DataNeo4jTest
+@ImportAutoConfiguration(classes={com.example.neo4jdemo.movie.config.DatabaseConfig.class})
 public class MovieRepositoryTest {
     private MovieRepository movieRepository;
 
