@@ -60,6 +60,15 @@ public class DomainRepositoryTest {
         assertTrue(result);
     }
 
+    @Test
+    void test_available_name_using_parent_id () {
+        Collection<Domain> parents = domainRepository.findByName("Brassicaceae");
+        assertSame(1, parents.size());
+        Domain parent = (Domain) parents.stream().toArray()[0];
+        boolean result = domainRepository.checkDomainName(parent.getId(), "bbbb");
+        assertTrue(result);
+    }
+
     @AfterEach
     void clean() {
         domainRepository.deleteAll();
