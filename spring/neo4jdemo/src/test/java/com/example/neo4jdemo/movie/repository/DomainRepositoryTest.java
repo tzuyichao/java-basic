@@ -12,7 +12,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @DataNeo4jTest
@@ -48,8 +48,20 @@ public class DomainRepositoryTest {
         });
     }
 
+    @Test
+    void test_not_available_name () {
+        boolean result = domainRepository.checkDomainName("Brassicaceae", "Brassica");
+        assertFalse(result);
+    }
+
+    @Test
+    void test_available_name () {
+        boolean result = domainRepository.checkDomainName("Brassicaceae", "bbbb");
+        assertTrue(result);
+    }
+
     @AfterEach
     void clean() {
-
+        domainRepository.deleteAll();
     }
 }
