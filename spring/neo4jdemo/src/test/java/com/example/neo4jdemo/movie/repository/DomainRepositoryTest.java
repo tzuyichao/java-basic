@@ -29,7 +29,11 @@ public class DomainRepositoryTest {
     void init() {
         Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae").build();
 
-        Domain brassica = Domain.builder().name("Brassica").build();
+        Domain oleracea = Domain.builder().name("Brassica oleracea").build();
+
+        Domain brassica = Domain.builder()
+                .name("Brassica")
+                .children(List.of(oleracea)).build();
 
         Domain brassicaceae = Domain.builder()
                 .name("Brassicaceae")
@@ -61,12 +65,19 @@ public class DomainRepositoryTest {
     }
 
     @Test
-    void test_available_name_using_parent_id () {
+    void test_available_name_using_parent_id() {
         Collection<Domain> parents = domainRepository.findByName("Brassicaceae");
         assertSame(1, parents.size());
         Domain parent = (Domain) parents.stream().toArray()[0];
         boolean result = domainRepository.checkDomainName(parent.getId(), "bbbb");
         assertTrue(result);
+    }
+
+    @Test
+    void test_root_parent() {
+        domainRepository.rootDomains().stream().forEach(domain -> {
+            assertNull(domain.getParent());
+        });
     }
 
     @AfterEach
