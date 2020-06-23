@@ -4,14 +4,18 @@ import com.example.neo4jdemo.movie.model.Domain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.neo4j.driver.types.Path;
+import org.neo4j.ogm.model.Result;
+import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import static com.example.neo4jdemo.util.Neo4jUtil.printSegment;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
@@ -19,10 +23,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @ImportAutoConfiguration(classes={com.example.neo4jdemo.movie.config.DatabaseConfig.class})
 public class DomainRepositoryTest {
     private DomainRepository domainRepository;
+    private SessionFactory sessionFactory;
 
     @Autowired
-    public DomainRepositoryTest(DomainRepository domainRepository) {
+    public DomainRepositoryTest(DomainRepository domainRepository, SessionFactory sessionFactory) {
         this.domainRepository = domainRepository;
+        this.sessionFactory = sessionFactory;
     }
 
     @BeforeEach
@@ -74,10 +80,26 @@ public class DomainRepositoryTest {
     }
 
     @Test
-    void test_root_parent() {
-        domainRepository.rootDomains().stream().forEach(domain -> {
-            assertNull(domain.getParent());
-        });
+    void test_path_query() {
+        Map<String, String> params = new HashMap<>();
+        params.put("rootName", "Brassicaceae_1");
+        params.put("sourceName", "Brassica oleracea_1");
+
+        Session session = sessionFactory.openSession();
+        Result result = session.query("match p=((:Domain {name: $sourceName})-[:GLOSSARY_HIERARCHY*]->(:Domain {name: $rootName})) return p", params, true);
+        assertNotNull(result);
+        Iterator<Map<String, Object>> iterator = result.iterator();
+        while (iterator.hasNext()) {
+            Map<String, Object> map = iterator.next();
+            System.out.println(map);
+            System.out.println(map.get("p") instanceof Path.Segment[]);
+            if(map.get("p") instanceof Path.Segment[]) {
+                for (Path.Segment segment : (Path.Segment[]) map.get("p")) {
+                    System.out.println(segment);
+                    printSegment(segment);
+                }
+            }
+        }
     }
 
     @AfterEach

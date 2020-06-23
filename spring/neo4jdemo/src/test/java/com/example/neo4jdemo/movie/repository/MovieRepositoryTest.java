@@ -1,7 +1,6 @@
 package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Movie;
-import com.example.neo4jdemo.movie.model.Person;
 import com.example.neo4jdemo.movie.model.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

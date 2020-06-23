@@ -19,9 +19,6 @@ public class Domain {
 
     private String name;
 
-    @Relationship(type="GLOSSARY_HIERARCHY", direction=Relationship.OUTGOING)
-    private Domain parent;
-
     @Relationship(type="GLOSSARY_HIERARCHY", direction=Relationship.INCOMING)
     private Collection<Domain> children;
 }
