@@ -1,6 +1,7 @@
 package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Domain;
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,26 @@ public class DomainRepositoryTest {
     }
 
     @Test
+    void test_paths() {
+        Result result = domainRepository.paths("Brassica oleracea", "Brassicaceae");
+        System.out.println(result);
+        assertNotNull(result);
+        Iterator<Map<String, Object>> iterator = result.iterator();
+        while (iterator.hasNext()) {
+            Map<String, Object> map = iterator.next();
+            System.out.println(map);
+            System.out.println(map.get("p") instanceof Path.Segment[]);
+            if(map.get("p") instanceof Path.Segment[]) {
+                for (Path.Segment segment : (Path.Segment[]) map.get("p")) {
+                    System.out.println(segment);
+                    printSegment(segment);
+                }
+            }
+        }
+    }
+
+    @Ignore
+    @Test()
     void test_path_query() {
         Map<String, String> params = new HashMap<>();
         params.put("rootName", "Brassicaceae_1");

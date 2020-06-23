@@ -1,6 +1,7 @@
 package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Domain;
+import org.neo4j.ogm.model.Result;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +23,6 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
     @Query("Match (p:Domain)<-[:GLOSSARY_HIERARCHY]-(c:Domain) where p.id = $parentId and c.name = $name return count((p:Domain)<-[:GLOSSARY_HIERARCHY]-(c:Domain)) = 0")
     boolean checkDomainName(@Param("parentId") Long parentId, @Param("name") String name);
 
+    @Query("match p=((:Domain {name: $sourceName})-[:GLOSSARY_HIERARCHY*]->(:Domain {name: $destName})) return p")
+    Result paths(@Param("sourceName") String sourceName, @Param("destName") String destName);
 }
