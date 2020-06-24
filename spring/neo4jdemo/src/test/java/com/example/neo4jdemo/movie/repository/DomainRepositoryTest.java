@@ -1,6 +1,7 @@
 package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Domain;
+import com.example.neo4jdemo.movie.model.DomainStatus;
 import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,16 +35,18 @@ public class DomainRepositoryTest {
 
     @BeforeEach
     void init() {
-        Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae").build();
+        Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae").status(DomainStatus.OPEN).build();
 
-        Domain oleracea = Domain.builder().name("Brassica oleracea").build();
+        Domain oleracea = Domain.builder().name("Brassica oleracea").status(DomainStatus.OPEN).build();
 
         Domain brassica = Domain.builder()
                 .name("Brassica")
+                .status(DomainStatus.OPEN)
                 .children(List.of(oleracea)).build();
 
         Domain brassicaceae = Domain.builder()
                 .name("Brassicaceae")
+                .status(DomainStatus.OPEN)
                 .children(List.of(brassica))
                 .build();
         domainRepository.save(enterobacteriaceae);

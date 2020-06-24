@@ -18,6 +18,7 @@ public class Domain {
     private Long id;
 
     private String name;
+    private DomainStatus status;
 
     @Relationship(type="GLOSSARY_HIERARCHY", direction=Relationship.INCOMING)
     private Collection<Domain> children;
