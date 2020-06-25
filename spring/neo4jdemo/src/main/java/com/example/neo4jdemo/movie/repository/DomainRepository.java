@@ -26,6 +26,6 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
     @Query("match (d:Domain) where id(d) = $id and d.status <> 'DELETED' return count(d)=1")
     boolean checkDomainExist(@Param("id") Long id);
 
-    @Query("match p=((:Domain {name: $sourceName})-[:GLOSSARY_HIERARCHY*]->(:Domain {name: $destName})) return p")
+    @Query("match p=((s:Domain {name: $sourceName})-[:GLOSSARY_HIERARCHY*]->(d:Domain {name: $destName})) where d.status <> 'DELETED' and s.status <> 'DELETED' return p")
     Result paths(@Param("sourceName") String sourceName, @Param("destName") String destName);
 }
