@@ -126,6 +126,21 @@ public class DomainRepositoryTest {
         }
     }
 
+    @Test
+    void test_checkDomainExist_not_exist() {
+        boolean shouldNotExist = domainRepository.checkDomainExist(10000L);
+        assertFalse(shouldNotExist);
+    }
+
+    @Test
+    void test_checkDomainExist_true() {
+        Collection<Domain> brassicaceaes = domainRepository.findByName("Brassicaceae");
+        for(Domain brassicaceae: brassicaceaes) {
+            boolean shouldExist = domainRepository.checkDomainExist(brassicaceae.getId());
+            assertTrue(shouldExist);
+        }
+    }
+
     @AfterEach
     void clean() {
         domainRepository.deleteAll();
