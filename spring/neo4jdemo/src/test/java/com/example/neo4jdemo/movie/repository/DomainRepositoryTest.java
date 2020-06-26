@@ -84,6 +84,25 @@ public class DomainRepositoryTest {
     }
 
     @Test
+    void test_get_parent_on_root() {
+        Collection<Domain> parents = domainRepository.findByName("Enterobacteriaceae");
+        Domain parent = (Domain) parents.stream().toArray()[0];
+        Domain should_not_exist = domainRepository.parentDomain(parent.getId());
+        assertNull(should_not_exist);
+    }
+
+    @Test
+    void test_get_parent() {
+        Collection<Domain> brassicas = domainRepository.findByName("Brassica");
+        Domain brassica = (Domain) brassicas.stream().toArray()[0];
+        Collection<Domain> brassicaceaes = domainRepository.findByName("Brassicaceae");
+        Domain brassicaceae = (Domain) brassicaceaes.stream().toArray()[0];
+
+        Domain should_be_brassicaceae = domainRepository.parentDomain(brassica.getId());
+        assertSame(should_be_brassicaceae.getId(), brassicaceae.getId());
+    }
+
+    @Test
     void test_paths() {
         Result result = domainRepository.paths("Brassica oleracea", "Brassicaceae");
         System.out.println(result);
