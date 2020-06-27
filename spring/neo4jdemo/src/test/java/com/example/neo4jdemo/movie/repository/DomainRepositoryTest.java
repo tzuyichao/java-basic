@@ -170,6 +170,16 @@ public class DomainRepositoryTest {
         }
     }
 
+    @Test
+    void test_deleteOtherDomainRelationship() {
+        Collection<Domain> brassicas = domainRepository.findByName("Brassica");
+        Domain brassica = brassicas.toArray(new Domain[0])[0];
+        Result result = domainRepository.deleteOtherDomainRelationship(brassica.getId());
+        System.out.println(result.queryStatistics());
+        Optional<Domain> newDomainOptional = domainRepository.findById(brassica.getId());
+        System.out.println(newDomainOptional.get().getChildren());
+    }
+
     @AfterEach
     void clean() {
         domainRepository.deleteAll();

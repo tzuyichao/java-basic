@@ -35,4 +35,7 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
 
     @Query("match (d:Domain {name: $name})<-[r:GLOSSARY_HIERARCHY*]-(n:Domain) where d.status <> 'DELETED' and n.status <> 'DELETED' set d.status = $status, n.status = $status")
     Result updateDomainStatusCascade(@Param("name") String name, @Param("status") DomainStatus status);
+
+    @Query("Match (d:Domain)-[r:GLOSSARY_HIERARCHY]-(c:Domain) where id(d) = $id delete r")
+    Result deleteOtherDomainRelationship(@Param("id") Long id);
 }
