@@ -102,6 +102,16 @@ public class DomainRepositoryTest {
         assertSame(should_be_brassicaceae.getId(), brassicaceae.getId());
     }
 
+//    @Test
+//    void test_update_domain_status_cascade() {
+//        Result result = domainRepository.updateDomainStatusCascade("Brassicaceae", DomainStatus.DRAFT);
+//        assertEquals(4, result.queryStatistics().getPropertiesSet());
+//        Collection<Domain> brassicas = domainRepository.findByName("Brassica");
+//        Domain brassica = (Domain) brassicas.stream().toArray()[0];
+//        System.out.println(brassica.getStatus());
+//        assertTrue(brassica.getStatus() == DomainStatus.DRAFT);
+//    }
+
     @Test
     void test_paths() {
         Result result = domainRepository.paths("Brassica oleracea", "Brassicaceae");

@@ -1,11 +1,11 @@
 package com.example.neo4jdemo.movie.controller;
 
 import com.example.neo4jdemo.movie.model.Domain;
+import com.example.neo4jdemo.movie.model.DomainStatus;
 import com.example.neo4jdemo.movie.repository.DomainRepository;
+import org.neo4j.ogm.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,5 +36,11 @@ public class DomainController {
                 .build();
         domainRepository.save(enterobacteriaceae);
         domainRepository.save(brassicaceae);
+    }
+
+    @PostMapping("/status")
+    public Result updateDomainStatus(@RequestParam("name") String name, @RequestParam("status")DomainStatus domainStatus) {
+        Result result = domainRepository.updateDomainStatusCascade(name, domainStatus);
+        return result;
     }
 }

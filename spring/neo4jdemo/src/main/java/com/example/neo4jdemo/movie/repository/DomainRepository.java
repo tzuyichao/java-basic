@@ -1,6 +1,7 @@
 package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Domain;
+import com.example.neo4jdemo.movie.model.DomainStatus;
 import org.neo4j.ogm.model.Result;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
@@ -31,4 +32,7 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
 
     @Query("match p=((s:Domain {name: $sourceName})-[:GLOSSARY_HIERARCHY*]->(d:Domain {name: $destName})) where d.status <> 'DELETED' and s.status <> 'DELETED' return p")
     Result paths(@Param("sourceName") String sourceName, @Param("destName") String destName);
+
+    @Query("match (d:Domain {name: $name})<-[r:GLOSSARY_HIERARCHY*]-(n:Domain) where d.status <> 'DELETED' and n.status <> 'DELETED' set d.status = $status, n.status = $status")
+    Result updateDomainStatusCascade(@Param("name") String name, @Param("status") DomainStatus status);
 }
