@@ -7,7 +7,10 @@ import org.neo4j.ogm.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/domain")
@@ -22,16 +25,18 @@ public class DomainController {
     @RequestMapping("/init")
     @GetMapping
     public void init() {
-        Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae").build();
+        Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae_1").status(DomainStatus.DRAFT).build();
 
-        Domain oleracea = Domain.builder().name("Brassica oleracea_1").build();
+        Domain oleracea = Domain.builder().name("Brassica oleracea_1").status(DomainStatus.DRAFT).build();
 
         Domain brassica = Domain.builder()
                 .name("Brassica_1")
+                .status(DomainStatus.DRAFT)
                 .children(List.of(oleracea)).build();
 
         Domain brassicaceae = Domain.builder()
                 .name("Brassicaceae_1")
+                .status(DomainStatus.DRAFT)
                 .children(List.of(brassica))
                 .build();
         domainRepository.save(enterobacteriaceae);
@@ -42,5 +47,21 @@ public class DomainController {
     public Result updateDomainStatus(@RequestParam("name") String name, @RequestParam("status")DomainStatus domainStatus) {
         Result result = domainRepository.updateDomainStatusCascade(name, domainStatus);
         return result;
+    }
+
+    @GetMapping("/root")
+    public Collection<Domain> root() {
+        return domainRepository.rootDomains();
+    }
+
+    @GetMapping("/{id}")
+    public Domain getDomain(@PathVariable("id") Long id, HttpServletResponse response) {
+        Optional<Domain> domainOptional = domainRepository.findById(id);
+        if(domainOptional.isPresent()) {
+            return domainOptional.get();
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
     }
 }
