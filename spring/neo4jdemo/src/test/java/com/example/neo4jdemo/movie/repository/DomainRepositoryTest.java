@@ -63,6 +63,20 @@ public class DomainRepositoryTest {
     }
 
     @Test
+    void test_find_domain_by_name_and_status_depth_1() {
+        List<Domain> domainList = domainRepository.findByNameAndStatus("Brassicaceae", DomainStatus.OPEN, 1);
+        assertEquals(1, domainList.size());
+        assertEquals(1, domainList.get(0).getChildren().size());
+    }
+
+    @Test
+    void test_find_domain_by_name_and_status_depth_0() {
+        List<Domain> domainList = domainRepository.findByNameAndStatus("Brassicaceae", DomainStatus.OPEN, 0);
+        assertEquals(1, domainList.size());
+        assertEquals(1, domainList.get(0).getChildren().size());
+    }
+
+    @Test
     void test_not_available_name () {
         boolean result = domainRepository.checkDomainName("Brassicaceae", "Brassica");
         assertFalse(result);

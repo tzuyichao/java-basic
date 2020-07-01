@@ -2,18 +2,23 @@ package com.example.neo4jdemo.movie.repository;
 
 import com.example.neo4jdemo.movie.model.Domain;
 import com.example.neo4jdemo.movie.model.DomainStatus;
+import lombok.Data;
 import org.neo4j.ogm.model.Result;
+import org.springframework.data.neo4j.annotation.Depth;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface DomainRepository extends Neo4jRepository<Domain, Long> {
     @Query("Match (d:Domain {name: $name}) where d.status <> 'DELETED' return d")
     Collection<Domain> findByName(@Param("name") String name);
+
+    List<Domain> findByNameAndStatus(String name, DomainStatus status, @Depth int depth);
 
     @Query("Match (s:Domain)-[:GLOSSARY_HIERARCHY]->(r:Domain) where id(s)=$id and r.status <> 'DELETED' return r limit 1")
     Domain parentDomain(@Param("id") Long id);
