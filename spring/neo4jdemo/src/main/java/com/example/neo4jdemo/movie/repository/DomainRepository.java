@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface DomainRepository extends Neo4jRepository<Domain, Long> {
@@ -38,4 +39,7 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
 
     @Query("Match (d:Domain)-[r:GLOSSARY_HIERARCHY]-(c:Domain) where id(d) = $id delete r")
     Result deleteOtherDomainRelationship(@Param("id") Long id);
+
+    @Query("Match (d:Domain) where d.name=$domain.name set d.desc = $domain.desc return d")
+    Optional<Domain> searchTest(@Param("domain") Domain domain);
 }

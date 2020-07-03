@@ -112,6 +112,15 @@ public class DomainRepositoryTest {
 //        assertTrue(brassica.getStatus() == DomainStatus.DRAFT);
 //    }
 
+
+    @Test
+    void test_query_parameter() {
+        Domain enterobacteriaceae = new Domain();
+        enterobacteriaceae.setName("Enterobacteriaceae");
+        Optional<Domain> result = domainRepository.searchTest(enterobacteriaceae);
+        System.out.println(result);
+    }
+
     @Test
     void test_paths() {
         Result result = domainRepository.paths("Brassica oleracea", "Brassicaceae");
