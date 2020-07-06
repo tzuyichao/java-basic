@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/domain")
 public class DomainController {
+    public static final String ROOT_DOMAIN_NAME = "Glossary";
     private DomainRepository domainRepository;
 
     @Autowired
@@ -22,9 +23,24 @@ public class DomainController {
         this.domainRepository = domainRepository;
     }
 
-    @RequestMapping("/init")
     @GetMapping
-    public void init() {
+    public void init(HttpServletResponse response) {
+        List<Domain> roots = domainRepository.findByNameAndStatus(ROOT_DOMAIN_NAME, DomainStatus.OPEN, 0);
+        if(roots.size() == 0) {
+            Domain root = Domain.builder()
+                    .name("Glossary")
+                    .status(DomainStatus.OPEN)
+                    .build();
+            domainRepository.save(root);
+            response.setStatus(HttpServletResponse.SC_CREATED);
+        } else {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
+    }
+
+    @RequestMapping("/initDemo")
+    @GetMapping
+    public void initDemo() {
         Domain enterobacteriaceae = Domain.builder().name("Enterobacteriaceae_1").status(DomainStatus.DRAFT).build();
 
         Domain oleracea = Domain.builder().name("Brassica oleracea_1").status(DomainStatus.DRAFT).build();
