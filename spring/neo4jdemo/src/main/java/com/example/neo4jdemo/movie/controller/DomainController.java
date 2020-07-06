@@ -23,12 +23,12 @@ public class DomainController {
         this.domainRepository = domainRepository;
     }
 
-    @GetMapping
+    @GetMapping("init")
     public void init(HttpServletResponse response) {
-        List<Domain> roots = domainRepository.findByNameAndStatus(ROOT_DOMAIN_NAME, DomainStatus.OPEN, 0);
+        List<Domain> roots = domainRepository.findByNameAndStatus(ROOT_DOMAIN_NAME, DomainStatus.OPEN, 1);
         if(roots.size() == 0) {
             Domain root = Domain.builder()
-                    .name("Glossary")
+                    .name(ROOT_DOMAIN_NAME)
                     .status(DomainStatus.OPEN)
                     .build();
             domainRepository.save(root);
