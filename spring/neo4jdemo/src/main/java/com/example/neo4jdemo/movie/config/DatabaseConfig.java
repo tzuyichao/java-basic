@@ -2,6 +2,7 @@ package com.example.neo4jdemo.movie.config;
 
 import lombok.extern.java.Log;
 import org.neo4j.ogm.session.SessionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +12,19 @@ import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 @ComponentScan(value={"com.example.neo4jdemo.movie.converter"})
 @Configuration
 public class DatabaseConfig {
-    public static final String Neo4j_URL = "bolt://localhost:7687";
+    @Value("org.neo4j.driver.uri")
+    private String Neo4j_URL;
+
+    @Value("org.neo4j.driver.authentication.username")
+    private String db_username;
+
+    @Value("org.neo4j.driver.authentication.password")
+    private String db_password;
 
     @Bean
     public org.neo4j.ogm.config.Configuration getConfiguration() {
         log.info("create neo4j configuration");
-        return new org.neo4j.ogm.config.Configuration.Builder().uri(Neo4j_URL).credentials("neo4j", "movies").build();
+        return new org.neo4j.ogm.config.Configuration.Builder().uri(Neo4j_URL).credentials(db_username, db_password).build();
     }
 
     @Bean
