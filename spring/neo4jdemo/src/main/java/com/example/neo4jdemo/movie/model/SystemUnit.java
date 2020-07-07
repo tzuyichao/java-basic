@@ -4,6 +4,6 @@ import lombok.Data;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 @Data
-@NodeEntity
-public class System extends CatalogUnit {
+@NodeEntity(label="System")
+public class SystemUnit extends CatalogUnit {
 }
