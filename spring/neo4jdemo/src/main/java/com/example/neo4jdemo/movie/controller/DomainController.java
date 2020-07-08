@@ -1,8 +1,12 @@
 package com.example.neo4jdemo.movie.controller;
 
+import com.example.neo4jdemo.movie.model.CatalogUnitType;
 import com.example.neo4jdemo.movie.model.Domain;
 import com.example.neo4jdemo.movie.model.DomainStatus;
 import com.example.neo4jdemo.movie.repository.DomainRepository;
+import com.example.neo4jdemo.movie.service.CatalogUnitService;
+import com.example.neo4jdemo.movie.service.DomainService;
+import lombok.extern.java.Log;
 import org.neo4j.ogm.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +16,17 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Log
 @RestController
 @RequestMapping("/domain")
 public class DomainController {
     public static final String ROOT_DOMAIN_NAME = "Glossary";
     private DomainRepository domainRepository;
+    private DomainService domainService;
 
-    @Autowired
-    public DomainController(DomainRepository domainRepository) {
+    public DomainController(DomainRepository domainRepository, DomainService domainService) {
         this.domainRepository = domainRepository;
+        this.domainService = domainService;
     }
 
     @GetMapping("init")
@@ -79,5 +85,11 @@ public class DomainController {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }
+    }
+
+    @GetMapping("/catalog")
+    public void getCatalogUnitService() {
+        CatalogUnitService dbService = domainService.lookup(CatalogUnitType.DB);
+        log.info(dbService.toString());
     }
 }
