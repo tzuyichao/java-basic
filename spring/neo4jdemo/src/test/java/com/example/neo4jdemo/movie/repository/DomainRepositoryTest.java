@@ -55,7 +55,7 @@ public class DomainRepositoryTest {
 
     @Test
     void test_count_query_method() {
-        Long count = domainRepository.countByNameAndStatus("Brassicaceae", DomainStatus.OPEN);
+        Long count = domainRepository.countByNameAndStatusNotLike("Brassicaceae", DomainStatus.DELETED);
         assertEquals(1L, count);
     }
 
