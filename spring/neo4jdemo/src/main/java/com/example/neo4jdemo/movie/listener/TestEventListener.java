@@ -14,6 +14,7 @@ public class TestEventListener implements EventListener {
         log.info("onPreSave - instanceof SystemUnit? " + (event.getObject() instanceof SystemUnit));
         log.info("onPreSave - instanceof DBUnit? " + (event.getObject() instanceof DBUnit));
         log.info("onPreSave - instanceof CatalogUnit? " + (event.getObject() instanceof CatalogUnit));
+        log.info("onPreSave >>>>>>>> " + event.getObject().toString());
     }
 
     @Override
@@ -21,6 +22,7 @@ public class TestEventListener implements EventListener {
         log.info("onPostSave - instanceof SystemUnit? " + (event.getObject() instanceof SystemUnit));
         log.info("onPostSave - instanceof DBUnit? " + (event.getObject() instanceof DBUnit));
         log.info("onPostSave - instanceof CatalogUnit? " + (event.getObject() instanceof CatalogUnit));
+        log.info("onPostSave >>>>>>>> " + event.getObject().toString());
     }
 
     @Override
