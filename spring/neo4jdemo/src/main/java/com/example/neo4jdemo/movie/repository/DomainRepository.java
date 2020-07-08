@@ -18,6 +18,9 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
 
     Long countByNameAndStatusNotLike(String name, DomainStatus status);
 
+    @Query("Match (d:Domain {name: $name}) where d.status in $status return count(d)")
+    Long countByNameAndStatusIn(String name, Iterable<DomainStatus> status);
+
     @Query("Match (d:Domain {name: $name}) where d.status <> 'DELETED' return d")
     Collection<Domain> findByName(@Param("name") String name);
 

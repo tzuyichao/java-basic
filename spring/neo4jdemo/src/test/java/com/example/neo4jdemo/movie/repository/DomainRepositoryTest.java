@@ -60,6 +60,12 @@ public class DomainRepositoryTest {
     }
 
     @Test
+    void test_count_query_method2() {
+        Long count = domainRepository.countByNameAndStatusIn("Brassicaceae", List.of(DomainStatus.OPEN, DomainStatus.DRAFT));
+        assertEquals(1L, count);
+    }
+
+    @Test
     void test_root() {
         Collection<Domain> roots = domainRepository.rootDomains();
         assertSame(2, roots.size());
