@@ -1,7 +1,9 @@
 package com.example.neo4jdemo.movie.config;
 
+import com.example.neo4jdemo.movie.listener.TestEventListener;
 import lombok.extern.java.Log;
 import org.neo4j.ogm.session.SessionFactory;
+import org.neo4j.ogm.session.event.EventListener;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,10 +30,17 @@ public class DatabaseConfig {
     }
 
     @Bean
+    public EventListener myTestEventListener() {
+        return new TestEventListener();
+    }
+
+    @Bean
     public SessionFactory sessionFactory() {
         log.info("create neo4j sessionFactory");
-        return new SessionFactory(getConfiguration(),
+        SessionFactory sessionFactory = new SessionFactory(getConfiguration(),
                 "com.example.neo4jdemo.movie.model");
+        sessionFactory.register(myTestEventListener());
+        return sessionFactory;
     }
 
     @Bean
