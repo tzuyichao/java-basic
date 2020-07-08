@@ -15,6 +15,9 @@ import java.util.Optional;
 
 @Repository
 public interface DomainRepository extends Neo4jRepository<Domain, Long> {
+
+    Long countByNameAndStatus(String name, DomainStatus status);
+
     @Query("Match (d:Domain {name: $name}) where d.status <> 'DELETED' return d")
     Collection<Domain> findByName(@Param("name") String name);
 
