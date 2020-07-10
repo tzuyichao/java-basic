@@ -11,5 +11,5 @@ public enum CatalogUnitType {
 
     public String val() {
         return val;
-    };
+    }
 }
