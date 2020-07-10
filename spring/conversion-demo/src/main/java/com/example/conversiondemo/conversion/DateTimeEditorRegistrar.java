@@ -1,5 +1,6 @@
 package com.example.conversiondemo.conversion;
 
+import lombok.extern.java.Log;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -8,6 +9,7 @@ import org.springframework.beans.PropertyEditorRegistry;
 
 import java.beans.PropertyEditorSupport;
 
+@Log
 public class DateTimeEditorRegistrar implements PropertyEditorRegistrar {
     private DateTimeFormatter dateTimeFormatter;
 
@@ -17,6 +19,7 @@ public class DateTimeEditorRegistrar implements PropertyEditorRegistrar {
 
     @Override
     public void registerCustomEditors(PropertyEditorRegistry registry) {
+        log.info("register CustomEditors");
         registry.registerCustomEditor(DateTime.class, new DateTimeEditor(dateTimeFormatter));
     }
 
@@ -28,6 +31,7 @@ public class DateTimeEditorRegistrar implements PropertyEditorRegistrar {
 
         @Override
         public void setAsText(String text) {
+            log.info("Go:" + this.getSource());
             setValue(DateTime.parse(text, dateTimeFormatter));
         }
     }
