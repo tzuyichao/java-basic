@@ -6,15 +6,16 @@ import com.example.neo4jdemo.movie.model.DomainStatus;
 import com.example.neo4jdemo.movie.repository.DomainRepository;
 import com.example.neo4jdemo.movie.service.CatalogUnitService;
 import com.example.neo4jdemo.movie.service.DomainService;
+import lombok.Builder;
+import lombok.Data;
 import lombok.extern.java.Log;
+import org.neo4j.driver.types.Node;
+import org.neo4j.driver.types.Path;
 import org.neo4j.ogm.model.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Log
 @RestController
@@ -91,5 +92,45 @@ public class DomainController {
     public void getCatalogUnitService() {
         CatalogUnitService dbService = domainService.lookup(CatalogUnitType.DB);
         log.info(dbService.toString());
+    }
+
+    @GetMapping("/graph")
+    public void graph() {
+        Result result = domainRepository.paths("Brassica oleracea_1", "Brassicaceae_1");
+        Iterator<Map<String, Object>> iterator = result.iterator();
+        Map<Long, Node> nodes = new HashMap<>();
+        List<Link> links = new ArrayList<>();
+        while(iterator.hasNext()) {
+            Map<String, Object> r = iterator.next();
+            Object payload = r.get("p");
+            System.out.println(payload instanceof Path.Segment[]);
+            Path.Segment[] pathArray = (Path.Segment[])payload;
+            for(Path.Segment segment : pathArray) {
+                Node start = segment.start();
+                Node end = segment.end();
+                if(!nodes.containsKey(start.id())) {
+                    nodes.put(start.id(), start);
+                }
+                if(!nodes.containsKey(end.id())) {
+                    nodes.put(end.id(), end);
+                }
+                links.add(Link.builder().id(segment.relationship().id()).start(segment.relationship().startNodeId()).end(segment.relationship().endNodeId()).build());
+            }
+        }
+        log.info("nodes: " + nodes);
+        log.info("links: " + links);
+    }
+
+    @Builder
+    @Data
+    static class Link {
+        private Long start;
+        private Long end;
+        private Long id;
+    }
+
+    @DeleteMapping("/clean")
+    public void clean() {
+        domainRepository.deleteAll();
     }
 }
