@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @Testcontainers
 @DataNeo4jTest
 @ImportAutoConfiguration(classes={com.example.neo4jdemo.movie.config.DatabaseConfig.class})
@@ -37,5 +39,25 @@ public class LineageRepositoryTest {
             lineageRepository.save(lineage);
             System.out.println(lineage.getId());
         });
+    }
+
+    @Test
+    public void test_add_lineage_happy() {
+        ColumnUnit source = new ColumnUnit();
+        source.setName("Column Unit source");
+        ColumnUnit target = new ColumnUnit();
+        target.setName("Column Unit target");
+
+        Lineage lineage = new Lineage();
+        lineage.setSource(source);
+        lineage.setTarget(target);
+
+        lineageRepository.save(lineage);
+        System.out.println(source.getId());
+        System.out.println(target.getId());
+        System.out.println(lineage.getId());
+        assertNotNull(source.getId());
+        assertNotNull(target.getId());
+        assertNotNull(lineage.getId());
     }
 }
