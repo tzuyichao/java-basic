@@ -4,7 +4,7 @@ import lombok.Data;
 import org.neo4j.ogm.annotation.*;
 
 @Data
-@RelationshipEntity(type="LINEAGE")
+@RelationshipEntity(type="LINEAGE_LINK")
 public class Lineage {
     @Id
     @GeneratedValue
