@@ -24,4 +24,17 @@ public class AuthorRepositoryTest {
 
         assertThat(authorRepository.findByName("Enrich Gamma")).isPresent();
     }
+
+    @Test
+    void test_prePersist_annotation() {
+        Author author = new Author();
+        author.setName("Enrich Gamma");
+        authorRepository.save(author);
+
+        assertThat(author).satisfies(author1 -> {
+            assertThat(author1.getId()).isNotNull();
+            assertThat(author1.getCreated()).isNotNull();
+            assertThat(author1.getModified()).isNotNull();
+        });
+    }
 }
