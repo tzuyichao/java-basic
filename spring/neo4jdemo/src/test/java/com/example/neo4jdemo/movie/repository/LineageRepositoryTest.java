@@ -106,7 +106,17 @@ public class LineageRepositoryTest {
     }
 
     @Test
-    void test_find_source_id_with_depth() {
+    void test_find_source_id_no_result() {
+        Lineage[] result = lineageRepository.findBySource(1L);
+        assertThat(result)
+                .isNotNull()
+                .satisfies(lineages1 -> {
+                    assertThat(lineages1.length).isEqualTo(0);
+                });
+    }
+
+    @Test
+    void test_find_source_id() {
         ColumnUnit source = new ColumnUnit();
         source.setName("source1");
         source.setStatus(ResourceStatus.PUBLISHED);
@@ -130,14 +140,14 @@ public class LineageRepositoryTest {
             System.out.println(lineage1.getSource().getName());
             System.out.println(lineage1.getTarget().getName());
         }
-//        assertThat(lineages)
-//                .isNotNull()
-//                .satisfies(lineages1 -> {
-//                    assertThat(lineages1.length).isEqualTo(1);
-//                    for(Lineage lineage1 : lineages1) {
-//                        assertThat(lineage1.getSource()).isNotNull();
-//                        assertThat(lineage1.getTarget()).isNotNull();
-//                    }
-//                });
+        assertThat(result)
+                .isNotNull()
+                .satisfies(lineages1 -> {
+                    assertThat(lineages1.length).isEqualTo(1);
+                    for(Lineage lineage1 : lineages1) {
+                        assertThat(lineage1.getSource()).isNotNull();
+                        assertThat(lineage1.getTarget()).isNotNull();
+                    }
+                });
     }
 }
