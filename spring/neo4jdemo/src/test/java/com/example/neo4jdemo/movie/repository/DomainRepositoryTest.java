@@ -7,12 +7,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.neo4j.driver.types.Path;
+import org.neo4j.ogm.config.Configuration;
+import org.neo4j.ogm.metadata.ClassInfo;
+import org.neo4j.ogm.metadata.MetaData;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.neo4j.DataNeo4jTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.testcontainers.containers.Neo4jContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.*;
@@ -52,6 +59,14 @@ public class DomainRepositoryTest {
                 .build();
         domainRepository.save(enterobacteriaceae);
         domainRepository.save(brassicaceae);
+    }
+
+    @Test
+    void test_sessionFactory_metadata() {
+        MetaData metaData = sessionFactory.metaData();
+        for(ClassInfo classInfo : metaData.persistentEntities()) {
+            System.out.println(classInfo.name());
+        }
     }
 
     @Test
