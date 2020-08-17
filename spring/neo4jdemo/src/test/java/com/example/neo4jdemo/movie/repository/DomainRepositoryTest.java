@@ -18,6 +18,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.*;
 
 import static com.example.neo4jdemo.util.Neo4jUtil.printSegment;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
@@ -54,6 +55,36 @@ public class DomainRepositoryTest {
     }
 
     @Test
+    void test_parent_children() {
+        Domain root = new Domain();
+        root.setName("Root");
+        root.setStatus(DomainStatus.OPEN);
+
+        domainRepository.save(root);
+        assertThat(root.getId()).isNotNull();
+        Long rootId = root.getId();
+
+        Domain domain1 = new Domain();
+        domain1.setName("Domain 1");
+        domain1.setStatus(DomainStatus.OPEN);
+        domain1.setParent(root);
+
+        Domain domain2 = new Domain();
+        domain2.setName("Domain 2");
+        domain2.setStatus(DomainStatus.DRAFT);
+        domain2.setParent(domain1);
+        domain1.getChildren().add(domain2);
+
+        domainRepository.save(domain1);
+
+        assertThat(domain1.getId()).isNotNull();
+        assertThat(domain2.getId()).isNotNull();
+
+        Domain newRoot = domainRepository.findById(rootId, 1).get();
+        assertThat(newRoot.getChildren().size()).isEqualTo(1);
+    }
+
+    @Test
     void test_count_query_method() {
         Long count = domainRepository.countByNameAndStatusNotLike("Brassicaceae", DomainStatus.DELETED);
         assertEquals(1L, count);
@@ -68,7 +99,7 @@ public class DomainRepositoryTest {
     @Test
     void test_root() {
         Collection<Domain> roots = domainRepository.rootDomains();
-        assertSame(2, roots.size());
+        assertThat(roots.size()).isGreaterThan(1);
         roots.forEach(domain -> {
             System.out.println(domain.getName());
         });

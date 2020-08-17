@@ -1,9 +1,7 @@
 package com.example.neo4jdemo.movie.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -14,6 +12,7 @@ import java.util.Collection;
 
 @Data
 @NodeEntity
+@ToString(exclude = {"parent", "children"})
 public class Domain {
     @Id
     @GeneratedValue
@@ -22,6 +21,11 @@ public class Domain {
     private String name;
     private DomainStatus status;
 
+    @EqualsAndHashCode.Exclude
+    @Relationship(type="GLOSSARY_HIERARCHY")
+    private Domain parent;
+
+    @EqualsAndHashCode.Exclude
     @Relationship(type="GLOSSARY_HIERARCHY", direction=Relationship.INCOMING)
     private Collection<Domain> children = new ArrayList<>();
 
