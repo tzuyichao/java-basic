@@ -21,6 +21,12 @@ And one showing the HTTP response:
 
 include::{snippets}/sample/http-response.adoc[]
 
+== User Query API
+
+==== Happy Case
+
+One showing how to make a request using cURL:
+
 include::{snippets}/user_query/curl-request.adoc[]
 
 One showing the HTTP request:
@@ -30,6 +36,10 @@ include::{snippets}/user_query/http-request.adoc[]
 And one showing the HTTP response:
 
 include::{snippets}/user_query/http-response.adoc[]
+
+==== User Not Found Case
+
+One showing how to make a request using cURL:
 
 include::{snippets}/user_query_not_found/curl-request.adoc[]
 
