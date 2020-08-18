@@ -2,7 +2,13 @@
 Andy Wilkinson;
 :doctype: book
 :icons: font
+:toc: left
+:toclevels: 4
+:sectlinks:
 :source-highlighter: highlightjs
+
+[[hello-api]]
+== Hello API
 
 Sample application demonstrating how to use Spring REST Docs with JUnit 5.
 
@@ -21,8 +27,10 @@ And one showing the HTTP response:
 
 include::{snippets}/sample/http-response.adoc[]
 
+[[user-query-api]]
 == User Query API
 
+[[happy-case]]
 ==== Happy Case
 
 One showing how to make a request using cURL:
@@ -41,6 +49,7 @@ And one showing the response payload fields:
 
 include::{snippets}/user_query/response-fields.adoc[]
 
+[[user-not-found-case]]
 ==== User Not Found Case
 
 One showing how to make a request using cURL:
