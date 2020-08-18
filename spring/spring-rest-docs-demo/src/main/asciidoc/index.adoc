@@ -31,7 +31,7 @@ include::{snippets}/sample/http-response.adoc[]
 == User Query API
 
 [[happy-case]]
-==== Happy Case
+=== Happy Case
 
 One showing how to make a request using cURL:
 
@@ -50,7 +50,7 @@ And one showing the response payload fields:
 include::{snippets}/user_query/response-fields.adoc[]
 
 [[user-not-found-case]]
-==== User Not Found Case
+=== User Not Found Case
 
 One showing how to make a request using cURL:
 
