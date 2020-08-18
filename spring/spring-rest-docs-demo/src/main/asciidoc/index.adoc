@@ -41,6 +41,10 @@ One showing the HTTP request:
 
 include::{snippets}/user_query/http-request.adoc[]
 
+Parameter description
+
+include::{snippets}/user_query/path-parameters.adoc[]
+
 And one showing the HTTP response:
 
 include::{snippets}/user_query/http-response.adoc[]

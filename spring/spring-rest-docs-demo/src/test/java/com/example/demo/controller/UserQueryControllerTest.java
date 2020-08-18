@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,6 +18,8 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,14 +40,19 @@ public class UserQueryControllerTest {
 
     @Test
     public void user_query() throws Exception {
-        this.mockMvc.perform(get("/api/user/3"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user/{id}", 3))
                 .andExpect(status().isOk())
                 .andDo(
-                        document("user_query", responseFields(
-                                fieldWithPath("id").description("user id"),
-                                fieldWithPath("name").description("user name"),
-                                fieldWithPath("email").description("user email")
-                        ))
+                        document("user_query",
+                                pathParameters(
+                                        parameterWithName("id").description("user id")
+                                ),
+                                responseFields(
+                                        fieldWithPath("id").description("user id"),
+                                        fieldWithPath("name").description("user name"),
+                                        fieldWithPath("email").description("user email")
+                                )
+                        )
                 );
     }
 
