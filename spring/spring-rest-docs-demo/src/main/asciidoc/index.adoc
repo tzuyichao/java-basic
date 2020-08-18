@@ -37,6 +37,10 @@ And one showing the HTTP response:
 
 include::{snippets}/user_query/http-response.adoc[]
 
+And one showing the response payload fields:
+
+include::{snippets}/user_query/response-fields.adoc[]
+
 ==== User Not Found Case
 
 One showing how to make a request using cURL:

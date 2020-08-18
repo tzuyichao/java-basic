@@ -15,6 +15,8 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,7 +39,13 @@ public class UserQueryControllerTest {
     public void user_query() throws Exception {
         this.mockMvc.perform(get("/api/user/3"))
                 .andExpect(status().isOk())
-                .andDo(document("user_query"));
+                .andDo(
+                        document("user_query", responseFields(
+                                fieldWithPath("id").description("user id"),
+                                fieldWithPath("name").description("user name"),
+                                fieldWithPath("email").description("user email")
+                        ))
+                );
     }
 
     @Test
