@@ -1,10 +1,10 @@
 package com.example.demo.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
 public class APIResponse {
+    @Getter
     private String message;
 }
