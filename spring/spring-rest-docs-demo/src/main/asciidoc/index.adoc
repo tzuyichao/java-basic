@@ -67,3 +67,25 @@ include::{snippets}/user_query_not_found/http-request.adoc[]
 And one showing the HTTP response:
 
 include::{snippets}/user_query_not_found/http-response.adoc[]
+
+[[user-command-api]]
+== User Command API
+
+[[happy-case]]
+=== Happy Case
+
+One showing how to make a request using cURL:
+
+include::{snippets}/user_create/curl-request.adoc[]
+
+One showing the HTTP request:
+
+include::{snippets}/user_create/http-request.adoc[]
+
+Request Body
+
+include::{snippets}/user_create/request-body.adoc[]
+
+And one showing the HTTP response:
+
+include::{snippets}/user_create/http-response.adoc[]
