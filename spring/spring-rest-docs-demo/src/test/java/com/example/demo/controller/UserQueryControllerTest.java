@@ -22,7 +22,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -76,7 +75,7 @@ public class UserQueryControllerTest {
 
     @Test
     public void user_query_not_found() throws Exception {
-        this.mockMvc.perform(get("/api/user/20"))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user/{id}", id+1))
                 .andExpect(status().isNotFound())
                 .andDo(document("user_query_not_found"));
     }
