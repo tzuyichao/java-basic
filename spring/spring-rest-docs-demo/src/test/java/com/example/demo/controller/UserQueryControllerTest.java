@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -37,6 +36,8 @@ public class UserQueryControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    Long id;
+
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentationContextProvider) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
@@ -46,6 +47,7 @@ public class UserQueryControllerTest {
         user.setName("John Doe");
         user.setEmail("john.doe@mail.com");
         userRepository.save(user);
+        id = user.getId();
     }
 
     @AfterEach
@@ -56,7 +58,7 @@ public class UserQueryControllerTest {
     @Test
     public void user_query() throws Exception {
 
-        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user/{id}", 1))
+        this.mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user/{id}", id))
                 .andExpect(status().isOk())
                 .andDo(
                         document("user_query",
