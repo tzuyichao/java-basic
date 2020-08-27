@@ -38,7 +38,7 @@ public final class HelloBCEL {
                 new Type[] {Type.STRING},
                 (short) Constants.INVOKEVIRTUAL));
 
-        instructionList.append(InstructionConstants.RETURN);
+        instructionList.append(InstructionConst.RETURN);
 
         mainMethodGen.setMaxStack(5);
         classGen.addMethod(mainMethodGen.getMethod());

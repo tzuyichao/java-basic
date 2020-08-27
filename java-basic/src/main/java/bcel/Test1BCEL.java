@@ -18,6 +18,7 @@ public final class Test1BCEL {
                 Constants.ACC_PUBLIC | Constants.ACC_SUPER,
                 null);
         ConstantPoolGen constantPoolGen = classGen.getConstantPool();
+        System.out.println("Constant Pool Default Size:" + constantPoolGen.getSize());
         InstructionList instructionList = new InstructionList();
         InstructionFactory instructionFactory = new InstructionFactory(classGen);
 
@@ -115,6 +116,9 @@ public final class Test1BCEL {
         classGen.addEmptyConstructor(Constants.ACC_PUBLIC);
 
         try {
+            System.out.println(constantPoolGen.getSize());
+            classGen.setMajor(53);
+            classGen.setMinor(0);
             classGen.getJavaClass().dump("HelloJVM.class");
         } catch(IOException e) {
             e.printStackTrace();
