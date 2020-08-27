@@ -29,7 +29,7 @@ public class TwoSumEasy {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[] {2, 7, 11, 15};
-        System.out.println(solve(arr, 17));
+        int[] arr = new int[] {2, 7, 11, 15, 1};
+        System.out.println(solve(arr, 3));
     }
 }
