@@ -13,11 +13,11 @@ public class CoreLab {
         Path path = Path.of("target/classes/hello/User.class");
         InputStream inputStream = new FileInputStream(path.toFile());
         ClassReader classReader = new ClassReader(inputStream);
-        ClassWriter classWriter = new ClassWriter(0);
+        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         ClassVisitor classVisitor = new ClassVisitor(ASM8, classWriter) {
             @Override
             public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
-                super.visit(version, access, "User2", signature, superName, interfaces);
+                super.visit(version, access, name, signature, superName, interfaces);
             }
 
             @Override
@@ -39,11 +39,20 @@ public class CoreLab {
                 if(fieldVisitor != null) {
                     fieldVisitor.visitEnd();
                 }
+                MethodVisitor helloMethodVisitor = this.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC,
+                        "hello", "(Ljava/lang/String;)V", null, null);
+                helloMethodVisitor.visitCode();
+                helloMethodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+                helloMethodVisitor.visitIntInsn(Opcodes.ALOAD, 0);
+                helloMethodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+                helloMethodVisitor.visitInsn(Opcodes.RETURN);
+                helloMethodVisitor.visitMaxs(0, 0);
+                helloMethodVisitor.visitEnd();
             }
         };
-        classReader.accept(classVisitor, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG);
+        classReader.accept(classVisitor,  0);
         byte[] modifiedBytecode = classWriter.toByteArray();
-        Path newClass = Path.of("target/classes/hello/User2.class");
+        Path newClass = Path.of("target/classes/hello/User.class");
         try(OutputStream outputStream = new FileOutputStream(newClass.toFile())) {
             outputStream.write(modifiedBytecode);
         }
