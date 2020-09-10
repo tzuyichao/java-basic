@@ -42,6 +42,14 @@ public class CoreLab {
                 MethodVisitor helloMethodVisitor = this.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC,
                         "hello", "(Ljava/lang/String;)V", null, null);
                 helloMethodVisitor.visitCode();
+
+                // when array length >5
+                //helloMethodVisitor.visitIntInsn(Opcodes.BIPUSH, 100);
+                helloMethodVisitor.visitInsn(Opcodes.ICONST_4);
+                // newarray int用這個
+                helloMethodVisitor.visitIntInsn(Opcodes.NEWARRAY, Opcodes.T_INT);
+                //helloMethodVisitor.visitInsn(Opcodes.DUP);
+
                 helloMethodVisitor.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
                 helloMethodVisitor.visitIntInsn(Opcodes.ALOAD, 0);
                 helloMethodVisitor.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
