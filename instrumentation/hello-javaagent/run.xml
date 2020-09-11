@@ -6,4 +6,9 @@
             <jvmarg value="-javaagent:${AGENT_JAR}" />
         </java>
     </target>
+
+    <target name="run-without-javaagent">
+        <java jar="client/target/client-0.0.1.jar" fork="true">
+        </java>
+    </target>
 </project>
