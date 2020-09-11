@@ -1,0 +1,9 @@
+<project name="hello-instrumentation" default="run-with-javaagent">
+    <property name="AGENT_JAR" value="agent/target/agent-0.0.1-jar-with-dependencies.jar" />
+
+    <target name="run-with-javaagent">
+        <java jar="client/target/client-0.0.1.jar" fork="true">
+            <jvmarg value="-javaagent:${AGENT_JAR}" />
+        </java>
+    </target>
+</project>
