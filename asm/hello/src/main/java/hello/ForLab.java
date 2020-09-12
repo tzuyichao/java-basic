@@ -43,4 +43,9 @@ public class ForLab {
     public void arr() {
         int[] arr = {10, 20, 30, 40};
     }
+
+    public static void main(String[] args) {
+        ForLab obj = new ForLab();
+        obj.arr();
+    }
 }
