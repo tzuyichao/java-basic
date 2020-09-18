@@ -35,3 +35,4 @@ HELP.md
 
 /*.class
 /src/main/generated/
+/serialize.dat
