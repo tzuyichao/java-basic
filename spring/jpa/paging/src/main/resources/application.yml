@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    url: jdbc:hsqldb:mem:sampledb
+    username: sa
+    password: test
+    driver: org.hsqldb.jdbc.JDBCDriver

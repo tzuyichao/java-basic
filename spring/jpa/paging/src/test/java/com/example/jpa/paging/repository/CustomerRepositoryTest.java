@@ -70,4 +70,23 @@ public class CustomerRepositoryTest {
             }
         }
     }
+
+    @Test
+    void find_by_name2() {
+        Pageable pageable = PageRequest.of(0,2, Sort.Direction.DESC,"id");
+        Page<Customer> resultPage = customerRepository.findByName("Doe", pageable);
+        assertThat(resultPage)
+                .isNotNull()
+                .satisfies(resultIterator -> {
+                    resultIterator.forEach(customer -> {
+                        System.out.println(customer.toString());
+                    });
+                });
+        Pageable nextPageable = PageRequest.of(1,2, Sort.Direction.DESC,"id");
+        System.out.println(nextPageable.toString());
+        resultPage = customerRepository.findByName("Doe", nextPageable);
+        for(Customer customer : resultPage.getContent()) {
+            System.out.println(customer.toString());
+        }
+    }
 }
