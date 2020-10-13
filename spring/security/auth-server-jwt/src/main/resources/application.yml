@@ -1,4 +1,3 @@
-security:
-  user:
-    name: adolfo
-    password: 123
+logging:
+  level:
+    root: DEBUG
