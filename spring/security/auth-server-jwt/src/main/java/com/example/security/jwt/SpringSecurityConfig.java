@@ -16,9 +16,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         log.info("create AuthenticationManager");
         return super.authenticationManagerBean();
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
