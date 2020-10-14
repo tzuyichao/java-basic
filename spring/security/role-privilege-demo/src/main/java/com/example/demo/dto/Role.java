@@ -1,10 +1,12 @@
 package com.example.demo.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 
+@NoArgsConstructor
 @Data
 @Entity
 public class Role {
@@ -21,4 +23,8 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id")
     )
     private Collection<Privilege> privileges;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

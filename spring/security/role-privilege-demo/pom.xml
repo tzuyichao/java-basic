@@ -12,7 +12,10 @@
 	<artifactId>role-privilege-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>role-privilege-demo</name>
-	<description>Role and Privilege Demo project for Spring Boot. https://www.baeldung.com/role-and-privilege-for-spring-security-registration</description>
+	<description><![CDATA[
+	Role and Privilege Demo project for Spring Boot.
+	from https://www.baeldung.com/role-and-privilege-for-spring-security-registration
+    ]]></description>
 
 	<properties>
 		<java.version>15</java.version>
