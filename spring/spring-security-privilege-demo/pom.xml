@@ -9,16 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>role-privilege-demo</artifactId>
+	<artifactId>spring-security-privilege-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>role-privilege-demo</name>
-	<description><![CDATA[
-	Role and Privilege Demo project for Spring Boot.
-	from https://www.baeldung.com/role-and-privilege-for-spring-security-registration
-    ]]></description>
+	<name>spring-security-privilege-demo</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>15</java.version>
+		<java.version>14</java.version>
 	</properties>
 
 	<dependencies>
@@ -42,8 +39,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -80,15 +77,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>14</source>
-                    <target>14</target>
-                </configuration>
-            </plugin>
-        </plugins>
+		</plugins>
 	</build>
 
 </project>
