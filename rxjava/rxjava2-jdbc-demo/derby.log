@@ -1,0 +1,26 @@
+----------------------------------------------------------------
+Fri May 22 11:03:15 CST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0172-3a55-b4f0-00000e7847e0 
+on database directory memory:D:\lab\java-basic\rxjava\rxjava2-jdbc-demo\derby1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@3fee733d 
+Loaded from file:/C:/Users/terence.chao/.m2/repository/org/apache/derby/derby/10.14.1.0/derby-10.14.1.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=13.0.2+8
+user.dir=D:\lab\java-basic\rxjava\rxjava2-jdbc-demo
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Fri May 22 11:03:15 CST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance 74d240cf-0172-3a55-b4f0-00000e7847e0 
+on database directory memory:D:\lab\java-basic\rxjava\rxjava2-jdbc-demo\derby2 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@3fee733d 
+Loaded from file:/C:/Users/terence.chao/.m2/repository/org/apache/derby/derby/10.14.1.0/derby-10.14.1.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=13.0.2+8
+user.dir=D:\lab\java-basic\rxjava\rxjava2-jdbc-demo
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
