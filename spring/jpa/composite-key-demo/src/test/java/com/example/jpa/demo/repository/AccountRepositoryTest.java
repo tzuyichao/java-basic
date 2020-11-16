@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collection;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
@@ -40,5 +42,28 @@ public class AccountRepositoryTest {
         for(Account acc : accountRepository.findAll()) {
             System.out.println(acc.toString());
         }
+    }
+
+    @Test
+    void test_id_query() {
+        Account account = new Account();
+        account.setAccountNumber("001");
+        account.setAccountType("social");
+        account.setAccountName("terence.chao");
+        account.setActivated(false);
+        accountRepository.save(account);
+
+        Account accountB = new Account();
+        accountB.setAccountNumber("001");
+        accountB.setAccountType("web");
+        accountB.setAccountName("john.doe");
+        accountB.setActivated(false);
+        accountRepository.save(accountB);
+
+        Collection<Account> matches = accountRepository.findByAccountNumber("001");
+        assertThat(matches)
+                .isNotNull();
+        assertThat(matches.size())
+                .isEqualTo(2);
     }
 }
