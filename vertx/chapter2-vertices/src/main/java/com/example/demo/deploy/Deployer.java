@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Deployer extends AbstractVerticle {
-  private static Logger logger = LoggerFactory.getLogger(Deployer.class);
+  private static final Logger logger = LoggerFactory.getLogger(Deployer.class);
 
   @Override
   public void start() throws Exception {
