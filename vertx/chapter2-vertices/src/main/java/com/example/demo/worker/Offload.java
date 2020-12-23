@@ -1,9 +1,6 @@
 package com.example.demo.worker;
 
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Promise;
-import io.vertx.core.Vertx;
+import io.vertx.core.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,12 +9,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Offload extends AbstractVerticle {
   private static final Logger logger = LoggerFactory.getLogger(Offload.class);
+  private long count = 1;
 
   @Override
   public void start() throws Exception {
     vertx.setPeriodic(5000, id -> {
       logger.info("Tick {}", id);
-      vertx.executeBlocking(this::blockingCode, this::resultHandler);
+      vertx.executeBlocking(this::blockingCode, false, this::resultHandler);
     });
   }
 
@@ -25,7 +23,7 @@ public class Offload extends AbstractVerticle {
     try {
       Thread.sleep(4000);
       logger.info("Done!");
-      promise.complete("Ok!");
+      promise.complete("Ok! " + (count++));
     } catch (InterruptedException e) {
       promise.fail(e);
     }
@@ -41,7 +39,9 @@ public class Offload extends AbstractVerticle {
 
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
-    vertx.deployVerticle("com.example.demo.worker.Offload", ar -> {
+    DeploymentOptions options = new DeploymentOptions()
+      .setInstances(3);
+    vertx.deployVerticle("com.example.demo.worker.Offload", options, ar -> {
       if(ar.succeeded()) {
         logger.info("deploy completed {}", ar.result());
       } else {
