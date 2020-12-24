@@ -13,5 +13,6 @@ public class FirstInstance {
   public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
     vertx.deployVerticle("com.example.demo.heat.HeatSensor", getHeatSensorDeploymentOptions());
+    vertx.deployVerticle("com.example.demo.heat.HttpServer");
   }
 }
