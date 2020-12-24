@@ -2,10 +2,8 @@ package com.example.demo.heat;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-public class FirstInstance {
+public class SecondInstance {
   private static DeploymentOptions getHeatSensorDeploymentOptions() {
     return new DeploymentOptions().setInstances(4);
   }
