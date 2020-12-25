@@ -9,6 +9,7 @@
     const avg = document.getElementById("avg");
 
     sse.addEventListener("update", (evt) => {
+        console.log(evt);
         const data = JSON.parse(evt.data);
         let div = document.getElementById(data.id);
         if(div === null) {
