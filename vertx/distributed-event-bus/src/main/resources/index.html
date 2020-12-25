@@ -1,3 +1,27 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<h1>It works!</h1>
+<h1>It's Works!</h1>
+<div id="avg"></div>
+<div id="main"></div>
+<script language="JavaScript">
+    const sse = new EventSource("/sse");
+    const main = document.getElementById("main");
+    const avg = document.getElementById("avg");
+
+    sse.addEventListener("update", (evt) => {
+        console.log(evt);
+        const data = JSON.parse(evt.data);
+        let div = document.getElementById(data.id);
+        if(div === null) {
+            div = document.createElement("div");
+            div.setAttribute("id", data.id);
+            main.appendChild(div);
+        }
+        div.innerHTML = `<strong>${data.temp.toFixed(2)}</strong> (sensor#: <em>${data.id}</em>)`;
+    });
+
+    sse.addEventListener("average", (evt) => {
+        const data = JSON.parse(evt.data);
+        avg.innerText = `Average: ${data.average.toFixed(2)}`;
+    });
+</script>
