@@ -7,8 +7,6 @@ import io.vertx.core.file.OpenOptions;
 import io.vertx.core.parsetools.RecordParser;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.TimeUnit;
-
 @Slf4j
 public class ReadComplexStreams {
   public static void main(String[] args) throws InterruptedException {
