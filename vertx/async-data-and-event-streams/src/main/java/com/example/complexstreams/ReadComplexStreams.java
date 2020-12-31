@@ -15,6 +15,9 @@ public class ReadComplexStreams {
       .setRead(true);
     AsyncFile file = vertx.fileSystem().openBlocking("sample.db", options);
     RecordParser parser = RecordParser.newFixed(4, file);
+    // for fetch mode
+    parser.pause();
+    parser.fetch(2);
     parser.handler(header -> readMagicNumber(header, parser));
 
     vertx.setTimer(10000, id -> {
