@@ -18,6 +18,7 @@ import org.apache.lucene.store.Directory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MultiCategoryListsFacetsExample {
     private final Directory indexDir = new ByteBuffersDirectory();
@@ -89,19 +90,24 @@ public class MultiCategoryListsFacetsExample {
         return search();
     }
 
+    private static void inspectFacetResult(FacetResult facetResult) {
+        Objects.requireNonNull(facetResult);
+        System.out.println(String.format("%s: %s", facetResult.dim, facetResult));
+        for(LabelAndValue labelAndValue : facetResult.labelValues) {
+            System.out.println(labelAndValue.label + ":" + labelAndValue.value);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("Facet counting over multiple category lists example:");
         System.out.println("-----------------------");
         List<FacetResult> results = new MultiCategoryListsFacetsExample().runSearch();
 
         FacetResult authorFacetResult = results.get(0);
-        System.out.println("Author: " + authorFacetResult);
-        for(LabelAndValue labelAndValue : authorFacetResult.labelValues) {
-            System.out.println(labelAndValue.label + ":" + labelAndValue.value);
-        }
+        inspectFacetResult(authorFacetResult);
 
         System.out.println("=======================");
-        System.out.println("Publish Date: " + results.get(1));
-
+        FacetResult publishDateResult = results.get(1);
+        inspectFacetResult(publishDateResult);
     }
 }
