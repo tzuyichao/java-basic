@@ -13,17 +13,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>15</java.version>
-        <lucene.version>8.6.3</lucene.version>
+        <lucene.version>8.7.0</lucene.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-facet -->
         <dependency>

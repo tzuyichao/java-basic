@@ -93,11 +93,14 @@ public class MultiCategoryListsFacetsExample {
         System.out.println("Facet counting over multiple category lists example:");
         System.out.println("-----------------------");
         List<FacetResult> results = new MultiCategoryListsFacetsExample().runSearch();
+
         FacetResult authorFacetResult = results.get(0);
         System.out.println("Author: " + authorFacetResult);
         for(LabelAndValue labelAndValue : authorFacetResult.labelValues) {
             System.out.println(labelAndValue.label + ":" + labelAndValue.value);
         }
+
+        System.out.println("=======================");
         System.out.println("Publish Date: " + results.get(1));
 
     }
