@@ -20,23 +20,26 @@ repositories {
 }
 
 dependencies {
-    testCompileOnly group: 'junit', name: 'junit', version: '4.12'
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'ch.qos.logback.contrib:logback-json-classic:0.1.5'
-    implementation 'ch.qos.logback.contrib:logback-jackson:0.1.5'
-    implementation 'org.slf4j:slf4j-api:1.7.26'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
+    testCompileOnly('junit:junit:4.12')
+    testCompileOnly('org.projectlombok:lombok:1.18.10')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.10')
 
-    implementation 'org.openjdk.jmh:jmh-core:1.21'
-    annotationProcessor 'org.openjdk.jmh:jmh-generator-annprocess:1.21'
+    implementation('ch.qos.logback:logback-classic:1.2.3')
+    implementation('ch.qos.logback.contrib:logback-json-classic:0.1.5')
+    implementation('ch.qos.logback.contrib:logback-jackson:0.1.5')
+    implementation('org.slf4j:slf4j-api:1.7.26')
+    implementation('com.fasterxml.jackson.core:jackson-databind:2.10.2')
 
-    implementation 'org.javassist:javassist:3.25.0-GA'
+    implementation('org.openjdk.jmh:jmh-core:1.21')
+    annotationProcessor('org.openjdk.jmh:jmh-generator-annprocess:1.21')
 
-    implementation 'org.apache.bcel:bcel:6.3.1'
+    implementation('org.javassist:javassist:3.25.0-GA')
 
-    implementation 'cglib:cglib:3.2.12'
+    implementation('org.apache.bcel:bcel:6.3.1')
 
-    implementation 'org.mariadb.jdbc:mariadb-java-client:2.4.2'
+    implementation('cglib:cglib:3.2.12')
+
+    implementation('org.mariadb.jdbc:mariadb-java-client:2.4.2')
 
     implementation('commons-codec:commons-codec:1.13')
 
@@ -44,6 +47,4 @@ dependencies {
 
     compileOnly('org.projectlombok:lombok:1.18.10')
     annotationProcessor('org.projectlombok:lombok:1.18.10')
-    testCompileOnly('org.projectlombok:lombok:1.18.10')
-    testAnnotationProcessor('org.projectlombok:lombok:1.18.10')
 }
