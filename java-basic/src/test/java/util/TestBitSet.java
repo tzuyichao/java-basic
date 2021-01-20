@@ -16,6 +16,10 @@ public class TestBitSet {
     public void test_length() {
         BitSet bitSet = new BitSet();
         printLengthAndSize(bitSet);
+        test_bitSet_length(bitSet);
+    }
+
+    private void test_bitSet_length(BitSet bitSet) {
         bitSet.set(5);
         log.info("After set(5)");
         printLengthAndSize(bitSet);
@@ -25,5 +29,12 @@ public class TestBitSet {
         bitSet.set(64);
         log.info("After set(64)");
         printLengthAndSize(bitSet);
+    }
+
+    @Test
+    public void test_length_with_sizeIsSticky() {
+        BitSet bitSet = new BitSet(64);
+        printLengthAndSize(bitSet);
+        test_bitSet_length(bitSet);
     }
 }
