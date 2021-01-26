@@ -59,4 +59,10 @@ public class MaximumSubArrayTest {
         Instant end = Instant.now();
         System.out.println(Duration.between(start, end).getSeconds());
     }
+
+    @Test
+    public void submit_time_limit_exceed_wrong_1() throws IOException {
+        int[] arr = new int[] {-2,-1};
+        assertEquals(-1, maximumSubArray.maxSubArray(arr));
+    }
 }

@@ -9,23 +9,19 @@ public class MaximumSubArray {
         return sum;
     }
 
-    private int max(int[] nums, int length) {
-        int max = sumFromPosWithLength(nums, 0, length);
-        for(int i=1; i<nums.length-length+1; i++) {
-            int step = sumFromPosWithLength(nums, i, length);
-            if(step > max) {
-                max = step;
-            }
-        }
-        return max;
-    }
 
     public int maxSubArray(int[] nums) {
         int max = sumFromPosWithLength(nums, 0, nums.length);
-        for(int l=1; l<nums.length; l++) {
-            int step = max(nums, l);
-            if(step > max) {
-                max = step;
+        for(int i = 0; i < nums.length; i++) {
+            for (int l = nums.length-i; l > 0; l--) {
+                if(nums[i+l-1] > 0 || nums[i+l-1] > max) {
+                    int step = sumFromPosWithLength(nums, i, l);
+                    if(step > max) {
+                        max = step;
+                    }
+                } else {
+                    continue;
+                }
             }
         }
         return max;
