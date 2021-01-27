@@ -57,4 +57,9 @@ public class LinkedListCycleTest {
 
         assertFalse(solver.hasCycle(head));
     }
+
+    @Test
+    public void simple5() {
+        assertFalse(solver.hasCycle(null));
+    }
 }
