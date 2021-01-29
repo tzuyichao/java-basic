@@ -28,6 +28,20 @@ public class TwoSumEasy {
         throw new IllegalArgumentException("no answer");
     }
 
+    static int[] solve2(int[] nums, int target) {
+        for(int i=0; i<nums.length; i++) {
+            for(int j=0; j < nums.length; j++) {
+                if(i == j) {
+                    continue;
+                }
+                if(nums[i] + nums[j] == target) {
+                    return new int[] {i, j};
+                }
+            }
+        }
+        throw new IllegalArgumentException("no answer");
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[] {2, 7, 11, 15, 1};
         System.out.println(solve(arr, 3));
