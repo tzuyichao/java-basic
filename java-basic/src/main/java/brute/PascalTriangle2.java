@@ -9,9 +9,9 @@ import java.util.Map;
  * = 119
  */
 public class PascalTriangle2 {
-    private Map<Integer, List<Integer>> memory = new HashMap<>();
+    private static Map<Integer, List<Integer>> memory = new HashMap<>();
 
-    public PascalTriangle2() {
+    static {
         memory.put(0, List.of(1));
         memory.put(1, List.of(1, 1));
     }
