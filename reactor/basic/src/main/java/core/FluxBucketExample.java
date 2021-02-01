@@ -1,12 +1,14 @@
 package core;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 
 import java.util.Arrays;
 
-@Slf4j
 public class FluxBucketExample {
+    private static final Logger log = LoggerFactory.getLogger(FluxBucketExample.class);
+
     public static void main(String[] args) {
         int bucketSize = 5;
         Flux.range(1, 500)
