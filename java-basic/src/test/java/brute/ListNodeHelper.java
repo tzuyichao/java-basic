@@ -1,6 +1,17 @@
 package brute;
 
+import static org.junit.Assert.assertEquals;
+
 public class ListNodeHelper {
+    public static ListNode make(int[] data, ListNode tail) {
+        if(null == data || data.length == 0) {
+            return tail;
+        }
+        ListNode result = make(data);
+        result.next = tail;
+        return result;
+    }
+
     public static ListNode make(int[] data) {
         if(null == data || data.length == 0) {
             return null;
@@ -13,5 +24,14 @@ public class ListNodeHelper {
         }
 
         return root;
+    }
+
+    public static void assertListNode(int[] expect, ListNode listNode) {
+        int i = 0;
+        while(listNode != null) {
+            assertEquals(expect[i], listNode.val);
+            i++;
+            listNode = listNode.next;
+        }
     }
 }

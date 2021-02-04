@@ -2,6 +2,7 @@ package brute;
 
 import org.junit.Test;
 
+import static brute.ListNodeHelper.assertListNode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -17,5 +18,19 @@ public class ListNodeHelperTest {
             i++;
             listNode = listNode.next;
         }
+    }
+
+    @Test
+    public void simple2() {
+        int[] data = new int[] {4,1,8,4,5};
+        ListNode listNode = ListNodeHelper.make(data);
+        assertListNode(new int[] {4,1,8,4,5}, listNode);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void simple3() {
+        int[] data = new int[] {4,1,8,4,5};
+        ListNode listNode = ListNodeHelper.make(data);
+        assertListNode(new int[] {4,1,8,4}, listNode);
     }
 }
