@@ -6,6 +6,9 @@ import java.util.List;
 
 /**
  * = 206
+ * v1:
+ * Runtime: 3 ms, faster than 6.40% of Java online submissions for Reverse Linked List.
+ * Memory Usage: 40.1 MB, less than 5.72% of Java online submissions for Reverse Linked List.
  */
 public class ReverseLinkedList {
     public ListNode reverseList(ListNode head) {
