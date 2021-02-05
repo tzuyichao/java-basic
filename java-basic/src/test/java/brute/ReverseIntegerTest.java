@@ -32,4 +32,10 @@ public class ReverseIntegerTest {
     public void simple4() {
         assertEquals(0, solver.reverse(0));
     }
+
+    @Test
+    public void simple5() {
+        assertEquals(0, solver.reverse(1534236469));
+    }
+
 }
