@@ -14,7 +14,7 @@ public class IntersectionTwoLinkedListsTest {
 
     @Test
     public void simple1() {
-        // 真正的涵義...有點冏
+        // @@"
         ListNode tail = ListNodeHelper.make(new int[] {8,4,5});
         ListNode headA = ListNodeHelper.make(new int[] {4,1}, tail);
         ListNode headB = ListNodeHelper.make(new int[] {5,6,1}, tail);
