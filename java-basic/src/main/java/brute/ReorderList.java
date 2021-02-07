@@ -27,7 +27,7 @@ public class ReorderList {
                 store.get(i).next = null;
             }
             if(i>n/2) {
-                store.get(i).next = store.get(n+1-i);
+                store.get(i).next = store.get(n-i);
             }
         }
     }
