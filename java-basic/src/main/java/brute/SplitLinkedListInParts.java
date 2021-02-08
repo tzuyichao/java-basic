@@ -2,6 +2,8 @@ package brute;
 
 /**
  * = 725
+ * Runtime: 0 ms, faster than 100.00% of Java online submissions for Split Linked List in Parts.
+ * Memory Usage: 38.8 MB, less than 92.92% of Java online submissions for Split Linked List in Parts.
  */
 public class SplitLinkedListInParts {
     public int length(ListNode listNode) {
