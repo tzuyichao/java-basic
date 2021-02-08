@@ -3,6 +3,12 @@ package brute;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * = 328
+ * v1.
+ * Runtime: 2 ms, faster than 9.29% of Java online submissions for Odd Even Linked List.
+ * Memory Usage: 38.8 MB, less than 40.65% of Java online submissions for Odd Even Linked List.
+ */
 public class OddEvenLinkedList {
     public int length(ListNode head) {
         ListNode c = head;
