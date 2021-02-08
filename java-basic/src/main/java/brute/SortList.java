@@ -2,29 +2,33 @@ package brute;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
+/**
+ * = 148
+ * v2:
+ * Runtime: 9 ms, faster than 42.03% of Java online submissions for Sort List.
+ * Memory Usage: 47.4 MB, less than 54.12% of Java online submissions for Sort List.
+ */
 public class SortList {
     public ListNode sortList(ListNode head) {
         if(null == head || null == head.next) {
             return head;
         }
-        List<ListNode> store = new ArrayList<>();
+        List<Integer> data = new ArrayList<>();
         ListNode current = head;
         while(current != null) {
-            store.add(current);
+            data.add(current.val);
             current = current.next;
         }
-        Collections.sort(store, Comparator.comparingInt(a -> a.val));
-        ListNode result = store.get(0);
-        current = result;
-        for(int i=1; i<store.size(); i++) {
-            ListNode elem = store.get(i);
-            current.next = elem;
-            current = elem;
+        Collections.sort(data);
+        current = head;
+        int i = 0;
+        while(current != null) {
+            current.val = data.get(i);
+            i++;
+            current = current.next;
         }
-        current.next = null;
-        return result;
+        return head;
     }
 }
