@@ -10,6 +10,9 @@ public class BinaryTreeRightSideView {
     // Custom Testcases:
     // [1,2,4,null,5,3,null]
     public List<Integer> rightSideView(TreeNode root) {
+        if(null == root) {
+            return Collections.EMPTY_LIST;
+        }
         return Collections.EMPTY_LIST;
     }
 }
