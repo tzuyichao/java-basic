@@ -29,14 +29,15 @@ public class MaximumDepthOfBinaryTree {
         }
         Map<TreeNode, Integer> leafDepth = new HashMap<>();
         TreeNode current = root;
+        int depth = 1;
         if(current.left == null && current.right == null) {
-            return 1;
+            return depth;
         }
         if(current.left != null) {
-            depth(current.left, 2, leafDepth);
+            depth(current.left, depth+1, leafDepth);
         }
         if(current.right != null) {
-            depth(current.right, 2, leafDepth);
+            depth(current.right, depth+1, leafDepth);
         }
         return leafDepth.values().stream().max(Integer::compare).get();
     }
