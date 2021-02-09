@@ -1,7 +1,6 @@
 package brute;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.BitSet;
 
 /**
  * = 142
@@ -11,18 +10,20 @@ import java.util.Set;
  * v2:
  * Runtime: 4 ms, faster than 15.54% of Java online submissions for Linked List Cycle II.
  * Memory Usage: 39.9 MB, less than 31.56% of Java online submissions for Linked List Cycle II.
+ * v3:
+ * Memory Limit Exceeded
  */
 public class LinkedListCycle2 {
     public ListNode detectCycle(ListNode head) {
         if(null == head || null == head.next) {
             return null;
         }
-        Set<ListNode> visitedStore = new HashSet<>();
+        BitSet visitedStore = new BitSet();
         while(head != null) {
-            if(visitedStore.contains(head)) {
+            if(visitedStore.get(head.hashCode())) {
                 return head;
             } else {
-                visitedStore.add(head);
+                visitedStore.set(head.hashCode());
             }
             head = head.next;
         }
