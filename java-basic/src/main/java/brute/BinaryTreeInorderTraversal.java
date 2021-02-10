@@ -3,15 +3,18 @@ package brute;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * = 94
  */
 public class BinaryTreeInorderTraversal {
-    public void inorder(TreeNode current, List<Integer> collector) {
+    public void inorder(TreeNode current, Consumer<Integer> collector) {
         if(current != null) {
             inorder(current.left, collector);
-            collector.add(current.val);
+            if(collector != null) {
+                collector.accept(current.val);
+            }
             inorder(current.right, collector);
         }
     }
@@ -21,7 +24,10 @@ public class BinaryTreeInorderTraversal {
             return Collections.EMPTY_LIST;
         }
         List<Integer> inorder = new ArrayList<>();
-        inorder(root, inorder);
+
+        inorder(root, val -> {
+            inorder.add(val);
+        });
         return inorder;
     }
 }
