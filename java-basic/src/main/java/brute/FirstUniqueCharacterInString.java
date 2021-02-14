@@ -7,6 +7,9 @@ import java.util.Map;
 
 /**
  * = 387
+ * v1:
+ * Runtime: 129 ms, faster than 5.07% of Java online submissions for First Unique Character in a String.
+ * Memory Usage: 46.9 MB, less than 11.12% of Java online submissions for First Unique Character in a String.
  */
 public class FirstUniqueCharacterInString {
     static class PosInfo {
