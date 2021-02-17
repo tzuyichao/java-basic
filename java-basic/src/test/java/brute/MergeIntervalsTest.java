@@ -27,4 +27,11 @@ public class MergeIntervalsTest {
         assertNotNull(result);
         assertEquals(new int[][] {{1, 5}}, result);
     }
+
+    @Test
+    public void simple3() {
+        int[][] result = solver.merge(new int[][] {{1,4}, {0,1}});
+        assertNotNull(result);
+        assertEquals(new int[][] {{0, 4}}, result);
+    }
 }
