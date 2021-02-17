@@ -19,6 +19,12 @@ public class BinaryTreeRightSideView {
         }
         Queue<Integer> result = new LinkedList<>();
 
+        TreeNode current = root;
+        result.offer(current.val);
+        while(current.right == null && current.left == null) {
+            
+        }
+
         return result.stream().collect(Collectors.toList());
     }
 }

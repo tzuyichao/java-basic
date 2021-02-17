@@ -62,4 +62,45 @@ public class PriorityQueueTest {
         priorityQueue.add(7);
         System.out.println(priorityQueue);
     }
+
+    @Test
+    public void simple4() {
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+        boolean inserted = priorityQueue.add(4);
+        System.out.println(priorityQueue);
+        inserted = priorityQueue.add(6);
+        System.out.println(priorityQueue);
+        if(inserted) {
+            priorityQueue.stream().sorted();
+            System.out.println(priorityQueue);
+        }
+
+        inserted = priorityQueue.add(8);
+        System.out.println(priorityQueue);
+        if(inserted) {
+            priorityQueue.stream().sorted();
+            System.out.println(priorityQueue);
+        }
+
+        inserted = priorityQueue.add(10);
+        System.out.println(priorityQueue);
+        if(inserted) {
+            priorityQueue.stream().sorted();
+            System.out.println(priorityQueue);
+        }
+
+        inserted = priorityQueue.add(5);
+        System.out.println(priorityQueue);
+        if(inserted) {
+            priorityQueue.stream().sorted();
+            System.out.println(priorityQueue);
+        }
+
+        inserted = priorityQueue.add(7);
+        System.out.println(priorityQueue);
+        if(inserted) {
+            priorityQueue.stream().sorted();
+            System.out.println(priorityQueue);
+        }
+    }
 }
