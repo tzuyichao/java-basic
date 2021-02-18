@@ -12,4 +12,11 @@ public class AssertHelper {
             }
         }
     }
+
+    public static void verifyEquals(int[] expect, int[] actual) {
+        Assert.assertEquals(expect.length, actual.length);
+        for(int i=0; i<expect.length; i++) {
+            Assert.assertEquals(expect[i], actual[i]);
+        }
+    }
 }
