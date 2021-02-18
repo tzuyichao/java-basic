@@ -13,6 +13,11 @@ public class AssertHelper {
         }
     }
 
+    /**
+     * check data not reference
+     * @param expect
+     * @param actual
+     */
     public static void verifyEquals(int[] expect, int[] actual) {
         Assert.assertEquals(expect.length, actual.length);
         for(int i=0; i<expect.length; i++) {
