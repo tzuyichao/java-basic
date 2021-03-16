@@ -17,7 +17,7 @@ import java.util.Collection;
 public class CBOWLab {
     @Test
     public void simple1() throws IOException {
-        String filePath = new ClassPathResource("billboard_lyrics_1964-2015.csv").getFile().getAbsolutePath();
+        String filePath = new ClassPathResource("billboard_lyrics_1964-2015.txt").getFile().getAbsolutePath();
         SentenceIterator iterator = new BasicLineIterator(filePath);
 
         Word2Vec vec = new Word2Vec.Builder()

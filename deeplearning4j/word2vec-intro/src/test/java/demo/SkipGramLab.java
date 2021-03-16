@@ -13,18 +13,18 @@ import java.util.Collection;
 public class SkipGramLab {
     @Test
     public void simple1() throws IOException {
-        String filePath = new ClassPathResource("billboard_lyrics_1964-2015.csv").getFile().getAbsolutePath();
+        String filePath = new ClassPathResource("billboard_lyrics_1964-2015.txt").getFile().getAbsolutePath();
         SentenceIterator iterator = new BasicLineIterator(filePath);
 
         Word2Vec vec = new Word2Vec.Builder()
-                .layerSize(100)
-                .windowSize(5)
+                .layerSize(150)
+                .windowSize(10)
                 .iterate(iterator)
                 .elementsLearningAlgorithm(new SkipGram<>())
                 .build();
         vec.fit();
 
-        String[] words = new String[] {"guitar", "love", "rock"};
+        String[] words = new String[] {"guitar", "love", "rock", "peace"};
         for(String w: words) {
             Collection<String> lst = vec.wordsNearest(w, 2);
             System.out.println("2 words closest to " + w + ": " + lst);
