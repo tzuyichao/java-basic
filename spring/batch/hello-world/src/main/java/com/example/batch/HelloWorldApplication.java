@@ -31,11 +31,7 @@ public class HelloWorldApplication {
 	@Bean
 	public Step step() {
 		return stepBuilderFactory.get("step1")
-				.tasklet((contribution, chunkContext) -> {
-					System.out.println("Hello, World!");
-
-					return RepeatStatus.FINISHED;
-				}).build();
+				.tasklet(helloWorldTasklet()).build();
 	}
 
 	@Bean
@@ -43,5 +39,16 @@ public class HelloWorldApplication {
 		return jobBuilderFactory.get("job")
 				.start(step())
 				.build();
+	}
+
+	@Bean
+	public Tasklet helloWorldTasklet() {
+		return (contribution, chunkContext) -> {
+			String name = (String) chunkContext.getStepContext()
+					.getJobParameters()
+					.get("name");
+			System.out.println(String.format("Hello, %s!", name));
+			return RepeatStatus.FINISHED;
+		};
 	}
 }
