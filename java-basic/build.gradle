@@ -16,9 +16,12 @@ repositories {
 }
 
 dependencies {
-    testCompileOnly('junit:junit:4.12')
-    testCompileOnly('org.projectlombok:lombok:1.18.10')
+    testImplementation('junit:junit:4.13.2')
+    testImplementation('org.assertj:assertj-core:3.19.0')
+    testImplementation('org.projectlombok:lombok:1.18.10')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.10')
+    compileOnly('org.projectlombok:lombok:1.18.10')
+    annotationProcessor('org.projectlombok:lombok:1.18.10')
 
     implementation('ch.qos.logback:logback-classic:1.2.3')
     implementation('ch.qos.logback.contrib:logback-json-classic:0.1.5')
@@ -41,6 +44,10 @@ dependencies {
 
     implementation('org.codehaus.groovy:groovy-all:2.5.8')
 
-    compileOnly('org.projectlombok:lombok:1.18.10')
-    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    implementation('org.mapstruct:mapstruct:1.4.2.Final')
+    implementation('org.mapstruct:mapstruct-jdk8:1.4.2.Final')
+    compileOnly('org.mapstruct:mapstruct-processor:1.4.2.Final')
+    annotationProcessor('org.mapstruct:mapstruct-processor:1.4.2.Final')
+    testCompileOnly('org.mapstruct:mapstruct-processor:1.4.2.Final')
+    testAnnotationProcessor('org.mapstruct:mapstruct-processor:1.4.2.Final')
 }
