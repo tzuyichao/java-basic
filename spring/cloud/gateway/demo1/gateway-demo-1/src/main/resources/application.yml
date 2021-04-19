@@ -1,0 +1,41 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: movie
+          uri: # http://localhost:8080
+            lb://movie
+          predicates:
+            - Path=/aa/**
+          filters:
+            - StripPrefix=1
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "gateway,info,health"
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:3000/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
