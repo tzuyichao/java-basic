@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: movie
+
+eureka:
+  instance:
+    appname: movie
+    prefer-ip-address: true
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://localhost:3000/eureka/
