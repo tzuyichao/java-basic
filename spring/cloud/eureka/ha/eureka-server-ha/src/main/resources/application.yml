@@ -1,0 +1,41 @@
+server:
+  port: 8761
+
+spring:
+  profiles: profile1
+  application:
+    name: eureka-server-ha
+eureka:
+  instance:
+    hostname: host1
+  client:
+    service-url:
+      defaultZone: http://host2:8762/eureka/, http://host3:8763/eureka/
+---
+server:
+  port: 8762
+
+spring:
+  profiles: profile2
+  application:
+    name: eureka-server-ha
+eureka:
+  instance:
+    hostname: host2
+  client:
+    service-url:
+      defaultZone: http://host1:8761/eureka/, http://host3:8763/eureka/
+---
+server:
+  port: 8763
+
+spring:
+  profiles: profile3
+  application:
+    name: eureka-server-ha
+eureka:
+  instance:
+    hostname: host3
+  client:
+    service-url:
+      defaultZone: http://host2:8762/eureka/, http://host1:8761/eureka/
