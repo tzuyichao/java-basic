@@ -29,4 +29,10 @@ public class ListTest {
         set.add(List.of(2, 2));
         assertEquals(2, set.size());
     }
+
+    @Test(expected = NullPointerException.class)
+    public void test_addAll() {
+        List<String> all = new ArrayList<>();
+        all.addAll(null);
+    }
 }
