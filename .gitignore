@@ -29,3 +29,5 @@ HELP.md
 ### Mac ###
 .DS_Store
 
+/target/
+/build/
