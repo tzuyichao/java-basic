@@ -31,3 +31,5 @@ HELP.md
 
 /target/
 /build/
+deeplearning4j/dnn-lab/target/
+deeplearning4j/word2vec-intro/target/
