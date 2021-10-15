@@ -1,5 +1,8 @@
 # Memo
 
+建立Quarkus的Gradle專案
+
+
     mvn io.quarkus:quarkus-maven-plugin:2.3.0.Final:create -DprojectGroupId=org.acme -DprojectArtifactId=getting-started -DclassName="org.acme.quickstart.GreetingResource" -Dpath="/hello" -DbuildTool=gradle
 
 
