@@ -1,5 +1,10 @@
 ## 7entity的說明
 
+這是個存在已久的API，會拿這個來測試寫法是因為有點奇特。HTTP header <code>Accept</code>設
+定不同的值會收到不一樣的結果。而且他回傳的結果雖然是json，但是<code>Content-Type</code>設
+定卻是<code>text/plain</code>，會需要特殊處理一下，否則spring預設的decoder會無法處理這
+種狀況，當然也可以取得字串然後自己再用Jackson parse，但這裡不用這個解法。
+
 1. headers設定
    
     這個API如果Header沒有設定"text/plain, application/json, application/*+json, */*"
