@@ -15,6 +15,19 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    jmh {
+        java.srcDirs = ['src/jmh/java']
+        resources.srcDirs = ['src/jmh/resources']
+        compileClasspath += sourceSets.main.runtimeClasspath
+    }
+}
+
+task jmh(type: JavaExec, dependsOn: jmhClasses) {
+    main = 'org.openjdk.jmh.Main'
+    classpath = sourceSets.jmh.compileClasspath + sourceSets.jmh.runtimeClasspath
+}
+
 dependencies {
     testImplementation('junit:junit:4.13.2')
     testImplementation('org.assertj:assertj-core:3.19.0')
