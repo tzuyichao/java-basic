@@ -8,8 +8,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+import reactor.test.StepVerifier;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -23,6 +25,11 @@ public class HelloApplication {
 	}
 
 	@Bean
+	R2dbcEntityTemplate r2dbcEntityTemplate(ConnectionFactory connectionFactory) {
+		return new R2dbcEntityTemplate(connectionFactory);
+	}
+
+	@Bean
 	ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
 		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
 
@@ -33,7 +40,7 @@ public class HelloApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CustomerRepository repository) {
+	public CommandLineRunner demo(CustomerRepository repository, R2dbcEntityTemplate template) {
 		return args -> {
 			repository.saveAll(Arrays.asList(
 					new Customer("Chloe", "O'Brian"),
@@ -59,6 +66,21 @@ public class HelloApplication {
 					.doOnNext(customer -> {
 						log.info(customer.toString());
 					}).blockLast(Duration.ofSeconds(10));
+			log.info("");
+			log.info("R2DBCEntityTemplate: {}, Database Client: {}", template, template.getDatabaseClient().toString());
+			template.insert(Person.class)
+					.using(new Person("joe", "Joe", 34))
+					.as(StepVerifier::create)
+					.expectNextCount(1)
+					.verifyComplete();
+			template.select(Person.class)
+					.first()
+					.doOnNext(person -> {
+						log.info(person.toString());
+					})
+					.as(StepVerifier::create)
+					.expectNextCount(1)
+					.verifyComplete();
 		};
 	}
 }
