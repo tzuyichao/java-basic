@@ -4,6 +4,7 @@ import io.r2dbc.h2.H2Connection;
 import io.r2dbc.h2.H2ConnectionConfiguration;
 import io.r2dbc.h2.H2ConnectionFactory;
 import io.r2dbc.h2.H2ConnectionOption;
+import io.r2dbc.spi.ConnectionFactories;
 import reactor.core.publisher.Mono;
 
 public class SimpleConnectionApp {
