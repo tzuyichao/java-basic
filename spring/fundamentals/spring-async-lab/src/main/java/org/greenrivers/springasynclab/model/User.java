@@ -3,7 +3,7 @@ package org.greenrivers.springasynclab.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javafx.scene.paint.Color;
+import java.awt.*;
 
 @Getter @Setter
 public class User {
