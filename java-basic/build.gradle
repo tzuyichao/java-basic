@@ -10,8 +10,8 @@ tasks.withType(JavaCompile) {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
 }
 
 repositories {
@@ -35,9 +35,9 @@ dependencies {
     testImplementation('junit:junit:4.13.2')
     testImplementation('org.assertj:assertj-core:3.19.0')
     testImplementation('org.projectlombok:lombok:1.18.10')
-    testAnnotationProcessor('org.projectlombok:lombok:1.18.10')
-    compileOnly('org.projectlombok:lombok:1.18.10')
-    annotationProcessor('org.projectlombok:lombok:1.18.10')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.22')
+    compileOnly('org.projectlombok:lombok:1.18.22')
+    annotationProcessor('org.projectlombok:lombok:1.18.22')
 
     implementation('ch.qos.logback:logback-classic:1.2.3')
     implementation('ch.qos.logback.contrib:logback-json-classic:0.1.5')
