@@ -2,6 +2,7 @@ package concurrent.forkjoin;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
@@ -27,10 +28,19 @@ public class SumRecursiveTask extends RecursiveTask<Integer> {
     }
 
     private Integer partialSum(List<Integer> worklist) {
-        return 0;
+        int sum = worklist.stream()
+                .mapToInt(e -> e)
+                .sum();
+        return sum;
     }
 
     private List<SumRecursiveTask> createSubtasks() {
-        return null;
+        List<SumRecursiveTask> subTasks = new ArrayList<>();
+        int size = worklist.size();
+        List<Integer> worklistLeft = worklist.subList(0, (size+1)/2);
+        List<Integer> worklistRight = worklist.subList((size+1)/2, size);
+        subTasks.add(new SumRecursiveTask(worklistLeft));
+        subTasks.add(new SumRecursiveTask(worklistRight));
+        return subTasks;
     }
 }
