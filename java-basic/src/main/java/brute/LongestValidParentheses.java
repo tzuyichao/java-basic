@@ -29,9 +29,11 @@ public class LongestValidParentheses {
             int max = 0;
             for(int i=0; i<l-1; i++) {
                 for(int j=l; j>i; j--) {
-                    if(isValid(s.substring(i, j))) {
-                        if(max < j-i) {
-                            max = j-i;
+                    if(j-i > max) {
+                        if(isValid(s.substring(i, j))) {
+                            if(max < j-i) {
+                                max = j-i;
+                            }
                         }
                     }
                 }
