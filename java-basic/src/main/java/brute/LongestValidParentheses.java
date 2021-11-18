@@ -2,6 +2,7 @@ package brute;
 
 /**
  * LeetCode: 32 Longest Valid Parentheses
+ * Time Limit Exceeded
  *
  */
 public class LongestValidParentheses {
@@ -25,15 +26,17 @@ public class LongestValidParentheses {
         if(l < 2) {
             return 0;
         } else {
+            int max = 0;
             for(int i=0; i<l-1; i++) {
-                for(int j=l; j>1; j--) {
+                for(int j=l; j>i; j--) {
                     if(isValid(s.substring(i, j))) {
-                        return j-i;
+                        if(max < j-i) {
+                            max = j-i;
+                        }
                     }
                 }
             }
+            return max;
         }
-
-        return 0;
     }
 }

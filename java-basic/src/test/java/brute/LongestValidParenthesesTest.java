@@ -25,4 +25,18 @@ public class LongestValidParenthesesTest {
         assertThat(solution.longestValidParentheses(""))
                 .isEqualTo(0);
     }
+
+    @Test
+    public void testHappy4() {
+        LongestValidParentheses solution = new LongestValidParentheses();
+        assertThat(solution.longestValidParentheses("))))((()(("))
+                .isEqualTo(2);
+    }
+
+    @Test
+    public void testHappy5() {
+        LongestValidParentheses solution = new LongestValidParentheses();
+        assertThat(solution.longestValidParentheses(")(())))(())())"))
+                .isEqualTo(6);
+    }
 }
