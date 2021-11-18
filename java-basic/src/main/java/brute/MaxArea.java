@@ -2,23 +2,23 @@ package brute;
 
 /**
  * 11. Container With Most Water
- * Time Limit Exceeded version
+ *
+ * two point version
+ * Runtime: 3 ms, faster than 85.45% of Java online submissions for Container With Most Water.
+ * Memory Usage: 52.6 MB, less than 73.55% of Java online submissions for Container With Most Water.
  */
 public class MaxArea {
     public int maxArea(int[] height) {
         int res = 0;
+        int left = 0;
+        int right = height.length - 1;
 
-        for(int i=0; i<height.length-1; i++) {
-            for(int j=i+1; j<height.length; j++) {
-                int p;
-                if(height[i] > height[j]) {
-                    p = height[j] * (j-i);
-                } else {
-                    p = height[i] * (j-i);
-                }
-                if(p > res) {
-                    res = p;
-                }
+        while(left < right) {
+            res = Math.max(res, Math.min(height[right], height[left]) * (right-left));
+            if(height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
             }
         }
 
