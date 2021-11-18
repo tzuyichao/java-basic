@@ -43,7 +43,8 @@ public class LongestValidParenthesesTest {
                 .isEqualTo(6);
     }
 
-    // PT0.2198947S
+    // Time Limit Exceeded: PT0.2198947S
+    // Dynamic Programming Version: PT0.0468736S
     @Test
     public void testHappy6() {
         LongestValidParentheses solution = new LongestValidParentheses();
