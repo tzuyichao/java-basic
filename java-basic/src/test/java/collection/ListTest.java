@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -34,5 +35,11 @@ public class ListTest {
     public void test_addAll() {
         List<String> all = new ArrayList<>();
         all.addAll(null);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_list_of() {
+        var l = List.of(1, 2, 3);
+        l.add(4);
     }
 }
