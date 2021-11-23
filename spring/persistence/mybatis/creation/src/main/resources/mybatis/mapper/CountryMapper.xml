@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basic2.mapper.CountryMapper" >
+    <resultMap id="CountryResultMap" type="com.example.basic2.entity.Country">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name
+    </sql>
+
+    <select id="getAll" resultMap="CountryResultMap">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM countries
+    </select>
+</mapper>
