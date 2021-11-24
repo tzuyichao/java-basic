@@ -1,7 +1,13 @@
 package org.acme.quickstart;
 
+import org.acme.quickstart.validator.JvmLanguage;
+
+import javax.validation.constraints.NotBlank;
+
 public class Developer {
     private String name;
+    @JvmLanguage
+    @NotBlank
     private String favoriteLanguage;
     private int age;
 

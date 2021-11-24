@@ -1,5 +1,6 @@
 package org.acme.quickstart;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -13,7 +14,7 @@ public class DeveloperResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addDeveloper(Developer developer) {
+    public Response addDeveloper(@Valid Developer developer) {
         developers.add(developer);
         return Response.ok().build();
     }
