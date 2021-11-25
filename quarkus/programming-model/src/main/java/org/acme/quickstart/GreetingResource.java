@@ -29,6 +29,7 @@ public class GreetingResource {
     }
 
     @GET
+    @Path("/l")
     @Produces(MediaType.TEXT_PLAIN)
     public String helloWithLocale(@QueryParam("locale") String locale) {
         return helloService.getGreeting(locale);

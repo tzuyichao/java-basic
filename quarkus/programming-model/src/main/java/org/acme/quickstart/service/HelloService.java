@@ -1,5 +1,7 @@
 package org.acme.quickstart.service;
 
+import org.acme.quickstart.interceptor.LogEvent;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,6 +21,7 @@ public class HelloService {
         return "Hello";
     }
 
+    @LogEvent
     public String getGreeting(String locale) {
         if(locale.startsWith("en")) {
             return "Hello from " + en_US.getDisplayCountry();
