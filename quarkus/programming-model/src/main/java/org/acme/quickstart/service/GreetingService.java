@@ -12,4 +12,8 @@ public class GreetingService {
             return "Hey ladies and gentlemen";
         }
     }
+
+    public String message() {
+        return "Hi!";
+    }
 }

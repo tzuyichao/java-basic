@@ -1,5 +1,6 @@
 package org.acme.quickstart;
 
+import org.acme.quickstart.service.GreetingService;
 import org.acme.quickstart.service.HelloService;
 import org.acme.quickstart.service.RecommendationService;
 
@@ -14,12 +15,21 @@ import java.util.List;
 @Path("/hello")
 public class GreetingResource {
     HelloService helloService;
+    GreetingService greetingService;
     private RecommendationService recommendationService;
 
     @Inject
-    public GreetingResource(HelloService helloService, RecommendationService recommendationService) {
+    public GreetingResource(HelloService helloService, RecommendationService recommendationService, GreetingService greetingService) {
         this.helloService = helloService;
         this.recommendationService = recommendationService;
+        this.greetingService = greetingService;
+    }
+
+    @GET
+    @Path("/greeting")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String greeting() {
+        return greetingService.message();
     }
 
     @GET
