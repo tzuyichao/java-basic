@@ -3,6 +3,7 @@ package collection;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
@@ -41,5 +42,35 @@ public class ListTest {
     public void test_list_of() {
         var l = List.of(1, 2, 3);
         l.add(4);
+    }
+
+    @Test
+    public void test_quiz2_chapter5_3() {
+        List<Integer> number1 = Arrays.asList(1, 2, 3);
+        List<Integer> number2 = Arrays.asList(3, 4);
+
+        List<int[]> result = number1.stream()
+                .flatMap(it -> {
+                    return number2.stream().map(it2 -> new int[] {it, it2});
+                }).collect(Collectors.toList());
+        assertThat(result)
+                .isNotNull()
+                .satisfies(r -> assertThat(r.size()).isEqualTo(6));
+    }
+
+    @Test
+    public void test_quiz3_chapter5_3() {
+        List<Integer> number1 = Arrays.asList(1, 2, 3);
+        List<Integer> number2 = Arrays.asList(3, 4);
+        List<int[]> result = number1.stream()
+                .flatMap(it -> {
+                    return number2.stream()
+                            .filter(it2 -> (it2 + it) % 3 == 0)
+                            .map(it2 -> new int[] {it, it2});
+                })
+                .collect(Collectors.toList());
+        assertThat(result)
+                .isNotNull()
+                .satisfies(r -> assertThat(r.size()).isEqualTo(2));
     }
 }
