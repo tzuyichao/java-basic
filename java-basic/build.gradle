@@ -16,6 +16,7 @@ java {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 sourceSets {
