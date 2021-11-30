@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.filtering;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.toList;
 
 public class GroupingLab {
     public enum CaloricLevel { DIET, NORMAL, FAT }
@@ -21,5 +24,13 @@ public class GroupingLab {
                 })
         );
         System.out.println(dishesByCaloricLevel);
+
+        Map<Dish.Type, List<Dish>> caloricDishesByType = Dishes.getMenu().stream()
+                .collect(groupingBy(Dish::getType, filtering(dish -> dish.getCalories() > 500, toList())));
+        System.out.println(caloricDishesByType);
+
+        Map<Dish.Type, Long> typesCount = Dishes.getMenu().stream()
+                .collect(groupingBy(Dish::getType, counting()));
+        System.out.println(typesCount);
     }
 }
