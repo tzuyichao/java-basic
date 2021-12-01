@@ -11,8 +11,8 @@ public final class Dishes {
                 new Dish("beef", false, 625, Dish.Type.MEAT),
                 new Dish("chicken", false, 497, Dish.Type.MEAT),
                 new Dish("pizza", false, 765, Dish.Type.OTHER),
-                new Dish("rice", false, 300, Dish.Type.OTHER),
-                new Dish("french fries", false, 880, Dish.Type.OTHER)
+                new Dish("rice", true, 300, Dish.Type.OTHER),
+                new Dish("french fries", true, 880, Dish.Type.OTHER)
         );
     }
 }
