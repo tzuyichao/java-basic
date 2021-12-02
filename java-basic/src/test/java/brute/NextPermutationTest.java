@@ -40,4 +40,11 @@ public class NextPermutationTest {
         solver.nextPermutation(nums);
         verifyEquals(new int[] {1}, nums);
     }
+
+    @Test
+    public void simple5() {
+        int[] nums = new int[] {6, 5, 4};
+        solver.nextPermutation(nums);
+        verifyEquals(new int[] {4, 5, 6}, nums);
+    }
 }

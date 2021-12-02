@@ -9,38 +9,44 @@ import java.util.List;
  */
 public class NextPermutation {
     public void nextPermutation(int[] nums) {
-        if(nums.length == 1) {
+        int n = nums.length;
+        if(n == 0 || n == 1) {
             return;
         }
-        int max = -1;
-        List<Integer> maxPos = new ArrayList<>();
-
-        for(int i=0; i<nums.length; i++) {
-            if(nums[i] > max) {
-                max = nums[i];
-                maxPos.clear();
-                maxPos.add(i);
-            }
-            if(nums[i] == max) {
-                maxPos.add(i);
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i-1] <nums[i]) {
+                n = i;
             }
         }
-
-        if(maxPos.contains(0)) {
-            Arrays.sort(nums);
-        }
-
-        for(int i=nums.length-2; i>0; i--) {
-            if (nums[nums.length - 1] > nums[i]) {
-                int temp = nums[nums.length - 1];
-                int[] move = Arrays.copyOfRange(nums, i, nums.length-1);
-
-                nums[i] = temp;
-                int idx = 0;
-                for(int j=i+1; j<nums.length; j++) {
-                    nums[j] = move[idx];
-                    idx+=1;
+        if(n == nums.length) {
+            for(int i=0; i*2+1<nums.length; i++) {
+                int temp = nums[i];
+                nums[i] = nums[nums.length-i-1];
+                nums[nums.length - i -1] = temp;
+            }
+        } else if(n+1 == nums.length) {
+            int temp = nums[n-1];
+            nums[n-1] = nums[n];
+            nums[n] = temp;
+        } else {
+            int base = nums[n-1];
+            int minValue = nums[n];
+            int minIndex = n;
+            for(int i=n+1; i<nums.length; i++) {
+                if(nums[i] > base && nums[i] <= minValue) {
+                    minValue = nums[i];
+                    minIndex = i;
                 }
+            }
+            int temp = nums[n-1];
+            nums[n-1] = nums[minIndex];
+            nums[minIndex] = temp;
+
+            int length = (nums.length - n)/2;
+            for(int i=0; i<length; i++) {
+                temp = nums[i+n];
+                nums[i+n] = nums[nums.length-i-1];
+                nums[nums.length-i-1] = temp;
             }
         }
     }
