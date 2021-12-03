@@ -1,10 +1,12 @@
 package brute;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+@Ignore
 public class BestTimeToBuyAndSellStock2Test {
     BestTimeToBuyAndSellStock2 solver;
 
