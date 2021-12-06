@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static collection.PartitioningLab.partitionPrimes;
 
@@ -30,5 +31,15 @@ public class CollectorHarness {
     public static void main(String[] args) {
         estimate(() -> partitionPrimesWithCustomCollector(1_000_000));
         estimate(() -> partitionPrimes(1_000_000));
+        System.out.println("Fork Join Sum:");
+        estimate(() -> ForkJoinSumCalculator.forkJoinSum(100_000_000));
+        System.out.println("Sequential Sum:");
+        estimate(() -> {
+            long[] numbers = LongStream.rangeClosed(0, 100_000_000).toArray();
+            long sum = 0;
+            for(int i=0; i<numbers.length; i++) {
+                sum += numbers[i];
+            }
+        });
     }
 }
