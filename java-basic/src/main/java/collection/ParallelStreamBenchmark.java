@@ -3,6 +3,7 @@ package collection;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -24,6 +25,13 @@ public class ParallelStreamBenchmark {
     @Benchmark
     public long parallelSum() {
         return Stream.iterate(1L, i -> i + 1).limit(N)
+                .parallel()
+                .reduce(0L, Long::sum);
+    }
+
+    @Benchmark
+    public long parallelRangeSum() {
+        return LongStream.rangeClosed(1, N)
                 .parallel()
                 .reduce(0L, Long::sum);
     }
