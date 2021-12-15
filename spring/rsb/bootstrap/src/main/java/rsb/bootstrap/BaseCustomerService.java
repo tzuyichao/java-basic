@@ -31,7 +31,7 @@ public class BaseCustomerService implements CustomerService {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             this.jdbcTemplate.update(con -> {
                 PreparedStatement ps = con.prepareStatement(
-                        "INSERT INTO customers(name) values (?)",
+                        "INSERT INTO customers (name) VALUES (?)",
                         Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, name);
                 return ps;
