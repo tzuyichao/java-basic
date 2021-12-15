@@ -15,7 +15,7 @@
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <flink.version>1.11.2</flink.version>
-        <log4j.version>2.13.3</log4j.version>
+        <log4j.version>[2.16.0,)</log4j.version>
         <scala.binary.version>2.12</scala.binary.version>
     </properties>
 
