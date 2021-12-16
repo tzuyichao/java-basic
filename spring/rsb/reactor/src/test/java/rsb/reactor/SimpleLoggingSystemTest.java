@@ -11,7 +11,7 @@ public class SimpleLoggingSystemTest {
 
     @Test
     public void basic() {
-        log.info("logging system setting: {}", System.getProperty(SYSTEM_PROPERTY));
+        log.info("logging system setting({}): {}", SYSTEM_PROPERTY, System.getProperty(SYSTEM_PROPERTY));
         LoggingSystem loggingSystem = LoggingSystem.get(this.getClass().getClassLoader());
         log.info("default logging System: {}", loggingSystem);
     }
