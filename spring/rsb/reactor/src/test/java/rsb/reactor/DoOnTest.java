@@ -39,5 +39,9 @@ public class DoOnTest {
                 .verify();
 
         signals.forEach(s -> log.info("Signal: {}", s));
+        nextValues.forEach(n -> log.info("nextVal: {}", n));
+        subscriptions.forEach(s -> log.info("subscription: {}", s));
+        exceptions.forEach(e -> log.info("exception: ", e));
+        finallySignals.forEach(f -> log.info("final signal: {}", f));
     }
 }
