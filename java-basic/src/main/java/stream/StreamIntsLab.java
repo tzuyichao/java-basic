@@ -15,5 +15,13 @@ public class StreamIntsLab {
                 .mapToObj(n -> String.valueOf((char) n))
                 .collect(Collectors.joining());
         System.out.println(result);
+
+        // default randomNumberOrigin = Integer.MAX_VALUE, randomNumberBound = 0
+        // => RandomIntsSpliterator => rng.internalNextInt(origin, bound)
+        // => 最終會用Random#nextInt()
+        IntStream defaultRandomIntStream = new Random().ints();
+        defaultRandomIntStream
+                .limit(20)
+                .forEach(n -> log.info("n: {}", n));
     }
 }
