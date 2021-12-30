@@ -16,6 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
+		<logback.version>1.2.10</logback.version>
 	</properties>
 
 	<dependencies>
@@ -58,13 +59,13 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.10</version>
+			<version>${logback.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
-			<version>1.2.10</version>
+			<version>${logback.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
