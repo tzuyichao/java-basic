@@ -1,14 +1,13 @@
 package concurrent.forkjoin;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
+import java.util.logging.Logger;
 
-@Slf4j
 public class SumRecursiveTask extends RecursiveTask<Integer> {
+    private static final Logger logger = Logger.getLogger(SumRecursiveTask.class.getName());
     private static final int THRESHOLD = 10;
     private final List<Integer> worklist;
 
@@ -31,6 +30,7 @@ public class SumRecursiveTask extends RecursiveTask<Integer> {
         int sum = worklist.stream()
                 .mapToInt(e -> e)
                 .sum();
+        logger.info(() -> "Partial sum: " + worklist + " = " + sum + "\tThread: " + Thread.currentThread().getName());
         return sum;
     }
 
