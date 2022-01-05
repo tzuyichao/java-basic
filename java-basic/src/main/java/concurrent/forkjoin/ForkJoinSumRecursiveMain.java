@@ -6,8 +6,8 @@ import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.logging.Logger;
 
-public class ForkJoinMain {
-    private static final Logger logger = Logger.getLogger(ForkJoinMain.class.getName());
+public class ForkJoinSumRecursiveMain {
+    private static final Logger logger = Logger.getLogger(ForkJoinSumRecursiveMain.class.getName());
     public static void main(String[] args) {
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
 
