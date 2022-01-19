@@ -78,6 +78,31 @@ public class FlatMapTest {
                 .verifyComplete();
     }
 
+    private Mono<String> getMonoData() {
+        return Mono.just("Test").delayElement(Duration.ofMillis(200));
+    }
+
+    private Flux<String> getFluxData(String str) {
+        var idx = new Integer[] {1, 2, 3, 4};
+        return Flux.fromArray(idx)
+                .map(elem -> str + "-" + elem)
+                .delayElements(Duration.ofMillis(100));
+    }
+
+    @Test
+    public void testZipWhen() {
+        var data = getMonoData();
+        var result = data.zipWhen(d -> {
+            return getFluxData(d).collectList();
+        }).map(tuple -> {
+           return tuple.getT1() + "-" + tuple.getT2();
+        });
+        //System.out.println(result.block());
+        StepVerifier.create(result)
+                .expectNext("Test-[Test-1, Test-2, Test-3, Test-4]")
+                .verifyComplete();
+    }
+
     @AllArgsConstructor
     static class Pair {
         private int id;
