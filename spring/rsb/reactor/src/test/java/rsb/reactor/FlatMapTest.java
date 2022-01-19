@@ -27,7 +27,7 @@ public class FlatMapTest {
     }
 
     private Flux<Integer> delayReplyFor(Integer i, long delay) {
-        log.info(() -> i + " " + delay);
+        log.info(() -> Thread.currentThread().getName() + ": " + i + " " + delay);
         return Flux.just(i).delayElements(Duration.ofMillis(delay));
     }
 
@@ -37,6 +37,17 @@ public class FlatMapTest {
                 .just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
                 .flatMap(it -> this.delayReplyFor(it.id, it.delay))
                 .publishOn(Schedulers.fromExecutor(Executors.newFixedThreadPool(3)))
+                .log();
+        StepVerifier.create(data)
+                .expectNext(3, 2, 1)
+                .verifyComplete();
+    }
+
+    @Test
+    public void testMap2() {
+        Flux<Integer> data = Flux
+                .just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
+                .flatMap(it -> this.delayReplyFor(it.id, it.delay))
                 .log();
         StepVerifier.create(data)
                 .expectNext(3, 2, 1)
