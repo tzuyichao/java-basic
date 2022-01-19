@@ -54,6 +54,30 @@ public class FlatMapTest {
                 .verifyComplete();
     }
 
+    @Test
+    public void testMap3() {
+        Flux<Integer> data = Flux
+                .just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
+                .flatMap(it -> this.delayReplyFor(it.id, it.delay))
+                .publishOn(Schedulers.parallel())
+                .log();
+        StepVerifier.create(data)
+                .expectNext(3, 2, 1)
+                .verifyComplete();
+    }
+
+    @Test
+    public void testMap4() {
+        Flux<Integer> data = Flux
+                .just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
+                .flatMap(it -> this.delayReplyFor(it.id, it.delay))
+                .publishOn(Schedulers.newBoundedElastic(10, 10, "elastic-bounded"))
+                .log();
+        StepVerifier.create(data)
+                .expectNext(3, 2, 1)
+                .verifyComplete();
+    }
+
     @AllArgsConstructor
     static class Pair {
         private int id;
