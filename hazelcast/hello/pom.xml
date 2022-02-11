@@ -10,7 +10,7 @@
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<hazelcast.vertsion>3.12.1</hazelcast.vertsion>
+		<hazelcast.vertsion>4.0.5</hazelcast.vertsion>
 	</properties>
 	<dependencies>
 		<dependency>
