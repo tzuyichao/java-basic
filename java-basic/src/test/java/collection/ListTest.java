@@ -11,6 +11,19 @@ import static org.junit.Assert.assertTrue;
 
 public class ListTest {
     @Test
+    public void test_equals_of_list_1() {
+        assertThat(List.of(6, 2).stream().sorted().collect(Collectors.toList()).equals(List.of(2, 6)))
+                .isTrue();
+    }
+
+    @Test
+    public void test_equals_of_list_2() {
+        var data = List.of(List.of(1, 4), List.of(2, 6), List.of(1, 2));
+        assertThat(data.contains(List.of(2, 6)))
+                .isTrue();
+    }
+
+    @Test
     public void simple_add_null() {
         List<Integer> l = new ArrayList<>();
         l.add(null);
