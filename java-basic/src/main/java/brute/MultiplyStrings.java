@@ -1,6 +1,12 @@
-package basic;
+package brute;
 
-public class ArrayLab {
+/**
+ * 43. Multiply Strings
+ *
+ * Runtime: 1 ms, faster than 100.00% of Java online submissions for Multiply Strings.
+ * Memory Usage: 42.4 MB, less than 37.57% of Java online submissions for Multiply Strings.
+ */
+public class MultiplyStrings {
     public int[] reverse(int[] arr) {
         var l = arr.length;
         var r = new int[l];
@@ -51,5 +57,28 @@ public class ArrayLab {
         }
 
         return r;
+    }
+
+    public String multiply(String num1, String num2) {
+        if("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+        int[] n1 = toIntArray(num1);
+        int[] n2 = toIntArray(num2);
+        int[] r = mul(n1, n2);
+
+        StringBuilder result = new StringBuilder();
+        boolean leadingZero = r[0] == 0?true:false;
+        for(int i=0; i<r.length; i++) {
+            if(leadingZero) {
+                if(r[i] != 0) {
+                    result.append(r[i]);
+                    leadingZero = false;
+                }
+            } else {
+                result.append(r[i]);
+            }
+        }
+        return result.toString();
     }
 }
