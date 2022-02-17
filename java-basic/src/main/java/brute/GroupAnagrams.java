@@ -13,16 +13,16 @@ import java.util.stream.Collectors;
  * v3
  * Runtime: 15 ms, faster than 46.98% of Java online submissions for Group Anagrams.
  * Memory Usage: 56.8 MB, less than 15.57% of Java online submissions for Group Anagrams.
+ *
+ * v4
+ * Runtime: 9 ms, faster than 76.88% of Java online submissions for Group Anagrams.
+ * Memory Usage: 55.8 MB, less than 24.41% of Java online submissions for Group Anagrams.
  */
 public class GroupAnagrams {
     public String profile(String str) {
         char[] chars = str.toCharArray();
         Arrays.sort(chars);
-        StringBuilder sb = new StringBuilder();
-        for(char v : chars) {
-            sb.append(v);
-        }
-        return sb.toString();
+        return new String(chars);
     }
 
     public List<List<String>> groupAnagrams(String[] strs) {
