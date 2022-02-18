@@ -9,15 +9,15 @@ public class JumpGame2 {
         int l = nums.length;
         int c = 0;
         int step = 0;
-        int i = 0;
-        while (c < l - 1) {
-            step++;
-            int pre = c;
-            for (; i <= pre; i++) {
-                c = Math.max(c, i + nums[i]);
-            }
-            if (pre == c) {
-                return -1;
+        int last = 0;
+        for(int i=0; i<l-1; i++) {
+            c = Math.max(c, i+nums[i]);
+            if(i == last) {
+                last = c;
+                step++;
+                if(c >= l-1) {
+                    break;
+                }
             }
         }
         return step;
