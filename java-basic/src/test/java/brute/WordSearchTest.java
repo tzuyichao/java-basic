@@ -57,4 +57,14 @@ public class WordSearchTest {
         assertThat(solver.exist(new char[][] {{'A', 'B', 'C', 'E'}, {'S', 'F', 'E', 'S'}, {'A', 'D', 'E', 'E'}}, "ABCESEEEFS"))
                 .isTrue();
     }
+
+    @Test
+    public void test_happy_8() {
+        WordSearch solver = new WordSearch();
+        assertThat(solver.exist(new char[][] {{'o', 'a', 'a', 'n'},
+                {'e', 't', 'a', 'e'},
+                {'i', 'h', 'k', 'r'},
+                {'i', 'f', 'l', 'v'}}, "pea"))
+                .isFalse();
+    }
 }
