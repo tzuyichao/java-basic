@@ -4,6 +4,10 @@ package brute;
  * 63. Unique Paths II
  * https://leetcode.com/problems/unique-paths-ii/
  *
+ * 注意事項
+ * 1. 初始化狀態時要注意障礙物的情形
+ * 2. 障礙物放在start和end的情形
+ *
  * Runtime: 1 ms, faster than 59.46% of Java online submissions for Unique Paths II.
  * Memory Usage: 42.4 MB, less than 14.15% of Java online submissions for Unique Paths II.
  */
