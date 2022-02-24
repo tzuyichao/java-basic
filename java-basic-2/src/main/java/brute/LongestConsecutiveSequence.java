@@ -1,8 +1,6 @@
 package brute;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -10,6 +8,8 @@ import java.util.stream.Collectors;
 /**
  * 128. Longest Consecutive Sequence
  * https://leetcode.com/problems/longest-consecutive-sequence/
+ *
+ * Time Limit Exceeded
  *
  * Time Limit Exceeded
  */
@@ -21,20 +21,18 @@ public class LongestConsecutiveSequence {
         }
         var connect = new HashMap<Integer, Integer>();
         for(var num: nums) {
-            if(!connect.containsKey(num)) {
-                connect.put(num, num);
-            }
+            connect.put(num, num);
         }
 
-        for(var num: nums) {
-            if(connect.containsKey(num+1)) {
+        for(var num: connect.keySet()) {
+            if(connect.containsKey(num+1) && connect.get(num+1) == num+1) {
                 Integer p = connect.get(num+1);
                 var idList = connect.entrySet().stream().filter(elem -> elem.getValue()==p).map(Map.Entry::getKey).collect(Collectors.toList());
                 for(int id: idList) {
                     connect.put(id, connect.get(num));
                 }
             }
-            if(connect.containsKey(num-1)) {
+            if(connect.containsKey(num-1) && connect.get(num-1) == num-1) {
                 Integer p = connect.get(num);
                 var idList = connect.entrySet().stream().filter(elem -> elem.getValue()==p).map(Map.Entry::getKey).collect(Collectors.toList());
                 for(int id: idList) {
