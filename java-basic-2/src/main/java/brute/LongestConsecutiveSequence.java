@@ -32,13 +32,6 @@ public class LongestConsecutiveSequence {
                     connect.put(id, connect.get(num));
                 }
             }
-            if(connect.containsKey(num-1) && connect.get(num-1) == num-1) {
-                Integer p = connect.get(num);
-                var idList = connect.entrySet().stream().filter(elem -> elem.getValue()==p).map(Map.Entry::getKey).collect(Collectors.toList());
-                for(int id: idList) {
-                    connect.put(id, connect.get(num-1));
-                }
-            }
         }
 
         long max = connect.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).values().stream().max(Long::compareTo).get();
