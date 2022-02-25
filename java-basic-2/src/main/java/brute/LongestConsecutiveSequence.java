@@ -1,6 +1,7 @@
 package brute;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
  * Time Limit Exceeded
  *
  * Time Limit Exceeded
+ *
+ * Runtime: 27 ms, faster than 76.15% of Java online submissions for Longest Consecutive Sequence.
+ * Memory Usage: 60.8 MB, less than 50.27% of Java online submissions for Longest Consecutive Sequence.
  */
 public class LongestConsecutiveSequence {
 
@@ -19,23 +23,22 @@ public class LongestConsecutiveSequence {
         if(nums.length == 0) {
             return 0;
         }
-        var connect = new HashMap<Integer, Integer>();
+        var store = new HashSet<Integer>();
         for(var num: nums) {
-            connect.put(num, num);
+            store.add(num);
         }
-
-        for(var num: connect.keySet()) {
-            if(connect.containsKey(num+1) && connect.get(num+1) == num+1) {
-                Integer p = connect.get(num+1);
-                var idList = connect.entrySet().stream().filter(elem -> elem.getValue()==p).map(Map.Entry::getKey).collect(Collectors.toList());
-                for(int id: idList) {
-                    connect.put(id, connect.get(num));
+        int res = 0;
+        for(var num: store) {
+            if(!store.contains(num+1)) {
+                var c = num;
+                var cConsecutive = 1;
+                while(store.contains(c-1)) {
+                    c -= 1;
+                    cConsecutive += 1;
                 }
+                res = Math.max(res, cConsecutive);
             }
         }
-
-        long max = connect.values().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).values().stream().max(Long::compareTo).get();
-
-        return (int)max;
+        return res;
     }
 }
