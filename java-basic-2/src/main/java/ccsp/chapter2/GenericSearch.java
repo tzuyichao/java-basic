@@ -27,7 +27,9 @@ public class GenericSearch {
 
         @Override
         public int compareTo(Node<T> o) {
-            return 0;
+            Double mine = cost + heuristic;
+            Double their = o.cost + o.heuristic;
+            return mine.compareTo(their);
         }
     }
 }
