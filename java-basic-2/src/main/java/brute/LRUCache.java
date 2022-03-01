@@ -8,10 +8,12 @@ import java.util.*;
  *
  * Time Limit Exceeded
  *
+ * Time Limit Exceeded
+ *
  */
 public class LRUCache {
     public static final int NOT_EXIST = -1;
-    private Map<Integer, Integer> store;
+    private Map<Integer, Map.Entry<Integer, Integer>> store;
     private int capacity;
     private LinkedList<Map.Entry<Integer, Integer>> entries;
 
@@ -23,14 +25,12 @@ public class LRUCache {
 
     public int get(int key) {
         if (store.containsKey(key)) {
-            for(int i=0; i<entries.size(); i++) {
-                Map.Entry entry = entries.get(i);
-                if(entry.getKey().equals(key)) {
-                    entries.remove(i);
-                    entries.addFirst(entry);
-                }
+            Map.Entry<Integer, Integer> entry = store.get(key);
+            if(!entry.equals(entries.getFirst())) {
+                entries.remove(entry);
+                entries.addFirst(entry);
             }
-            return store.get(key);
+            return entry.getValue();
         } else {
             return NOT_EXIST;
         }
@@ -40,23 +40,23 @@ public class LRUCache {
         if(!store.containsKey(key) && store.size() >= capacity) {
             Map.Entry entry = entries.removeLast();
             store.remove(entry.getKey());
-            store.put(key, value);
             Map.Entry newEntry = new AbstractMap.SimpleEntry(key, value);
             entries.addFirst(newEntry);
+            store.put(key, newEntry);
         } else {
             if(!store.containsKey(key)) {
                 Map.Entry newEntry = new AbstractMap.SimpleEntry(key, value);
                 entries.addFirst(newEntry);
+                store.put(key, newEntry);
             } else {
-                for(int i=0; i<entries.size(); i++) {
-                    Map.Entry entry = entries.get(i);
-                    if(entry.getKey().equals(key)) {
-                        entries.remove(i);
-                        entries.addFirst(entry);
-                    }
+                Map.Entry entry = store.get(key);
+                entry.setValue(value);
+                if(!entry.equals(entries.getFirst())) {
+                    entries.remove(entry);
+                    entries.addFirst(entry);
                 }
+                store.put(key, entry);
             }
-            store.put(key, value);
         }
     }
 }
