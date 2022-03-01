@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  *
  * Runtime: 1 ms, faster than 15.22% of Java online submissions for Unique Binary Search Trees.
  * Memory Usage: 40.4 MB, less than 31.81% of Java online submissions for Unique Binary Search Trees.
- * 
+ *
  */
 public class UniqueBinarySearchTrees {
     public int numTrees(int n) {
