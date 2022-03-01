@@ -10,53 +10,94 @@ import java.util.*;
  *
  * Time Limit Exceeded
  *
+ * Runtime: 97 ms, faster than 45.41% of Java online submissions for LRU Cache.
+ * Memory Usage: 127.3 MB, less than 55.26% of Java online submissions for LRU Cache.
+ *
  */
 public class LRUCache {
-    public static final int NOT_EXIST = -1;
-    private Map<Integer, Map.Entry<Integer, Integer>> store;
-    private int capacity;
-    private LinkedList<Map.Entry<Integer, Integer>> entries;
+    static class Node {
+        Node prev;
+        Node next;
+        Integer key;
+        Integer value;
 
-    public LRUCache(int capacity) {
-        store = new HashMap<>();
-        this.capacity = capacity;
-        entries = new LinkedList<>();
-    }
-
-    public int get(int key) {
-        if (store.containsKey(key)) {
-            Map.Entry<Integer, Integer> entry = store.get(key);
-            if(!entry.equals(entries.getFirst())) {
-                entries.remove(entry);
-                entries.addFirst(entry);
-            }
-            return entry.getValue();
-        } else {
-            return NOT_EXIST;
+        public Node(int key, int value){
+            this.key=key;
+            this.value=value;
         }
     }
 
+    Node head;
+    Node tail;
+    HashMap<Integer, Node> map = null;
+    int cap = 0;
+
+    public LRUCache(int capacity) {
+        this.cap = capacity;
+        this.map = new HashMap<>();
+    }
+
+    public int get(int key) {
+        if(map.get(key)==null){
+            return -1;
+        }
+
+        //move to tail
+        Node t = map.get(key);
+
+        removeNode(t);
+        offerNode(t);
+
+        return t.value;
+    }
+
     public void put(int key, int value) {
-        if(!store.containsKey(key) && store.size() >= capacity) {
-            Map.Entry entry = entries.removeLast();
-            store.remove(entry.getKey());
-            Map.Entry newEntry = new AbstractMap.SimpleEntry(key, value);
-            entries.addFirst(newEntry);
-            store.put(key, newEntry);
-        } else {
-            if(!store.containsKey(key)) {
-                Map.Entry newEntry = new AbstractMap.SimpleEntry(key, value);
-                entries.addFirst(newEntry);
-                store.put(key, newEntry);
-            } else {
-                Map.Entry entry = store.get(key);
-                entry.setValue(value);
-                if(!entry.equals(entries.getFirst())) {
-                    entries.remove(entry);
-                    entries.addFirst(entry);
-                }
-                store.put(key, entry);
+        if(map.containsKey(key)){
+            Node t = map.get(key);
+            t.value = value;
+
+            //move to tail
+            removeNode(t);
+            offerNode(t);
+        }else{
+            if(map.size()>=cap){
+                //delete head
+                map.remove(head.key);
+                removeNode(head);
             }
+
+            //add to tail
+            Node node = new Node(key, value);
+            offerNode(node);
+            map.put(key, node);
+        }
+    }
+
+    private void removeNode(Node n){
+        if(n.prev!=null){
+            n.prev.next = n.next;
+        }else{
+            head = n.next;
+        }
+
+        if(n.next!=null){
+            n.next.prev = n.prev;
+        }else{
+            tail = n.prev;
+        }
+    }
+
+    private void offerNode(Node n){
+        if(tail!=null){
+            tail.next = n;
+        }
+
+        n.prev = tail;
+        n.next = null;
+        tail = n;
+
+        if(head == null){
+            head = tail;
         }
     }
 }
