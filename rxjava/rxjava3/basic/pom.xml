@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>13</maven.compiler.release>
 
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>31.1-jre</guava.version>
         <rxjava3.version>3.0.3</rxjava3.version>
         <lombok.version>1.18.10</lombok.version>
         <slf4j.version>1.7.29</slf4j.version>
