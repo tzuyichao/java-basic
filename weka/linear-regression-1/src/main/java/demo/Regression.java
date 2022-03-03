@@ -11,7 +11,7 @@ import weka.core.converters.ConverterUtils.DataSource;
  */
 public class Regression {
     public static void main(String[] args) throws Exception {
-        DataSource dataSource = new DataSource("C:\\GitHub\\java-basic\\weka\\linear-regression-1\\data\\house.arff");
+        DataSource dataSource = new DataSource("data\\house.arff");
         Instances dataset = dataSource.getDataSet();
         dataset.setClassIndex(dataset.numAttributes()-1);
 
