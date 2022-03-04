@@ -35,9 +35,7 @@ public class SchedulersSubscribeOnTest {
         Scheduler scheduler = Schedulers.fromExecutor(executor);
         Mono<Integer> integerMono = Mono.just(1)
                 .subscribeOn(scheduler)
-                .doFinally(signal -> {
-                    map.forEach((k, v) -> log.info(k + "=" + v));
-                });
+                .doFinally(signal -> map.forEach((k, v) -> log.info(k + "=" + v)));
         StepVerifier.create(integerMono).expectNextCount(1).verifyComplete();
         var atomicInteger = map.get(rsbThreadName);
         assertThat(atomicInteger.get(), is(equalTo(1)));
