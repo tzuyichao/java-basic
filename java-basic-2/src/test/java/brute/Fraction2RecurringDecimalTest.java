@@ -54,4 +54,10 @@ public class Fraction2RecurringDecimalTest {
         var solver = new Fraction2RecurringDecimal();
         assertThat(solver.fractionToDecimal(-2147483648, -1), is(equalTo("2147483648")));
     }
+
+    @Test
+    public void happy9() {
+        var solver = new Fraction2RecurringDecimal();
+        assertThat(solver.fractionToDecimal(11341134, 100000000), is(equalTo("0.11341134")));
+    }
 }
