@@ -60,4 +60,11 @@ public class Fraction2RecurringDecimalTest {
         var solver = new Fraction2RecurringDecimal();
         assertThat(solver.fractionToDecimal(11341134, 100000000), is(equalTo("0.11341134")));
     }
+
+    @Test
+    public void happy10() {
+        var solver = new Fraction2RecurringDecimal();
+        assertThat(solver.fractionToDecimal(11341134, 99999999),
+                is(equalTo("0.(1134)")));
+    }
 }
