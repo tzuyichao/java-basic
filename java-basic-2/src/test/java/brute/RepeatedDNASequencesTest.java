@@ -4,12 +4,21 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class RepeatedDNASequencesTest {
+    @Test
+    public void memo() {
+        Stream.of('A', 'T', 'C', 'G').forEach(ch -> {
+            System.out.println(Integer.toBinaryString(ch));
+        });
+        System.out.println(Integer.toBinaryString(0x7ffffff));
+    }
+
     @Test
     public void happy1() {
         var solver = new RepeatedDNASequences();
