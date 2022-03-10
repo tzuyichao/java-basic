@@ -9,19 +9,20 @@ import java.util.Map;
  *
  */
 public class IntegerReplacement {
+    Map<Integer, Integer> dp = new HashMap<>();
 
-    public int integerReplacement(int n) {
-        Map<Integer, Integer> dp = new HashMap<>();
+    {
         dp.put(1, 0);
         dp.put(2, 1);
-        var i = 3;
-        while(i<=n) {
-            if(i % 2 == 0) {
-                dp.put(i, 1 + dp.get(i>>1));
+    }
+
+    public int integerReplacement(int n) {
+        while(!dp.containsKey(n)) {
+            if(n % 2 == 0) {
+                dp.put(n, 1 + integerReplacement(n>>1));
             } else {
-                dp.put(i, Math.min(dp.get(i-1), dp.get((i+1)>>1) + 1) + 1);
+                dp.put(n, 1+ Math.min(integerReplacement((n-1) >> 1) + 1, integerReplacement((n+1)>>1) + 1));
             }
-            i++;
         }
         return dp.get(n);
     }
