@@ -46,6 +46,6 @@ public class IntegerReplacementTest {
     @Test
     public void happy7() {
         var solver = new IntegerReplacement();
-        assertThat(solver.integerReplacement(2147483647), is(equalTo(2)));
+        assertThat(solver.integerReplacement(2147483647), is(equalTo(32)));
     }
 }

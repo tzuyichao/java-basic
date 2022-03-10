@@ -7,23 +7,17 @@ import java.util.Map;
  * 397. Integer Replacement
  * https://leetcode.com/problems/integer-replacement/
  *
+ * Runtime: 8 ms, faster than 28.62% of Java online submissions for Integer Replacement.
+ * Memory Usage: 39 MB, less than 58.20% of Java online submissions for Integer Replacement.
  */
 public class IntegerReplacement {
-    Map<Integer, Integer> dp = new HashMap<>();
-
-    {
-        dp.put(1, 0);
-        dp.put(2, 1);
-    }
 
     public int integerReplacement(int n) {
-        while(!dp.containsKey(n)) {
-            if(n % 2 == 0) {
-                dp.put(n, 1 + integerReplacement(n>>1));
-            } else {
-                dp.put(n, 1+ Math.min(integerReplacement((n-1) >> 1) + 1, integerReplacement((n+1)>>1) + 1));
-            }
+        if (n == 1) return 0;
+        if (n % 2 == 0) return 1 + integerReplacement(n / 2);
+        else {
+            long t = n;
+            return 2 + Math.min(integerReplacement((int)((t + 1) / 2)), integerReplacement((int) ((t - 1) / 2)));
         }
-        return dp.get(n);
     }
 }
