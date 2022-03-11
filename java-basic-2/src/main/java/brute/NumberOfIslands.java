@@ -34,6 +34,7 @@ public class NumberOfIslands {
 
         int find(int i) {
             while(i != parent.get(i)) {
+                parent.set(i, parent.get(parent.get(i)));
                 i = parent.get(i);
             }
             return parent.get(i);
