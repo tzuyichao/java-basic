@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 260. Single Number III
  * https://leetcode.com/problems/single-number-iii/
- * 
+ *
  */
 public class SingleNumber3 {
     public int[] singleNumber(int[] nums) {
