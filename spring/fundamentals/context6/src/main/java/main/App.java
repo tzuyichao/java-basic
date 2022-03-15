@@ -1,5 +1,7 @@
 package main;
 
+import main.service.DummyService;
+import main.service.SimpleService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
@@ -10,5 +12,12 @@ public class App {
 
         boolean check = cs1 == cs2;
         System.out.println(check);
+
+        for(String name: context.getBeanDefinitionNames()) {
+            System.out.println(name);
+        }
+
+        var dummyService = context.getBean("dummyService", DummyService.class);
+        dummyService.test();
     }
 }
