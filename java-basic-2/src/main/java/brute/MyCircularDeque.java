@@ -6,6 +6,9 @@ package brute;
  *
  * Runtime: 10 ms, faster than 12.40% of Java online submissions for Design Circular Deque.
  * Memory Usage: 48.5 MB, less than 49.32% of Java online submissions for Design Circular Deque.
+ *
+ * Runtime: 7 ms, faster than 47.55% of Java online submissions for Design Circular Deque.
+ * Memory Usage: 48.5 MB, less than 49.32% of Java online submissions for Design Circular Deque.
  */
 public class MyCircularDeque {
     private int[] data;
