@@ -14,7 +14,7 @@ public class MyCircularDeque {
     private int last;
 
     public MyCircularDeque(int k) {
-        data = new int[2000];
+        data = new int[k];
         size = k;
         front = -1;
         last = -1;
