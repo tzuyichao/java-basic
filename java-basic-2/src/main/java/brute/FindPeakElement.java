@@ -6,30 +6,23 @@ package brute;
  *
  * Runtime: 1 ms, faster than 9.84% of Java online submissions for Find Peak Element.
  * Memory Usage: 42.8 MB, less than 33.50% of Java online submissions for Find Peak Element.
+ *
+ * Runtime: 0 ms, faster than 100.00% of Java online submissions for Find Peak Element.
+ * Memory Usage: 43.3 MB, less than 25.82% of Java online submissions for Find Peak Element.
  */
 public class FindPeakElement {
     public int findPeakElement(int[] nums) {
-        var n = nums.length;
-        if(n == 1) {
-            return 0;
-        }
-
-        for(int i=0; i<n; i++) {
-            if(i == 0) {
-                if(nums[i+1] - nums[i] < 0) {
-                    return i;
-                }
-            } else if(i == n-1) {
-                if(nums[i] - nums[i-1] > 0) {
-                    return i;
-                }
+        var low = 0;
+        var high = nums.length-1;
+        while(low < high) {
+            int mid1 = (low + high)/2;
+            int mid2 = mid1+1;
+            if(nums[mid1] < nums[mid2]) {
+                low = mid2;
             } else {
-                if ((nums[i] - nums[i - 1]) * (nums[i + 1] - nums[i]) < 0) {
-                    return i;
-                }
+                high = mid1;
             }
         }
-
-        return 0;
+        return low;
     }
 }
