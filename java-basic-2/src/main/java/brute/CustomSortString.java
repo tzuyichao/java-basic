@@ -10,42 +10,34 @@ import java.util.stream.Collectors;
  * 791. Custom Sort String
  * https://leetcode.com/problems/custom-sort-string/
  *
- * Runtime: 5 ms, faster than 23.06% of Java online submissions for Custom Sort String.
- * Memory Usage: 43.2 MB, less than 6.06% of Java online submissions for Custom Sort String.
- * 
  * order -> Mapping Table
  * encode s with mapping table
  * sort s'
  * decode s' to res
+ * 
+ * Runtime: 5 ms, faster than 23.06% of Java online submissions for Custom Sort String.
+ * Memory Usage: 43.2 MB, less than 6.06% of Java online submissions for Custom Sort String.
+ *
+ * Runtime: 0 ms, faster than 100.00% of Java online submissions for Custom Sort String.
+ * Memory Usage: 40.4 MB, less than 85.99% of Java online submissions for Custom Sort String.
  */
 public class CustomSortString {
-    class CustomComparator implements Comparator<Character> {
-        private Map<Character, Integer> encodeTable;
-        CustomComparator(String order) {
-            encodeTable = new HashMap<>();
-            var n = order.length();
-            for(int i=0; i<n; i++) {
-                Character c = order.charAt(i);
-                encodeTable.put(c, i);
+    public String customSortString(String order, String s) {
+        int[] count = new int[26];
+        for(char c: s.toCharArray()) {
+            ++count[c - 'a'];
+        }
+        StringBuilder res = new StringBuilder();
+        for(char c: order.toCharArray()) {
+            while(count[c - 'a']-- > 0) {
+                res.append(c);
             }
         }
-
-        @Override
-        public int compare(Character o1, Character o2) {
-            return encodeTable.getOrDefault(o1, Integer.MAX_VALUE).compareTo(encodeTable.getOrDefault(o2, Integer.MAX_VALUE));
+        for(char c='a'; c<='z'; ++c) {
+            while(count[c - 'a']-- > 0) {
+                res.append(c);
+            }
         }
-    }
-    public String customSortString(String order, String s) {
-        CustomComparator comparator = new CustomComparator(order);
-        char[] chars = s.toCharArray();
-        Character[] chs = new Character[chars.length];
-        for(int i=0; i<chars.length; i++) {
-            chs[i] = Character.valueOf(chars[i]);
-        }
-        Arrays.sort(chs, comparator);
-        for(int i=0; i<chars.length; i++) {
-            chars[i] = chs[i].charValue();
-        }
-        return new String(chars);
+        return res.toString();
     }
 }
