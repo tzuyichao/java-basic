@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * encode s with mapping table
  * sort s'
  * decode s' to res
- * 
+ *
  * Runtime: 5 ms, faster than 23.06% of Java online submissions for Custom Sort String.
  * Memory Usage: 43.2 MB, less than 6.06% of Java online submissions for Custom Sort String.
  *
