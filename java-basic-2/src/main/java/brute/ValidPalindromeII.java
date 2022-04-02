@@ -26,7 +26,6 @@ public class ValidPalindromeII {
         }
         int low = 0;
         int high = len-1;
-        boolean isDelete = false;
         while(low < high) {
             if(s.charAt(low) != s.charAt(high)) {
                 if(checkDeep(s, low, high-1) || checkDeep(s, low+1, high)) {
