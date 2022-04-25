@@ -6,7 +6,8 @@ import java.util.*;
  * 1396. Design Underground System
  * https://leetcode.com/problems/design-underground-system/
  *
- *
+ * Runtime: 277 ms, faster than 5.05% of Java online submissions for Design Underground System.
+ * Memory Usage: 113 MB, less than 5.05% of Java online submissions for Design Underground System.
  */
 public class UndergroundSystem {
     static class Record {
