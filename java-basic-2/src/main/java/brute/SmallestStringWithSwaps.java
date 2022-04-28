@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  *
  * Runtime: 71 ms, faster than 50.55% of Java online submissions for Smallest String With Swaps.
  * Memory Usage: 106.9 MB, less than 16.44% of Java online submissions for Smallest String With Swaps.
- * 
+ *
  * https://zxi.mytechroad.com/blog/graph/leetcode-1202-smallest-string-with-swaps/
  */
 public class SmallestStringWithSwaps {
