@@ -26,10 +26,8 @@ public class RemoveAllAdjacentDuplicatesInStringII {
         for(char ch: s.toCharArray()) {
             if(ch != stack.peek().v1) {
                 stack.push(new Pair(ch, 1));
-            } else if(stack.peek().v2 == k-1) {
+            } else if(++stack.peek().v2 == k) {
                 stack.pop();
-            } else {
-                stack.peek().v2 += 1;
             }
         }
 
