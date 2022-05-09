@@ -8,8 +8,7 @@ import java.util.Stack;
  * 341. Flatten Nested List Iterator
  * https://leetcode.com/problems/flatten-nested-list-iterator/
  *
- * Runtime: 4 ms, faster than 66.54% of Java online submissions for Flatten Nested List Iterator.
- * Memory Usage: 43 MB, less than 95.27% of Java online submissions for Flatten Nested List Iterator.
+ * ref: https://www.cnblogs.com/grandyang/p/5358793.html
  */
 public class NestedIterator implements Iterator<Integer> {
     private Stack<NestedInteger> stack = new Stack();
