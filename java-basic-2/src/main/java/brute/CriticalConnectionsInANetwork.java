@@ -25,6 +25,7 @@ public class CriticalConnectionsInANetwork {
 
     private boolean dfs(int currentNode, int parentNode) {
         visitedNodes[currentNode] = true;
+        return false;
     }
 
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
