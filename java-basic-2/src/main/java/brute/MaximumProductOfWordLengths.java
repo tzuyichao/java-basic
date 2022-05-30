@@ -4,25 +4,21 @@ package brute;
  * 318. Maximum Product of Word Lengths
  * https://leetcode.com/problems/maximum-product-of-word-lengths/
  * Time Limit Exceeded
+ *
+ * https://www.cnblogs.com/grandyang/p/5090058.html Solution 1
  */
 public class MaximumProductOfWordLengths {
-    private boolean isTarget(String a, String b) {
-        for(int c: a.chars().distinct().toArray()) {
-            if(b.contains(String.valueOf((char) c))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public int maxProduct(String[] words) {
         int n = words.length;
+        int[] mask = new int[n];
         int res = 0;
         for(int i=0; i<n; i++) {
-            for(int j=0; j<n; j++) {
-                int m = words[i].length() * words[j].length();
-                if(i != j && m > res && isTarget(words[i], words[j])) {
-                    res = m;
+            for(char c: words[i].toCharArray()) {
+                mask[i] |= 1 << (c - 'a');
+            }
+            for(int j=0; j<i; j++) {
+                if((mask[i] & mask[j]) == 0) {
+                    res = Math.max(res, words[i].length() * words[j].length());
                 }
             }
         }
