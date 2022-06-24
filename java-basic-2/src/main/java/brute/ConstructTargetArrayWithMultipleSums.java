@@ -8,24 +8,25 @@ import java.util.*;
  *
  * https://zxi.mytechroad.com/blog/simulation/eetcode-1354-construct-target-array-with-multiple-sums/
  * Time Limit Exceeded
+ * Time Limit Exceeded
  */
 public class ConstructTargetArrayWithMultipleSums {
     public boolean isPossible(int[] target) {
-        Arrays.sort(target);
-        PriorityQueue<Integer> q = new PriorityQueue<>(target.length, Comparator.reverseOrder());
+        SortedSet<Integer> q = new TreeSet<>(Comparator.reverseOrder());
         int sum = Arrays.stream(target).sum();
         for(int i=target.length-1; i >=0; i--) {
-            q.offer(target[i]);
+            q.add(target[i]);
         }
         //System.out.println(q);
         while(true) {
-            int t = q.poll();
+            int t = q.first();
+            q.remove(t);
             sum -= t;
             if(t == 1 || sum == 1) return true;
             if(t < sum || sum == 0 || t%sum == 0) return false;
             t %= sum;
             sum += t;
-            q.offer(t);
+            q.add(t);
         }
     }
 }

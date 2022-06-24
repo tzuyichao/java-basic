@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class PriorityQueueLab {
-    public static void main(String[] args) {
+    public static void test1() {
         Queue<Integer> queue1 = new PriorityQueue<>();
         System.out.println(queue1);
         queue1.add(5);
@@ -26,5 +26,16 @@ public class PriorityQueueLab {
         System.out.println(queue2);
         queue2.poll();
         System.out.println(queue2);
+    }
+
+    public static void test2() {
+        PriorityQueue<Integer> q = new PriorityQueue<>(Comparator.reverseOrder());
+        q.offer(3);
+        q.offer(5);
+        q.offer(9);
+        System.out.println(q);
+    }
+    public static void main(String[] args) {
+        test2();
     }
 }
