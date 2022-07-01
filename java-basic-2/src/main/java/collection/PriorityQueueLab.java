@@ -16,6 +16,7 @@ public class PriorityQueueLab {
         System.out.println(queue1);
         queue1.poll();
         System.out.println(queue1);
+        System.out.println("==================================");
         Queue<Integer> queue2 = new PriorityQueue<>(Comparator.reverseOrder());
         System.out.println(queue2);
         queue2.add(5);
@@ -26,5 +27,16 @@ public class PriorityQueueLab {
         System.out.println(queue2);
         queue2.poll();
         System.out.println(queue2);
+        System.out.println("==================================");
+        PriorityQueue<Integer> queue3 = new PriorityQueue<>((x, y) -> Integer.compare(x, y));
+        System.out.println(queue3);
+        queue3.add(3);
+        System.out.println(queue3);
+        queue3.add(7);
+        System.out.println(queue3);
+        queue3.add(2);
+        System.out.println(queue3);
+        queue3.poll();
+        System.out.println(queue3);
     }
 }
