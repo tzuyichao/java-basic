@@ -18,7 +18,7 @@
 
         <jupiter.version>5.7.0</jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <spring.version>5.2.8.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <servlets.version>4.0.1</servlets.version>
         <jsp.version>2.3.3</jsp.version>
         <jstl.version>1.2</jstl.version>
