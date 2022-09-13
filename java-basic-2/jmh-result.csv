@@ -1,0 +1,4 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"jmh.ObjectMapperTest.globalTest","thrpt",6,5,15370556.882619,1815859.595238,"ops/s"
+"jmh.ObjectMapperTest.globalTestThreadLocal","thrpt",6,5,15472438.021338,1442836.999043,"ops/s"
+"jmh.ObjectMapperTest.localTest","thrpt",6,5,1097563.961396,49676.509378,"ops/s"
