@@ -11,7 +11,11 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 
 /**
+ * Ref:
+ *
  * https://stackoverflow.com/questions/29559215/how-can-i-get-the-public-key-of-a-secure-webpage-using-java
+ *
+ * https://stackoverflow.com/questions/25129822/export-rsa-public-key-to-pem-string-using-java
  */
 public class PublicKeyLab {
     public static void main(String[] args) throws IOException {
