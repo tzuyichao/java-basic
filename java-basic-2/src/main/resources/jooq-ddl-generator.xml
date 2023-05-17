@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.15.0.xsd">
+    <jdbc>
+        <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+        <url>jdbc:sqlserver://your</url>
+        <user>your</user>
+        <password>your!</password>
+    </jdbc>
+    <generator>
+        <database>
+            <!-- <name>org.jooq.meta.sqlserver.SQLServerDatabase</name> -->
+            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+        </database>
+        <target>
+            <packageName>generated</packageName>
+            <directory>output</directory>
+        </target>
+    </generator>
+</configuration>
