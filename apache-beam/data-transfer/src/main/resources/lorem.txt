@@ -1,0 +1,8 @@
+In this tutorial, we will cover the roles of a Helix-managed cluster, and show the code you need to write to integrate with it. In many cases, there is a simple default behavior that is often appropriate, but you can also customize the behavior.
+
+Convention: we first cover the basic approach, which is the easiest to implement. Then, we'll describe advanced options, which give you more control over the system behavior, but require you to write more code.
+
+Prerequisites
+Read Concepts/Terminology and Architecture
+Read the Quickstart guide to learn how Helix models and manages a cluster
+Install Helix source. See: Quickstart for the steps.
