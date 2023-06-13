@@ -35,3 +35,4 @@ deeplearning4j/word2vec-intro/target/
 *.log
 .vscode/c_cpp_properties.json
 target
+.env

@@ -1,5 +1,6 @@
 package org.example;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.Node;
@@ -17,16 +18,19 @@ import java.util.stream.Collectors;
 public class TopicInfo {
     static Logger logger = LoggerFactory.getLogger(TopicInfo.class);
     public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
-        props.put("bootstrap.servers", "YOUR_BOOTSTRAP_SERVERS");
+        props.put("bootstrap.servers", dotenv.get("BOOTSTRAP_SERVER"));
         props.put("fetch.max.bytes", 1024);
         props.put("enable.auto.commit", true);
         props.put("auto.commit.interval.ms", 1000);
-        props.put("security.protocol", "SASL_PLAINTEXT");
-        props.put("sasl.mechanism", "SCRAM-SHA-512");
+        // SECURITY_PROTOCOL=SASL_PLAINTEXT
+        props.put("security.protocol", dotenv.get("SECURITY_PROTOCOL"));
+        // SASL_MECHANISM=SCRAM-SHA-512
+        props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
         props.put("auto.offset.reset","earliest");
-        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
-        props.put("sasl.jaas.config", jaas);
+        //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
+        props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
             ListTopicsOptions listTopicsOptions = new ListTopicsOptions();
             listTopicsOptions.listInternal(true);
