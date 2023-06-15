@@ -19,6 +19,8 @@ repositories {
 
 dependencies {
     implementation('org.apache.kafka:kafka-clients:7.0.1-ccs')
+    // https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
+    implementation 'org.apache.zookeeper:zookeeper:3.6.3'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
