@@ -2,18 +2,19 @@ package org.example.kafka;
 
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
-import org.apache.kafka.common.TopicPartitionInfo;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class TopicInfo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String topicName = null;
         if(args.length == 2) {
             if(args[0].equals("-topic")) {
@@ -22,15 +23,8 @@ public class TopicInfo {
         }
 
         Properties props = new Properties();
-        props.put("bootstrap.servers", "server:9093");
-        props.put("fetch.max.bytes", 1024);
-        props.put("enable.auto.commit", true);
-        props.put("auto.commit.interval.ms", 1000);
-        props.put("security.protocol", "SASL_PLAINTEXT");
-        props.put("sasl.mechanism", "SCRAM-SHA-512");
-        props.put("auto.offset.reset", "earliest");
-        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
-        props.put("sasl.jaas.config", jaas);
+        InputStream fileInputStream = new FileInputStream("client.properties");
+        props.load(fileInputStream);
         try (AdminClient adminClient = AdminClient.create(props)) {
             if(null == topicName) {
                 ListTopicsOptions options = new ListTopicsOptions();
