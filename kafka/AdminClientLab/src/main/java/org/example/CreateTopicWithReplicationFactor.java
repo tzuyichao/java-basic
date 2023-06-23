@@ -15,8 +15,8 @@ public class CreateTopicWithReplicationFactor {
         // Kafka bootstrap servers
         String bootstrapServers = "localhost:9093;localhost:9094";
         // Topic name and replication factor
-        String topicName = "replication.test.v0";
-        int replicationFactor = 1;
+        String topicName = "test.topic.v0";
+        int replicationFactor = 3;
 
         // Kafka AdminClient configuration
         Properties props = new Properties();
