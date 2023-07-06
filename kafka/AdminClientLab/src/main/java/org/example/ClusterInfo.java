@@ -25,10 +25,13 @@ public class ClusterInfo {
         props.put("auto.offset.reset","earliest");
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        getClusterInfo(props);
+    }
+
+    private static void getClusterInfo(Properties props) throws InterruptedException, ExecutionException {
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-
             DescribeClusterResult result = adminClient.describeCluster();
-
+            // System.out.println(adminClient.metrics());
             String clusterId = result.clusterId().get();
             System.out.println("Kafka cluster id: " + clusterId);
 
