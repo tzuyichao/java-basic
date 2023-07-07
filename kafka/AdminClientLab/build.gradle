@@ -13,11 +13,18 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     implementation 'org.apache.kafka:kafka-clients:3.4.1'
 
+    // https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
+    implementation 'org.apache.zookeeper:zookeeper:3.6.3'
+
+    // https://mvnrepository.com/artifact/org.apache.curator/curator-framework
+    implementation 'org.apache.curator:curator-framework:5.5.0'
+
+
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'org.slf4j:slf4j-api:1.7.36'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
 
     // java 8 using 2.3.2
     // 3.x required java 11 or greater
