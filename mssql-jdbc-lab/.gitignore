@@ -31,6 +31,6 @@ HELP.md
 
 *.log
 .vscode/c_cpp_properties.json
-target
+/target/
 .env
-build
+/build/
