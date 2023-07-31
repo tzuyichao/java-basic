@@ -1,0 +1,1 @@
+JMH S 18 lab.HelloBenchmark S 50 lab.jmh_generated.HelloBenchmark_doNothing_jmhTest S 9 doNothing S 11 AverageTime E A 1 1 1 E E E E E E E E E E E E E E U 11 NANOSECONDS E E 
