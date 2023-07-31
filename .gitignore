@@ -34,3 +34,4 @@ HELP.md
 target
 .env
 build
+*.class

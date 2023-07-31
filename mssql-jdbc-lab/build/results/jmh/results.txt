@@ -1,2 +1,0 @@
-Benchmark                 Mode  Cnt  Score   Error  Units
-HelloBenchmark.doNothing  avgt   25  0.331 ± 0.007  ns/op
