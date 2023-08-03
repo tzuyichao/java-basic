@@ -21,7 +21,7 @@ public class GetTopicReplicationFactor {
 
         try (AdminClient adminClient = AdminClient.create(props)) {
             DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(Collections.singletonList(topic));
-            TopicDescription topicDescription = describeTopicsResult.values().get(topic).get();
+            TopicDescription topicDescription = describeTopicsResult.topicNameValues().get(topic).get();
             int replicationFactor = topicDescription.partitions().get(0).replicas().size();
             System.out.println("Replication factor of topic " + topic + ": " + replicationFactor);
         } catch (InterruptedException | ExecutionException e) {

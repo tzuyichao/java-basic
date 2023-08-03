@@ -7,7 +7,7 @@ import java.util.Properties;
 public class ProducerWithAckLab {
     public static void main(String[] args) {
         Properties prop = new Properties();
-        prop.put("bootstrap.servers", "localhost:9093");
+        prop.put("bootstrap.servers", "localhost:9093;localhost:9094;localhost:9095");
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
