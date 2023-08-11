@@ -3,14 +3,17 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class TopicUnderReplicate {
+    private static Logger logger = LoggerFactory.getLogger(TopicUnderReplicate.class);
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
@@ -30,20 +33,21 @@ public class TopicUnderReplicate {
             options.listInternal(true);
             ListTopicsResult listTopicsResult = adminClient.listTopics(options);
             Collection<TopicListing> topicListings = listTopicsResult.listings().get();
-            for(TopicListing topicListing : topicListings) {
-                //System.out.println("Topic ID: " + topicListing.topicId() + ", Topic Name: " + topicListing.name());
-                Map<String, KafkaFuture<TopicDescription>> topics = adminClient.describeTopics(Collections.singleton(topicListing.name())).topicNameValues();
+            Map<String, KafkaFuture<TopicDescription>> topics = adminClient.describeTopics(topicListings.stream().map(tl -> tl.name()).collect(Collectors.toList())).topicNameValues();
 
-                for (KafkaFuture<TopicDescription> entry : topics.values()) {
+            topics.forEach((name, entry) -> {
+                try {
                     TopicDescription topicDescription = entry.get();
                     int underReplicatedPartitions = topicDescription.partitions().stream()
                             .mapToInt(partitionInfo -> partitionInfo.replicas().size() - partitionInfo.isr().size())
                             .sum();
                     if(underReplicatedPartitions > 0) {
-                        System.out.println(topicListing.name() + ", Under-replicated partitions: " + underReplicatedPartitions);
+                        System.out.println(name + ", Under-replicated partitions: " + underReplicatedPartitions);
                     }
+                } catch (ExecutionException | InterruptedException e) {
+                    logger.error("Error {}", name, e);
                 }
-            }
+            });
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
