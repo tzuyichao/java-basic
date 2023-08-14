@@ -3,13 +3,11 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
-import org.apache.kafka.common.Node;
 import org.apache.kafka.common.TopicPartitionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -35,6 +33,7 @@ public class TopicInfo {
             ListTopicsOptions listTopicsOptions = new ListTopicsOptions();
             listTopicsOptions.listInternal(true);
             ListTopicsResult listTopicsResult = adminClient.listTopics(listTopicsOptions);
+            logger.info("Topic Count: {}", listTopicsResult.names().get().size());
             Collection<TopicListing> topicListings = listTopicsResult.listings().get();
             for(TopicListing topicListing : topicListings) {
                 System.out.println("Topic ID: " + topicListing.topicId() + ", Topic Name: " + topicListing.name());
