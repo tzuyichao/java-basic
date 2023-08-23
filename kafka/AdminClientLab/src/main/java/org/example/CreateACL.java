@@ -32,14 +32,18 @@ public class CreateACL {
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-            String username = "terence.chao";
+            String username = "terence.chao1";
             String sourceTopicName = "test.testtopic.in.v0";
             String sinkTopicName = "test.testtopic.out.v0";
+            String accessGroup = "kafka-streams-hello-example";
+            ResourcePattern accessGroupResourcePattern = new ResourcePattern(ResourceType.GROUP, accessGroup, PatternType.LITERAL);
             ResourcePattern sourceResourcePattern = new ResourcePattern(ResourceType.TOPIC, sourceTopicName, PatternType.LITERAL);
             ResourcePattern sinkResourcePattern = new ResourcePattern(ResourceType.TOPIC, sinkTopicName, PatternType.LITERAL);
             CreateAclsResult createAclsResult = adminClient.createAcls(List.of(
                     new AclBinding(sourceResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.READ, AclPermissionType.ALLOW)),
-                    new AclBinding(sinkResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.WRITE, AclPermissionType.ALLOW))
+                    new AclBinding(sinkResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.WRITE, AclPermissionType.ALLOW)),
+                    new AclBinding(accessGroupResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.READ, AclPermissionType.ALLOW)),
+                    new AclBinding(accessGroupResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.WRITE, AclPermissionType.ALLOW))
             ));
             createAclsResult.all().get();
 

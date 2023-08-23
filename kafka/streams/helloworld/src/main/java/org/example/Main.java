@@ -18,7 +18,7 @@ public class Main {
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "datagovstg-kfk01.deltaww.com:9093");
         props.put("security.protocol", "SASL_PLAINTEXT");
         props.put("sasl.mechanism", "SCRAM-SHA-512");
-        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"terence.chao\" password=\"1qaz@WSX\";";
+        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"terence.chao1\" password=\"1qaz@WSX\";";
         props.put("sasl.jaas.config", jaas);
 
         StreamsBuilder builder = new StreamsBuilder();
