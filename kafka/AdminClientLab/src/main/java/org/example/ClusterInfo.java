@@ -47,6 +47,14 @@ public class ClusterInfo {
 
             System.out.println("Kafka controller node: " + controllerNode);
             System.out.println("id: " + controllerNode.id() + ", host: " + controllerNode.host() + ", port: " + controllerNode.port() + ", rack: " + controllerNode.rack());
+
+            System.out.println("-------");
+            System.out.println(adminClient.metrics());
+            adminClient.metrics().forEach((metricName, metric) -> {
+                System.out.println(metricName);
+                System.out.println(metric.metricName().name() + ": " + metric.metricValue());
+                System.out.println();
+            });
         }
     }
 }

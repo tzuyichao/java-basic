@@ -10,7 +10,7 @@ import java.util.Set;
 public class MBeanList {
     public static void main(String[] args) {
         try {
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9998/jmxrmi");
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://datagovstg-kfk03.deltaww.com:9999/jmxrmi");
 
             JMXConnector connector = JMXConnectorFactory.connect(url);
             MBeanServerConnection connection = connector.getMBeanServerConnection();
