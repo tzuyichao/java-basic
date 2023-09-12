@@ -1,0 +1,6 @@
+rootProject.name = 'java-basic-3'
+include 'annotation'
+include 'annotation-processor'
+include 'client'
+
+

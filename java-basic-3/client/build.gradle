@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":annotation")
+    annotationProcessor project(":annotation-processor")
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    doFirst {
+        println "AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath().getFiles()}"
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "${project.buildDir}/generated/sources/annotationProcessor/java/main"
+        }
+    }
+}
