@@ -1,3 +1,5 @@
+package lang;
+
 public class CharacterIsIdeographicTest {
   public static boolean isCJK(String str) {
     return str.codePoints().allMatch(Character::isIdeographic);
