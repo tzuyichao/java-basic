@@ -16,11 +16,11 @@ public class Consumer {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "terence-test-consumer");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"); // "earliest" or "latest"
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest"); // "earliest" or "latest"
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put("security.protocol", "SASL_PLAINTEXT");
         props.put("sasl.mechanism", "SCRAM-SHA-512");
-        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
+        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"SRV-SQMS.Issue\" password=\"1qaz@WSX\";";
         props.put("sasl.jaas.config", jaas);
 
 
@@ -32,6 +32,7 @@ public class Consumer {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
                 records.forEach(record -> {
                     System.out.printf("Consumed record with key %s and value %s%n", record.key(), record.value());
+                    consumer.commitAsync();
                 });
             }
         }
