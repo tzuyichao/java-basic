@@ -28,8 +28,6 @@ public class JMXClientStub {
                 ObjectName objectName = mbean.getObjectName();
                 System.out.println("MBean Name: " + objectName.toString());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
