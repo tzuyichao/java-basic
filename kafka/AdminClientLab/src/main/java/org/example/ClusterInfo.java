@@ -3,10 +3,13 @@ package org.example;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DescribeClusterResult;
+import org.apache.kafka.clients.admin.DescribeConfigsResult;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.common.Node;
+import org.apache.kafka.common.config.ConfigResource;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -39,6 +42,22 @@ public class ClusterInfo {
 
             for (Node node : nodes) {
                 System.out.println("Kafka broker node: " + node);
+
+                ConfigResource brokerConfig = new ConfigResource(ConfigResource.Type.BROKER, Integer.toString(node.id()));
+                DescribeConfigsResult describeConfigsResult = adminClient.describeConfigs(Collections.singleton(brokerConfig));
+                describeConfigsResult.values().forEach((configResource, configKafkaFuture) -> {
+                    try {
+                        org.apache.kafka.clients.admin.Config config = configKafkaFuture.get();
+                        System.out.println(config);
+                        config.entries().forEach(configEntry -> {
+                            System.out.println(configEntry.name() + ": " + configEntry.value());
+                        });
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    } catch (ExecutionException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
             }
 
             System.out.println("-------");
