@@ -5,14 +5,14 @@ import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
+import java.io.IOException;
 
 public class JMXClientLab {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         try {
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://10.0.0.5:9999/jmxrmi");
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://datagovstg-kfk01.deltaww.com:9999/jmxrmi");
             JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
             MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
-
             // Get metrics for BytesInPerSec
             ObjectName bytesInPerSec = new ObjectName("kafka.server:type=BrokerTopicMetrics,name=BytesInPerSec");
             double byteRate = (double) mbsc.getAttribute(bytesInPerSec, "OneMinuteRate");
