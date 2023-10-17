@@ -32,8 +32,8 @@ public class CreateACL2 {
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-            String username = "Account";
-            String topicName = "project-change.*";
+            String username = "DQA-Kafka-Account";
+            String topicName = "product.project-management.project.project-change.";
             ResourcePattern sourceResourcePattern = new ResourcePattern(ResourceType.TOPIC, topicName, PatternType.PREFIXED);
             CreateAclsResult createAclsResult = adminClient.createAcls(List.of(
                     new AclBinding(sourceResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.READ, AclPermissionType.ALLOW))
