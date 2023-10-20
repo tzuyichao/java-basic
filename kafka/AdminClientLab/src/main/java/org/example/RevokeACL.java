@@ -2,10 +2,10 @@ package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.CreateAclsResult;
+import org.apache.kafka.clients.admin.DeleteAclsResult;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
-import org.apache.kafka.common.acl.AccessControlEntry;
-import org.apache.kafka.common.acl.AclBinding;
+import org.apache.kafka.common.acl.AccessControlEntryFilter;
+import org.apache.kafka.common.acl.AclBindingFilter;
 import org.apache.kafka.common.acl.AclOperation;
 import org.apache.kafka.common.acl.AclPermissionType;
 import org.apache.kafka.common.resource.PatternType;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class CreateACL2 {
+public class RevokeACL {
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
@@ -32,15 +32,15 @@ public class CreateACL2 {
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-            String username = "DQA-FMEA-Kafka-Account";
-            String topicName = "product.project-management.project.activity-change.";
-            ResourcePattern sourceResourcePattern = new ResourcePattern(ResourceType.TOPIC, topicName, PatternType.PREFIXED);
-            CreateAclsResult createAclsResult = adminClient.createAcls(List.of(
-                    new AclBinding(sourceResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.READ, AclPermissionType.ALLOW))
+            String username = "DQA-DFX-Kafka-Account";
+            String topicName = "product.project-management.project.project-change.";
+            ResourcePattern resourcePattern = new ResourcePattern(ResourceType.TOPIC, topicName, PatternType.PREFIXED);
+            DeleteAclsResult deleteAclsResult = adminClient.deleteAcls(List.of(
+                    new AclBindingFilter(resourcePattern.toFilter(), new AccessControlEntryFilter("User:" + username, "*", AclOperation.READ, AclPermissionType.ALLOW))
             ));
-            createAclsResult.all().get();
+            deleteAclsResult.all().get();
 
-            System.out.println("ACL created successfully.");
+            System.out.println("ACL revoke successfully.");
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
