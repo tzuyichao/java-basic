@@ -13,7 +13,7 @@
         <maven.compiler.release>13</maven.compiler.release>
 
         <rxjava2-jdbc.version>0.2.7</rxjava2-jdbc.version>
-        <derby.version>10.14.2.0</derby.version>
+        <derby.version>10.17.1.0</derby.version>
         <lombok.version>1.18.10</lombok.version>
         <slf4j.version>1.7.29</slf4j.version>
         <logback.version>1.2.11</logback.version>
