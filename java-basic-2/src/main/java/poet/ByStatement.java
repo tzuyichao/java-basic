@@ -28,7 +28,7 @@ public class ByStatement {
                 .addMethod(main)
                 .build();
 
-        JavaFile javaFile = JavaFile.builder("com.example.helloworl", byCode).build();
+        JavaFile javaFile = JavaFile.builder("com.example.helloword", byCode).build();
 
         javaFile.writeTo(System.out);
     }
