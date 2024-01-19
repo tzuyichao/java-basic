@@ -12,7 +12,7 @@ import java.util.Set;
 public class JMXClientLab2 {
     public static void main(String[] args) throws IOException {
         try {
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://datagovstg-kfk01.deltaww.com:9996/jmxrmi");
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://datagov-kfk01.deltaww.com:9996/jmxrmi");
             JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
             MBeanServerConnection mbsc = jmxc.getMBeanServerConnection();
             Set<ObjectInstance> mbeans = mbsc.queryMBeans(null, null);
