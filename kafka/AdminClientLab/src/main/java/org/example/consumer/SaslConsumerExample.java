@@ -15,8 +15,8 @@ import java.util.Properties;
 public class SaslConsumerExample {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExample.class);
     public static void main(String[] args) {
-        String bootstrapServers = "datagov-kfk01.deltaww.com:9093";
-        String topic = "test.testtopic.v0";
+        String bootstrapServers = "datagov-kfk04.deltaww.com:9093";
+        String topic = "test.testopic.v0";
         String groupId = "DQA-DFX-Kafka-Account";
 
         // Kafka consumer configuration settings

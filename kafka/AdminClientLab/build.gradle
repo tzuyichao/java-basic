@@ -11,10 +11,10 @@ repositories {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka
-    implementation 'org.apache.kafka:kafka_2.13:3.5.1'
+    implementation 'org.apache.kafka:kafka_2.13:3.6.1'
 
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
-    implementation 'org.apache.kafka:kafka-clients:3.5.1'
+    implementation 'org.apache.kafka:kafka-clients:3.6.1'
 
     // https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
     implementation 'org.apache.zookeeper:zookeeper:3.6.3'
