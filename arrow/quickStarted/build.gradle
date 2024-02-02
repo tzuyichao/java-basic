@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.apache.arrow:arrow-vector:15.0.0'
+    implementation 'org.apache.arrow:arrow-memory-netty:15.0.0'
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '--add-opens', 'java.base/java.nio=ALL-UNNAMED'
+}

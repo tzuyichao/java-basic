@@ -30,7 +30,7 @@ public class SaslConsumerExample {
         // SASL configuration
         properties.setProperty("security.protocol", "SASL_PLAINTEXT");
         properties.setProperty("sasl.mechanism", "SCRAM-SHA-512");
-        properties.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='DQA-DFX-Kafka-Account' password='qqqq';");
+        properties.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='DQA-DFX-Kafka-Account' password='v8mq1XlS';");
 
         // Create the consumer
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);) {
