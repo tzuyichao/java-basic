@@ -15,6 +15,9 @@ dependencies {
     implementation 'org.apache.arrow:arrow-vector:15.0.0'
     implementation 'org.apache.arrow:arrow-memory-netty:15.0.0'
     implementation 'ch.qos.logback:logback-classic:1.4.14'
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.2'
+
 }
 
 test {
