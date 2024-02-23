@@ -52,10 +52,16 @@ public class DescribeConsumerGroup {
                     .collect(Collectors.toMap(tp -> tp, tp -> OffsetSpec.latest()));
             Map<TopicPartition, ListOffsetsResult.ListOffsetsResultInfo> endOffsets = adminClient.listOffsets(topicPartitionOffsetSpecMap).all().get();
 
+            Map<TopicPartition, OffsetSpec> topicPartitionEarliestOffsetSpecMap = offsets.keySet().stream()
+                    .collect(Collectors.toMap(tp -> tp, tp -> OffsetSpec.earliest()));
+            Map<TopicPartition, ListOffsetsResult.ListOffsetsResultInfo> earliestOffsets = adminClient.listOffsets(topicPartitionEarliestOffsetSpecMap).all().get();
+
+
             offsets.forEach((topicPartition, offsetAndMetadata) -> {
                 long endOffset = endOffsets.get(topicPartition).offset();
+                long earliestOffset = earliestOffsets.get(topicPartition).offset();
                 long lag = endOffset - offsetAndMetadata.offset();
-                System.out.println("Partition: " + topicPartition + ", Current Offset: " + offsetAndMetadata.offset() + ", End Offset: " + endOffset + ", Lag: " + lag);
+                System.out.println("Partition: " + topicPartition + ", Consumer Group Current Offset: " + offsetAndMetadata.offset() + ", Earliest Offset: " + earliestOffset + ", End Offset: " + endOffset + ", Lag: " + lag);
             });
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
