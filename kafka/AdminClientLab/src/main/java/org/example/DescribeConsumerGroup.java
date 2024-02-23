@@ -1,14 +1,15 @@
 package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.ConsumerGroupDescription;
-import org.apache.kafka.clients.admin.DescribeConsumerGroupsResult;
-import org.apache.kafka.clients.admin.KafkaAdminClient;
+import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.common.TopicPartition;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class DescribeConsumerGroup {
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class DescribeConsumerGroup {
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-            String consumerGroupId = "MES-Kafka-Account";
+            String consumerGroupId = "NPE-Kafka-Account";
 
             DescribeConsumerGroupsResult describeConsumerGroupsResult = adminClient.describeConsumerGroups(Collections.singletonList(consumerGroupId));
 
@@ -34,12 +35,27 @@ public class DescribeConsumerGroup {
 
             System.out.println("Consumer Group ID: " + consumerGroupDescription.groupId());
             System.out.println("Consumer Group State: " + consumerGroupDescription.state());
+            System.out.println("Consumer Group Coordinator: " + consumerGroupDescription.coordinator());
 
             consumerGroupDescription.members().forEach(member -> {
                 System.out.println("Member ID: " + member.consumerId());
                 System.out.println("Client ID: " + member.clientId());
                 System.out.println("Client Host: " + member.host());
                 System.out.println("Assigned Partitions: " + member.assignment().topicPartitions());
+            });
+
+            ListConsumerGroupOffsetsResult offsetsResult = adminClient.listConsumerGroupOffsets(consumerGroupId);
+            Map<TopicPartition, OffsetAndMetadata> offsets = offsetsResult.partitionsToOffsetAndMetadata().get();
+            offsets.forEach((tp, offset) -> System.out.println(tp + " -> " + offset));
+
+            Map<TopicPartition, OffsetSpec> topicPartitionOffsetSpecMap = offsets.keySet().stream()
+                    .collect(Collectors.toMap(tp -> tp, tp -> OffsetSpec.latest()));
+            Map<TopicPartition, ListOffsetsResult.ListOffsetsResultInfo> endOffsets = adminClient.listOffsets(topicPartitionOffsetSpecMap).all().get();
+
+            offsets.forEach((topicPartition, offsetAndMetadata) -> {
+                long endOffset = endOffsets.get(topicPartition).offset();
+                long lag = endOffset - offsetAndMetadata.offset();
+                System.out.println("Partition: " + topicPartition + ", Current Offset: " + offsetAndMetadata.offset() + ", End Offset: " + endOffset + ", Lag: " + lag);
             });
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
