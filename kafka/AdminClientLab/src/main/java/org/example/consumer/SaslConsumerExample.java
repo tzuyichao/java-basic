@@ -15,9 +15,9 @@ import java.util.Properties;
 public class SaslConsumerExample {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExample.class);
     public static void main(String[] args) {
-        String bootstrapServers = "datagov-kfk04.deltaww.com:9093";
-        String topic = "test.testopic.v0";
-        String groupId = "DQA-DFX-Kafka-Account";
+        String bootstrapServers = "datagovstg-kfk04.deltaww.com:9093";
+        String topic = "product.project-management.project.project-change.v0";
+        String groupId = "NPE-Kafka-Account";
 
         // Kafka consumer configuration settings
         Properties properties = new Properties();
@@ -30,7 +30,7 @@ public class SaslConsumerExample {
         // SASL configuration
         properties.setProperty("security.protocol", "SASL_PLAINTEXT");
         properties.setProperty("sasl.mechanism", "SCRAM-SHA-512");
-        properties.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='DQA-DFX-Kafka-Account' password='v8mq1XlS';");
+        properties.put("sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='NPE-Kafka-Account' password='qqqq';");
 
         // Create the consumer
         try(KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);) {
