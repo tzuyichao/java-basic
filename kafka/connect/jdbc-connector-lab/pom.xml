@@ -27,6 +27,13 @@
             <artifactId>connect-api</artifactId>
             <version>3.6.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-transforms</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/io.confluent/kafka-connect-jdbc -->
         <dependency>
             <groupId>io.confluent</groupId>
