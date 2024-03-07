@@ -4,18 +4,19 @@ import io.confluent.connect.jdbc.dialect.DatabaseDialect;
 import io.confluent.connect.jdbc.dialect.DatabaseDialects;
 import io.confluent.connect.jdbc.source.JdbcSourceConnectorConfig;
 import io.confluent.connect.jdbc.source.SchemaMapping;
-import io.confluent.connect.jdbc.util.TableDefinition;
-import io.confluent.connect.jdbc.util.TableId;
 import org.apache.kafka.connect.data.Schema;
+import org.apache.kafka.connect.data.Struct;
 
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class SchemaMappingLab {
+public class RecordLab {
     public static void main(String[] args) {
         Map<String, String> props = new HashMap<>();
         props.put(JdbcSourceConnectorConfig.CONNECTION_URL_CONFIG, "jdbc:sqlserver://twtpesqlqa2:1433;databaseName=MDM_CDC");
@@ -36,10 +37,25 @@ public class SchemaMappingLab {
             ResultSetMetaData rsmd = rs.getMetaData();
             SchemaMapping schemaMapping = SchemaMapping.create("EmployeesSchema", rsmd,databaseDialect);
             Schema schema = schemaMapping.schema();
-            System.out.println(schema);
-            schema.fields().forEach(field -> {
-                System.out.println(field.toString() + "|" + field.name() + "|" + field.schema().name() + "|" + field.schema().type() + "|" + field.schema().version() + "|" + field.schema().isOptional());
-            });
+            while(rs.next()) {
+                Struct record = new Struct(schema);
+                // because
+                // In SchemaMapping.java
+                //   List<FieldSetter> fieldSetters() {
+                //     return fieldSetters;
+                //   }
+                Class<?> clazz = schemaMapping.getClass();
+                Method fieldSettersMethod = clazz.getDeclaredMethod("fieldSetters");
+                fieldSettersMethod.setAccessible(true);
+                List<SchemaMapping.FieldSetter> fieldSetters = (List<SchemaMapping.FieldSetter>) fieldSettersMethod.invoke(schemaMapping);
+                for(SchemaMapping.FieldSetter setter : fieldSetters) {
+                    Class<?> fieldSetterClazz = setter.getClass();
+                    Method setFieldMethod = fieldSetterClazz.getDeclaredMethod("setField", Struct.class, ResultSet.class);
+                    setFieldMethod.setAccessible(true);
+                    setFieldMethod.invoke(setter, record, rs);
+                }
+                System.out.println(record);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
