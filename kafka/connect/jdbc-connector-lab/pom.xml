@@ -12,6 +12,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <kafka.version>3.6.1</kafka.version>
+        <jdbc-connector.version>10.7.4</jdbc-connector.version>
     </properties>
 
     <repositories>
@@ -25,20 +27,26 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
-            <version>3.6.1</version>
+            <version>${kafka.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-transforms</artifactId>
-            <version>3.6.1</version>
+            <version>${kafka.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-json</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.confluent/kafka-connect-jdbc -->
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>kafka-connect-jdbc</artifactId>
-            <version>10.7.4</version>
+            <version>${jdbc-connector.version}</version>
         </dependency>
 
     </dependencies>
