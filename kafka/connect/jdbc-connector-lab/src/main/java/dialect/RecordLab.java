@@ -37,21 +37,14 @@ public class RecordLab {
             ResultSetMetaData rsmd = rs.getMetaData();
             SchemaMapping schemaMapping = SchemaMapping.create("EmployeesSchema", rsmd,databaseDialect);
             Schema schema = schemaMapping.schema();
+            Method fieldSettersMethod = SchemaMapping.class.getDeclaredMethod("fieldSetters");
+            fieldSettersMethod.setAccessible(true);
+            Method setFieldMethod = SchemaMapping.FieldSetter.class.getDeclaredMethod("setField", Struct.class, ResultSet.class);
+            setFieldMethod.setAccessible(true);
             while(rs.next()) {
                 Struct record = new Struct(schema);
-                // because
-                // In SchemaMapping.java
-                //   List<FieldSetter> fieldSetters() {
-                //     return fieldSetters;
-                //   }
-                Class<?> clazz = schemaMapping.getClass();
-                Method fieldSettersMethod = clazz.getDeclaredMethod("fieldSetters");
-                fieldSettersMethod.setAccessible(true);
                 List<SchemaMapping.FieldSetter> fieldSetters = (List<SchemaMapping.FieldSetter>) fieldSettersMethod.invoke(schemaMapping);
                 for(SchemaMapping.FieldSetter setter : fieldSetters) {
-                    Class<?> fieldSetterClazz = setter.getClass();
-                    Method setFieldMethod = fieldSetterClazz.getDeclaredMethod("setField", Struct.class, ResultSet.class);
-                    setFieldMethod.setAccessible(true);
                     setFieldMethod.invoke(setter, record, rs);
                 }
                 System.out.println(record);
