@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static config.KakfaConnectCore.*;
+
 public class ValueToKeyLab {
     public static void main(String[] args) {
         Map<String, String> props = PropUtils.getDefaultProps();
@@ -34,9 +36,9 @@ public class ValueToKeyLab {
             ResultSetMetaData rsmd = rs.getMetaData();
             SchemaMapping schemaMapping = SchemaMapping.create("EmployeesSchema", rsmd,databaseDialect);
             Schema schema = schemaMapping.schema();
-            Method fieldSettersMethod = SchemaMapping.class.getDeclaredMethod("fieldSetters");
+            Method fieldSettersMethod = SchemaMapping.class.getDeclaredMethod(METHOD_SCHEMAMAPPING_FIELDSETTERS);
             fieldSettersMethod.setAccessible(true);
-            Method setFieldMethod = SchemaMapping.FieldSetter.class.getDeclaredMethod("setField", Struct.class, ResultSet.class);
+            Method setFieldMethod = SchemaMapping.FieldSetter.class.getDeclaredMethod(METHOD_FIELDSETTER_SETFIELD, Struct.class, ResultSet.class);
             setFieldMethod.setAccessible(true);
             while(rs.next()) {
                 Struct record = new Struct(schema);
@@ -46,7 +48,7 @@ public class ValueToKeyLab {
                 }
                 System.out.println("Value ===> \n" + record);
                 SourceRecord sourceRecord = new SourceRecord(Collections.EMPTY_MAP, Collections.EMPTY_MAP, "test.testopic.v0", schema, record);
-                xform.configure(Collections.singletonMap("fields", "EmployeeID"));
+                xform.configure(Collections.singletonMap(TRANSFORMS_PRIMARY_KEY_FIELDS, "EmployeeID"));
                 SourceRecord transformed = xform.apply(sourceRecord);
                 System.out.println("Transformed ===> \n" + transformed);
             }
