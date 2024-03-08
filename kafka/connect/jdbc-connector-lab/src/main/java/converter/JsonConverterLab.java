@@ -1,5 +1,6 @@
 package converter;
 
+import config.PropUtils;
 import io.confluent.connect.jdbc.dialect.DatabaseDialect;
 import io.confluent.connect.jdbc.dialect.DatabaseDialects;
 import io.confluent.connect.jdbc.source.JdbcSourceConnectorConfig;
@@ -19,20 +20,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class JsonConverterLab {
+    static final String topic = "test.testopic.v0";
+
     public static void main(String[] args) {
-        Map<String, String> props = new HashMap<>();
-        props.put(JdbcSourceConnectorConfig.CONNECTION_URL_CONFIG, "jdbc:sqlserver://twtpesqlqa2:1433;databaseName=MDM_CDC");
-        props.put(JdbcSourceConnectorConfig.CONNECTION_USER_CONFIG, "datagov");
-        props.put(JdbcSourceConnectorConfig.CONNECTION_PASSWORD_CONFIG, "datagov!");
-        props.put(JdbcSourceConnectorConfig.TABLE_WHITELIST_CONFIG, "Employees");
-        props.put(JdbcSourceConnectorConfig.MODE_CONFIG, JdbcSourceConnectorConfig.MODE_TIMESTAMP);
-        props.put(JdbcSourceConnectorConfig.TIMESTAMP_COLUMN_NAME_CONFIG, "modifyDate");
-        props.put(JdbcSourceConnectorConfig.TOPIC_PREFIX_CONFIG, "prefix");
+        Map<String, String> props = PropUtils.getDefaultProps();
         JdbcSourceConnectorConfig config = new JdbcSourceConnectorConfig(props);
 
         final String url = config.getString(JdbcSourceConnectorConfig.CONNECTION_URL_CONFIG);
@@ -42,8 +37,6 @@ public class JsonConverterLab {
             Connection connection = databaseDialect.getConnection();
             JsonConverter keyConverter = new JsonConverter();) {
             keyConverter.configure(Collections.singletonMap(ConverterConfig.TYPE_CONFIG, ConverterType.KEY.getName()));
-
-            String topic = "test.testopic.v0";
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Employees");
