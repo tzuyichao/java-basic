@@ -37,8 +37,10 @@ public class JsonConverterLab {
 
         try(DatabaseDialect databaseDialect = DatabaseDialects.findBestFor(url, config);
             Connection connection = databaseDialect.getConnection();
-            JsonConverter keyConverter = new JsonConverter();) {
+            JsonConverter keyConverter = new JsonConverter();
+            JsonConverter valueConverter = new JsonConverter();) {
             keyConverter.configure(Collections.singletonMap(ConverterConfig.TYPE_CONFIG, ConverterType.KEY.getName()));
+            valueConverter.configure(Collections.singletonMap(ConverterConfig.TYPE_CONFIG, ConverterType.VALUE.getName()));
 
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Employees");
@@ -61,6 +63,7 @@ public class JsonConverterLab {
                 SourceRecord transformed = xform.apply(sourceRecord);
                 System.out.println("Transformed ===> \n" + transformed);
                 System.out.println("Key Converter ===>\n" + new String(keyConverter.fromConnectData(topic, transformed.keySchema(), transformed.key()), Charset.forName("UTF-8")));
+                System.out.println("Value Converter ===>\n" + new String(valueConverter.fromConnectData(topic, transformed.valueSchema(), transformed.value()), Charset.forName("UTF-8")));
             }
         } catch (Exception e) {
             e.printStackTrace();

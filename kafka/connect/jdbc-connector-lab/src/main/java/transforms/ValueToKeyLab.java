@@ -48,6 +48,7 @@ public class ValueToKeyLab {
                 }
                 System.out.println("Value ===> \n" + record);
                 SourceRecord sourceRecord = new SourceRecord(Collections.EMPTY_MAP, Collections.EMPTY_MAP, "test.testopic.v0", schema, record);
+                System.out.println("Before ===> \n" + sourceRecord);
                 xform.configure(Collections.singletonMap(TRANSFORMS_PRIMARY_KEY_FIELDS, "EmployeeID"));
                 SourceRecord transformed = xform.apply(sourceRecord);
                 System.out.println("Transformed ===> \n" + transformed);
