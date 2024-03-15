@@ -1,0 +1,5 @@
+# 緣起
+
+Debezium SQL Server Source Connector仰賴DBA幫忙，Confluent JDBC Source Connector在SQL server的應用又仰賴請來源的modify column要設定Not Null和datatype不能用datetime要改datetime2。
+
+對於更新頻率不高的table弄一個litghtweight的jdbc source connector來玩。
