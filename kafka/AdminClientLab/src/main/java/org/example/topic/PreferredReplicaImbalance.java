@@ -1,4 +1,4 @@
-package org.example;
+package org.example.topic;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.admin.*;
