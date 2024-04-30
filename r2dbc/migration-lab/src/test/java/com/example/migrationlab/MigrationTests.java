@@ -13,7 +13,7 @@ import java.util.concurrent.CountDownLatch;
 public class MigrationTests {
     @Test
     void testMigration() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(486);
         MssqlConnectionConfiguration erpConfig = MssqlConnectionConfiguration.builder()
                 .host("sa.delta.corp")
                 .username("sa")
@@ -37,7 +37,6 @@ public class MigrationTests {
                 (connection -> connection.close())
         ).flatMap(result -> result.map((row, rowMetadata) -> row.get("KUNNR")))
                 .buffer(500)
-                .doOnComplete(latch::countDown)
                 .subscribe(batch -> {
                     Flux.usingWhen(
                             mdmConnectionFactory.create(),
@@ -54,7 +53,8 @@ public class MigrationTests {
                                 return Flux.concat(txn, inserts, commit);
                             }),
                             (connection -> connection.close())
-                    ).subscribe();
+                    ).doOnComplete(latch::countDown)
+                            .subscribe();
                 });
         latch.await();
         disposable.dispose();
