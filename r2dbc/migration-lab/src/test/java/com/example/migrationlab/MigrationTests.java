@@ -15,14 +15,14 @@ public class MigrationTests {
     void testMigration() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);
         MssqlConnectionConfiguration erpConfig = MssqlConnectionConfiguration.builder()
-                .host("localhost")
+                .host("sa.delta.corp")
                 .username("sa")
                 .password("sa")
                 .database("SYNCERP")
                 .build();
 
         MssqlConnectionConfiguration mdmConfig = MssqlConnectionConfiguration.builder()
-                .host("localhost")
+                .host("sa.delta.corp")
                 .username("sa")
                 .password("sa")
                 .database("MDM")
@@ -44,7 +44,9 @@ public class MigrationTests {
                             (connection -> {
                                 Publisher<Void> txn = connection.beginTransaction();
                                 Flux<String> inserts = Flux.fromIterable(batch)
-                                        .flatMap(kunnr -> connection.createStatement("INSERT INTO dev.MDM_MIGRATION_LAB ( KUNNR ) VALUES ( '" + kunnr + "' )")
+                                        .flatMap(id ->
+                                                connection.createStatement("INSERT INTO dev.MDM_MIGRATION_LAB ( KUNNR ) VALUES (@id)")
+                                                .bind("id", id)
                                                 .execute())
                                         .flatMap(result -> result.getRowsUpdated())
                                         .map(count -> "Inserted " + count + " rows");
