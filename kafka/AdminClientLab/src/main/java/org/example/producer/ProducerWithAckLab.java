@@ -1,21 +1,34 @@
 package org.example.producer;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
 
 public class ProducerWithAckLab {
     public static void main(String[] args) {
-        Properties prop = new Properties();
-        prop.put("bootstrap.servers", "localhost:9093;localhost:9094;localhost:9095");
-        prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        Dotenv dotenv = Dotenv.load();
+        Properties props = new Properties();
+        props.put("bootstrap.servers", dotenv.get("BOOTSTRAP_SERVER"));
+        props.put("fetch.max.bytes", 1024);
+        props.put("enable.auto.commit", true);
+        props.put("auto.commit.interval.ms", 1000);
+        // SECURITY_PROTOCOL=SASL_PLAINTEXT
+        props.put("security.protocol", dotenv.get("SECURITY_PROTOCOL"));
+        // SASL_MECHANISM=SCRAM-SHA-512
+        props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
+        props.put("auto.offset.reset","earliest");
+        //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
+        props.put("sasl.jaas.config", dotenv.get("JAAS"));
+
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
         // acks = all => all replicas
-        prop.put("acks", "all");
-        Producer<String, String> producer = new KafkaProducer<>(prop);
+        props.put("acks", "all");
+        Producer<String, String> producer = new KafkaProducer<>(props);
 
-        String topic = "test.topic.v0";
+        String topic = "test.testopic.v0";
         String key = "my-key";
         String value = "Hello, Kafka!";
 
