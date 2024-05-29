@@ -23,7 +23,9 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <r2dbc-h2.version>0.8.4.RELEASE</r2dbc-h2.version>
+        <r2dbc-h2.version>1.0.0.RELEASE</r2dbc-h2.version>
+        <r2dbc-mssql.version>1.0.2.RELEASE</r2dbc-mssql.version>
+        <r2dbc-pool.version>1.0.1.RELEASE</r2dbc-pool.version>
     </properties>
 
     <dependencies>
@@ -31,6 +33,18 @@
             <groupId>io.r2dbc</groupId>
             <artifactId>r2dbc-h2</artifactId>
             <version>${r2dbc-h2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-mssql</artifactId>
+            <version>${r2dbc-mssql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-pool</artifactId>
+            <version>${r2dbc-pool.version}</version>
         </dependency>
     </dependencies>
 
