@@ -8,17 +8,17 @@ import java.io.IOException;
 
 public class ZookeeperState {
     public static void main(String[] args) throws InterruptedException, IOException {
-        String connectionString = "datagov-kfk08.deltaww.com:2181";
+        String connectionString = "datagov-kfk04.deltaww.com:2181";
         int sessionTimeout = 5000;
-        ZooKeeper zk = new ZooKeeper(connectionString, sessionTimeout, new Watcher() {
+
+        try(ZooKeeper zk = new ZooKeeper(connectionString, sessionTimeout, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
                 System.out.println(event.toString());
             }
-        });
-        ZooKeeper.States states = zk.getState();
-        System.out.println("ZooKeeper State: " + states);
-
-        zk.close();
+        });) {
+            ZooKeeper.States states = zk.getState();
+            System.out.println("ZooKeeper State: " + states);
+        }
     }
 }

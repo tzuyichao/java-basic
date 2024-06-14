@@ -1,13 +1,22 @@
 package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.kafka.clients.admin.*;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.CreateAclsResult;
+import org.apache.kafka.clients.admin.KafkaAdminClient;
+import org.apache.kafka.common.acl.AccessControlEntry;
+import org.apache.kafka.common.acl.AclBinding;
+import org.apache.kafka.common.acl.AclOperation;
+import org.apache.kafka.common.acl.AclPermissionType;
+import org.apache.kafka.common.resource.PatternType;
+import org.apache.kafka.common.resource.ResourcePattern;
+import org.apache.kafka.common.resource.ResourceType;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-public class CreateUser {
+public class CreateGroupACL {
     public static void main(String[] args) {
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
@@ -24,15 +33,13 @@ public class CreateUser {
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
             String username = "PFMEA-DEV-Kafka-Account";
-            String password = "11111";
+            ResourcePattern sourceResourcePattern = new ResourcePattern(ResourceType.GROUP, username, PatternType.PREFIXED);
+            CreateAclsResult createAclsResult = adminClient.createAcls(List.of(
+                    new AclBinding(sourceResourcePattern, new AccessControlEntry("User:" + username, "*", AclOperation.ALL, AclPermissionType.ALLOW))
+            ));
+            createAclsResult.all().get();
 
-            UserScramCredentialUpsertion userCredentials = new UserScramCredentialUpsertion(username, new ScramCredentialInfo(ScramMechanism.SCRAM_SHA_512, 4096), password);
-
-            adminClient.alterUserScramCredentials(Collections.singletonList(userCredentials)).all().get();
-
-            System.out.println("User created successfully.");
-
-
+            System.out.println("ACL created successfully.");
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {

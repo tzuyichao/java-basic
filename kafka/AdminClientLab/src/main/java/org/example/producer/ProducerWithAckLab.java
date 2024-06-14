@@ -18,8 +18,10 @@ public class ProducerWithAckLab {
         // SASL_MECHANISM=SCRAM-SHA-512
         props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
         props.put("auto.offset.reset","earliest");
-        //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
-        props.put("sasl.jaas.config", dotenv.get("JAAS"));
+
+        //props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"PFMEA-DEV-Kafka-Account\" password=\"111\";";
+        props.put("sasl.jaas.config", jaas);
 
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");

@@ -13,7 +13,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
 
-
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka
     implementation 'org.apache.kafka:kafka_2.13:3.6.1'
 
@@ -21,11 +20,9 @@ dependencies {
     implementation 'org.apache.kafka:kafka-clients:3.6.1'
 
     // https://mvnrepository.com/artifact/org.apache.zookeeper/zookeeper
-    implementation 'org.apache.zookeeper:zookeeper:3.6.3'
+    implementation 'org.apache.zookeeper:zookeeper:3.9.1'
 
-    // https://mvnrepository.com/artifact/org.apache.curator/curator-framework
-    implementation 'org.apache.curator:curator-framework:5.5.0'
-
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation 'org.slf4j:slf4j-api:1.7.36'

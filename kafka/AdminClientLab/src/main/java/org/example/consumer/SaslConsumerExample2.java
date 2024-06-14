@@ -25,9 +25,10 @@ public class SaslConsumerExample2 {
         // SASL_MECHANISM=SCRAM-SHA-512
         props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
         props.put("auto.offset.reset","earliest");
-        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
-        //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
-        props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "PFMEA-Kafka-Account");
+        //props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"PFMEA-Kafka-Account\" password=\"111\";";
+        props.put("sasl.jaas.config", jaas);
 
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
