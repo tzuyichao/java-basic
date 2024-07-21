@@ -55,7 +55,7 @@ public class TopologicalSortLab {
         graph.put(4, List.of(2));
         graph.put(2, List.of(1));
         graph.put(3, List.of(1));
-        graph.put(1, Collections.EMPTY_LIST);
+        graph.put(1, Collections.emptyList());
 
         System.out.println(findInDegree(graph));
         System.out.println(topologicalSort(graph));
