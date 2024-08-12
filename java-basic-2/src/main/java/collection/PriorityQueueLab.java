@@ -47,7 +47,24 @@ public class PriorityQueueLab {
         q.offer(9);
         System.out.println(q);
     }
+
+    private static void test3() {
+        PriorityQueue<Integer> q = new PriorityQueue<>(3);
+        q.offer(3);
+        q.offer(5);
+        q.offer(9);
+        q.offer(2);
+        System.out.println(q);
+        q.poll();
+        System.out.println(q);
+    }
+
     public static void main(String[] args) {
+        System.out.println("===> test1 <===");
+        test1();
+        System.out.println("===> test2 <===");
         test2();
+        System.out.println("===> test3 <===");
+        test3();
     }
 }
