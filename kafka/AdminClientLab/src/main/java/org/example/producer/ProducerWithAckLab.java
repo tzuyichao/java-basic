@@ -29,8 +29,8 @@ public class ProducerWithAckLab {
         // acks = all => all replicas
         props.put("acks", "all");
         try(Producer<String, String> producer = new KafkaProducer<>(props);) {
-            String topic = "test.testopic.v0";
-            String key = "my-key";
+            String topic = "test.testopic.v1";
+            String key = String.valueOf(System.currentTimeMillis());
             String value = "Hello, Kafka!";
 
             ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);

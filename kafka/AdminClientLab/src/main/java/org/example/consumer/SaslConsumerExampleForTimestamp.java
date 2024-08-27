@@ -24,8 +24,8 @@ import java.util.Properties;
 public class SaslConsumerExampleForTimestamp {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExampleForTimestamp.class);
     public static void main(String[] args) {
-        String bootstrapServers = "datagov-kfk04.deltaww.com:9093";
-        String topic = "datagov.pipeline.bi_etl.dbo.dim_delta_org_first_line";
+        String bootstrapServers = "datagovstg-kfk04.deltaww.com:9093";
+        String topic = "test.testopic.v1";
         String groupId = "compute";
 
         // Kafka consumer configuration settings

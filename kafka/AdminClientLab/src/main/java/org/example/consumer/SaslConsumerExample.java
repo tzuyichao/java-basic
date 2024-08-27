@@ -14,12 +14,18 @@ import java.util.Properties;
 
 public class SaslConsumerExample {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExample.class);
+    private static volatile boolean keepRunning = true;
     public static void main(String[] args) {
-        String bootstrapServers = "datagovstg-kfk04.deltaww.com:9093";
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            keepRunning = false;
+            logger.info("Shutting down...");
+        }));
+
+        String bootstrapServers = "datagovstg-kfk02.deltaww.com:9093";
         String topic = "test.testopic.v0";
-        String groupId = "IABG_DF-Kafka-Account";
-        String account = "IABG_DF-Kafka-Account";
-        String password = "IABG_DF@kafka";
+        String groupId = "DOS-TW-Kafka-Account";
+        String account = "DOS-TW-Kafka-Account";
+        String password = "1111";
 
         // Kafka consumer configuration settings
         Properties properties = new Properties();
@@ -28,6 +34,7 @@ public class SaslConsumerExample {
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        properties.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, "org.example.consumer.LatencyInterceptor");
 
         // SASL configuration
         properties.setProperty("security.protocol", "SASL_PLAINTEXT");
@@ -43,7 +50,7 @@ public class SaslConsumerExample {
             System.out.println(consumer.groupMetadata());
 
             // Poll for new data
-            while (true) {
+            while (keepRunning) {
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(100));
 

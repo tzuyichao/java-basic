@@ -23,10 +23,13 @@ public class CreateUser {
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
-            String username = "PFMEA-DEV-Kafka-Account";
-            String password = "11111";
+            String username = "";
+            String password = "";
 
-            UserScramCredentialUpsertion userCredentials = new UserScramCredentialUpsertion(username, new ScramCredentialInfo(ScramMechanism.SCRAM_SHA_512, 4096), password);
+            UserScramCredentialUpsertion userCredentials = new UserScramCredentialUpsertion(
+                    username,
+                    new ScramCredentialInfo(ScramMechanism.SCRAM_SHA_512, 4096),
+                    password);
 
             adminClient.alterUserScramCredentials(Collections.singletonList(userCredentials)).all().get();
 

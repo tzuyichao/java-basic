@@ -16,9 +16,7 @@ import java.util.Properties;
 public class SaslConsumerExample2 {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExample2.class);
     public static void main(String[] args) {
-        String topic = "product.project-management.project.project-change.v0";
-        String account = "PFMEA-Kafka-Account";
-        String pwd = "1111";
+        String topic = "test.testopic.v1";
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
         props.put("bootstrap.servers", dotenv.get("BOOTSTRAP_SERVER"));
@@ -27,10 +25,11 @@ public class SaslConsumerExample2 {
         // SASL_MECHANISM=SCRAM-SHA-512
         props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
         props.put("auto.offset.reset","earliest");
-        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, account);
-        //props.put("sasl.jaas.config", dotenv.get("JAAS"));
-        String jaas = String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";", account, pwd);
-        props.put("sasl.jaas.config", jaas);
+        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "network-latency");
+        //props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, account);
+        props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        //String jaas = String.format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";", account, pwd);
+        //props.put("sasl.jaas.config", jaas);
 
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -46,10 +45,13 @@ public class SaslConsumerExample2 {
             while (true) {
                 ConsumerRecords<String, String> records =
                         consumer.poll(Duration.ofMillis(100));
-
+                long now = System.currentTimeMillis();
                 for (ConsumerRecord<String, String> record : records){
                     logger.info("Key: " + record.key() + ", Value: " + record.value());
                     logger.info("Partition: " + record.partition() + ", Offset:" + record.offset());
+                    long clientSendTimestamp = Long.parseLong(record.key());
+                    long latency = now - clientSendTimestamp;
+                    System.out.println("Network Latency from Client to Broker: " + latency + " ms");
                 }
             }
         }
