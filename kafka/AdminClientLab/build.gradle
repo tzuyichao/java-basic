@@ -16,6 +16,8 @@ shadowJar {
 }
 
 dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
+
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
 
