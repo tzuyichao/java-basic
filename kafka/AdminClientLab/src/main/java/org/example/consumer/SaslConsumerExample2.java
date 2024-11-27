@@ -16,7 +16,7 @@ import java.util.Properties;
 public class SaslConsumerExample2 {
     private static final Logger logger = LoggerFactory.getLogger(SaslConsumerExample2.class);
     public static void main(String[] args) {
-        String topic = "test.testopic.v1";
+        String topic = "it.ddi.notification.v0";
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
         props.put("bootstrap.servers", dotenv.get("BOOTSTRAP_SERVER"));

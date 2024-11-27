@@ -21,11 +21,11 @@ public class SaslConsumerExample {
             logger.info("Shutting down...");
         }));
 
-        String bootstrapServers = "datagovstg-kfk02.deltaww.com:9093";
-        String topic = "test.testopic.v0";
-        String groupId = "DOS-TW-Kafka-Account";
-        String account = "DOS-TW-Kafka-Account";
-        String password = "1111";
+        String bootstrapServers = "localhost:9092";
+        String topic = "test.testtopic.v11";
+        String groupId = "Account";
+        String account = "Account";
+        String password = "qq";
 
         // Kafka consumer configuration settings
         Properties properties = new Properties();
