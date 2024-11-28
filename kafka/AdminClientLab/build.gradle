@@ -7,6 +7,9 @@ group = 'org.example'
 version = '1.0-SNAPSHOT'
 
 repositories {
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
     mavenCentral()
 }
 
@@ -17,6 +20,9 @@ shadowJar {
 
 dependencies {
     implementation 'org.apache.commons:commons-lang3:3.17.0'
+
+    // https://mvnrepository.com/artifact/io.confluent.ksql/ksqldb-api-client
+    implementation group: 'io.confluent.ksql', name: 'ksqldb-api-client', version: '7.0.1'
 
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
