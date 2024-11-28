@@ -24,6 +24,9 @@ public class ListStreamsLab {
                         System.out.println("Source Stream: " + stream.getName());
                         System.out.println("Type: " + sourceDescription.type());
                         System.out.println("Fields: " + sourceDescription.fields().size());
+                        sourceDescription.fields().forEach(field -> {
+                            System.out.println("\tField: " + field.name() + " Type: " + field.type());
+                        });
                         System.out.println("Write queries: " + sourceDescription.writeQueries().size());
                         System.out.println("Read queries: " + sourceDescription.readQueries().size());
                         System.out.println();
