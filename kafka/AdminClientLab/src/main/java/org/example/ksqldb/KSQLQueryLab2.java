@@ -3,14 +3,16 @@ package org.example.ksqldb;
 import io.confluent.ksql.api.client.Client;
 import io.confluent.ksql.api.client.ClientOptions;
 import io.confluent.ksql.api.client.SourceDescription;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.concurrent.ExecutionException;
 
 public class KSQLQueryLab2 {
     public static void main(String[] args) {
+        Dotenv dotenv = Dotenv.load();
         ClientOptions options = ClientOptions.create()
-                .setHost("twtpesqmskfkstg01.deltaos.corp")
-                .setPort(8083);
+                .setHost(dotenv.get("KSQLDB_SERVER"))
+                .setPort(Integer.parseInt(dotenv.get("KSQLDB_PORT")));
         try(Client client = Client.create(options);) {
             SourceDescription description = client.describeSource("QUALITY_QUALITYALERT_PRODUCTLINEUNBLOCK_V0").get();
             System.out.println("This source is a " + description.type());
