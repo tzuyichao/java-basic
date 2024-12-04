@@ -11,7 +11,7 @@ public class KSQLExecuteLab1 {
     public static void main(String[] args) {
         final String sql = "CREATE STREAM QUALITY_QUALITYALERT_PRODUCTLINEBLOCK_V0_DET " +
                 " WITH (value_format='JSON',kafka_topic='quality.quality-alert.product-line-block.v0.det', " +
-                "PARTITIONS = 1, REPLICAS = 3) " +
+                " PARTITIONS = 1, REPLICAS = 3) " +
                 " AS SELECT `eventId`, `sourceSystem`, `eventName`, `eventTime`, `actionIds`, `issueSystem`, " +
                 " `issueId`, `issueLevel`, `alertSource`, `alertId`, `workOrder`, `factory`, `bu`, `bg`, `line`, " +
                 " `blockRule`, `station`, `modelNumber`, `region`, `prodPlant`, `group` " +
@@ -24,6 +24,7 @@ public class KSQLExecuteLab1 {
             ExecuteStatementResult result = client.executeStatement(sql).get();
             System.out.println("Query ID: " + result.queryId());
         } catch (ExecutionException e) {
+            // 名稱已經存在的失敗的時候會在這邊
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
