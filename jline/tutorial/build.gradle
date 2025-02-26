@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.example.jline'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.jline:jline:3.21.0')
+    implementation('org.jline:jline-terminal-jansi:3.21.0')
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+shadowJar {
+    archiveBaseName.set('jline-tutorial')
+    archiveClassifier.set('')
+    archiveVersion.set('1.0')
+}
+
+test {
+    useJUnitPlatform()
+}
