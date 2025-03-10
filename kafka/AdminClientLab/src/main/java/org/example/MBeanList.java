@@ -4,13 +4,12 @@ import javax.management.*;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
-import java.io.IOException;
 import java.util.Set;
 
 public class MBeanList {
     public static void main(String[] args) {
         try {
-            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://datagov-kfk02.deltaww.com:9999/jmxrmi");
+            JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://qqq:9999/jmxrmi");
 
             JMXConnector connector = JMXConnectorFactory.connect(url);
             MBeanServerConnection connection = connector.getMBeanServerConnection();
@@ -18,11 +17,21 @@ public class MBeanList {
             Set<ObjectInstance> mbeans = connection.queryMBeans(null, null);
             for (ObjectInstance mbean : mbeans) {
                 ObjectName objectName = mbean.getObjectName();
-                System.out.println("MBean Name: " + objectName);
+                if(objectName.toString().startsWith("kafka.server:type=Request") &&
+                   objectName.toString().contains("PLM")) {
+                    System.out.println("MBean Name: " + objectName);
+                    MBeanInfo mBeanInfo = connection.getMBeanInfo(objectName);
+                    for(MBeanAttributeInfo attribute : mBeanInfo.getAttributes()) {
+                        System.out.println("Attribute: " + attribute.getName());
+                        System.out.println("Description: " + attribute.getDescription());
+                        System.out.println("Value: " + connection.getAttribute(objectName, attribute.getName()));
+                    }
+                    System.out.println();
+                }
             }
 
             connector.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

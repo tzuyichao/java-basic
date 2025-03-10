@@ -48,7 +48,7 @@ dependencies {
 
     // java 8 using 2.3.2
     // 3.x required java 11 or greater
-    implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+    implementation 'io.github.cdimascio:dotenv-java:3.1.0'
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
