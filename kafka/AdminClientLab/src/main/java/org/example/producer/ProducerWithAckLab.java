@@ -1,37 +1,48 @@
 package org.example.producer;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
 
+import static org.apache.kafka.clients.CommonClientConfigs.SECURITY_PROTOCOL_CONFIG;
+import static org.apache.kafka.common.config.SaslConfigs.SASL_JAAS_CONFIG;
+import static org.apache.kafka.common.config.SaslConfigs.SASL_MECHANISM;
+
 public class ProducerWithAckLab {
     public static void main(String[] args) {
+        String account = args[0];
+        String password = args[1];
+        String topic = args[2];
         Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
-        props.put("bootstrap.servers", dotenv.get("BOOTSTRAP_SERVER"));
-        props.put("fetch.max.bytes", 1024);
-        props.put("enable.auto.commit", true);
-        props.put("auto.commit.interval.ms", 1000);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, dotenv.get("BOOTSTRAP_SERVER"));
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "admin-test-" + account);
         // SECURITY_PROTOCOL=SASL_PLAINTEXT
-        props.put("security.protocol", dotenv.get("SECURITY_PROTOCOL"));
+        props.put(SECURITY_PROTOCOL_CONFIG, dotenv.get("SECURITY_PROTOCOL"));
         // SASL_MECHANISM=SCRAM-SHA-512
-        props.put("sasl.mechanism", dotenv.get("SASL_MECHANISM"));
-        props.put("auto.offset.reset","earliest");
+        props.put(SASL_MECHANISM, dotenv.get("SASL_MECHANISM"));
 
-        props.put("sasl.jaas.config", dotenv.get("JAAS"));
-        //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"PFMEA-DEV-Kafka-Account\" password=\"111\";";
-        //props.put("sasl.jaas.config", jaas);
+        //props.put("sasl.jaas.config", dotenv.get("JAAS"));
+        String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"%s\" password=\"%s\";";
+        props.put(SASL_JAAS_CONFIG, String.format(jaas, account, password));
 
-        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
 
         // acks = all => all replicas
-        props.put("acks", "all");
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
         try(Producer<String, String> producer = new KafkaProducer<>(props);) {
-            String topic = "test.testopic.v1";
-            String key = String.valueOf(System.currentTimeMillis());
-            String value = "Hello, Kafka!";
+            String key = "58047611930";
+            String value = """
+                    {
+                        "name": "John Doe",
+                        "email": "john.doe@example.com"
+                    }
+                    """;
 
             ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
             producer.send(record, (metadata, exception) -> {
