@@ -36,6 +36,7 @@ public class DescribeTopicStatus {
         try (AdminClient adminClient = AdminClient.create(props)) {
             Map<String, TopicDescription> topicDescriptionMap = adminClient.describeTopics(java.util.Collections.singletonList(topic)).all().get();
             TopicDescription description = topicDescriptionMap.get(topic);
+            System.out.println("== Topic Information: " + topic);
             for(TopicPartitionInfo partitionInfo : description.partitions()) {
                 System.out.printf("  - Partition ID: %d | Leader: %d | ISR: %s%n",
                         partitionInfo.partition(),
