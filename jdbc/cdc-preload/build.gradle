@@ -30,3 +30,7 @@ jar {
         attributes 'Main-Class': 'preload.SingleTablePreload'
     }
 }
+
+shadowJar {
+    mergeServiceFiles()
+}
