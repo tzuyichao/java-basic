@@ -1,0 +1,21 @@
+{
+  "source": {
+    "dbType": "SQLSERVER",
+    "jdbcUrl": "jdbc:sqlserver://localhost:1433;databaseName=yourdb",
+    "username": "sa",
+    "password": "YourStrong@Passw0rd",
+    "query": "SELECT id, name, created_at FROM source_table"
+  },
+  "target": {
+    "dbType": "ORACLE",
+    "jdbcUrl": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
+    "username": "system",
+    "password": "oracle",
+    "insertSql": "INSERT INTO target_table (id, name, created_at) VALUES (?, ?, ?)",
+    "columns": [
+      { "name": "id", "type": "INTEGER" },
+      { "name": "name", "type": "VARCHAR" },
+      { "name": "created_at", "type": "TIMESTAMP" }
+    ]
+  }
+}
