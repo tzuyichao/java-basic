@@ -11,6 +11,7 @@
     "jdbcUrl": "jdbc:oracle:thin:@//localhost:1521/XEPDB1",
     "username": "system",
     "password": "oracle",
+    "preStatement": "TRUNCATE TABLE target_table",
     "insertSql": "INSERT INTO target_table (id, name, created_at) VALUES (?, ?, ?)",
     "columns": [
       { "name": "id", "type": "INTEGER" },
