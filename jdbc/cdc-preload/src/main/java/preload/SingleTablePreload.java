@@ -15,9 +15,15 @@ public class SingleTablePreload {
     public static final int BATCH_SIZE = 1000;
 
     public static void main(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Usage: java SingleTablePreload <config.json>");
+            System.exit(1);
+        }
+
         try {
+            String configPath = args[0];
             ObjectMapper mapper = new ObjectMapper();
-            PreloadConfig config = mapper.readValue(new File("config.json"), PreloadConfig.class);
+            PreloadConfig config = mapper.readValue(new File(configPath), PreloadConfig.class);
             System.out.println(mapper.writeValueAsString(config));
 
             DbConfig source = config.getSource();
@@ -37,6 +43,9 @@ public class SingleTablePreload {
                     );
                     PreparedStatement psDst = targetConn.prepareStatement(target.getInsertSql())
             ) {
+                if(target.getPreStatement() != null && !target.getPreStatement().isEmpty()) {
+                    targetConn.prepareStatement(target.getPreStatement()).execute();
+                }
                 sourceStrategy.applySourceOptimization(psSrc);
                 targetStrategy.applyTargetOptimization(targetConn);
 

@@ -7,6 +7,7 @@ public class DbConfig {
     private String jdbcUrl;
     private String username;
     private String password;
+    private String preStatement;
     private String query;
     private String insertSql;
     private List<ColumnConfig> columns;
@@ -15,6 +16,7 @@ public class DbConfig {
     public String getJdbcUrl() { return jdbcUrl; }
     public String getUsername() { return username; }
     public String getPassword() { return password; }
+    public String getPreStatement() { return preStatement; }
     public String getQuery() { return query; }
     public String getInsertSql() { return insertSql; }
     public List<ColumnConfig> getColumns() { return columns; }
