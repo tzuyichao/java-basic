@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Warmup(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 10, time = 1, timeUnit = TimeUnit.SECONDS)
-@Fork(value = 1, jvmArgsPrepend = {"-XX:-UseBiasedLocking"})
+@Fork(value = 1, jvmArgsPrepend = {"-XX:-UseBiasedLocking", "-XX:+UnlockDiagnosticVMOptions", "-XX:+PrintInlining"})
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
