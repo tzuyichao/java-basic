@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "me.champeau.jmh" version "0.7.1"
 }
 
 group 'org.example'
@@ -11,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:12.10.1.jre11'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
