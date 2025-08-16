@@ -33,8 +33,20 @@ public class PreparedStatementBingTypeLab {
         }
     }
 
+    public void updateForConvertImplicit2() {
+        final String sql = "Update convert_implicit_test2 SET Name=? WHERE DeptCode=?";
+        try(Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setNString(1, "DEPT2");
+            preparedStatement.setNString(2, "0002");
+            preparedStatement.executeUpdate();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         PreparedStatementBingTypeLab preparedStatementBingTypeLab = new PreparedStatementBingTypeLab();
-        preparedStatementBingTypeLab.updateForConvertImplicit();
+        preparedStatementBingTypeLab.updateForConvertImplicit2();
     }
 }
