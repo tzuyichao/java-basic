@@ -22,17 +22,27 @@ public class KsqlMetadataExporter {
 
     public static void main(String[] args) throws IOException {
         new File(BACKUP_DIR).mkdirs();
-        backup("SHOW STREAMS;", "streams.json");
+        JsonNode streamsResponse = backup("SHOW STREAMS;", "streams.json");
+
+        JsonNode streams = streamsResponse.get(0).get("streams");
+        if (streams != null) {
+            for (JsonNode stream : streams) {
+                String streamName = stream.get("name").asText();
+                backup("DESCRIBE " + streamName + ";", "stream_" + streamName + ".json");
+            }
+        }
+
         backup("SHOW TABLES;", "tables.json");
         backupQueries();
         System.out.printf("KSQL metadata backup done in folder: %s%n", BACKUP_DIR);
     }
 
-    private static void backup(String statement, String filename) throws IOException {
+    private static JsonNode backup(String statement, String filename) throws IOException {
         JsonNode response = sendKsqlStatement(statement);
         FileWriter writer = new FileWriter(BACKUP_DIR + "/" + filename);
         writer.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
         writer.close();
+        return response;
     }
 
     private static void backupQueries() throws IOException {
