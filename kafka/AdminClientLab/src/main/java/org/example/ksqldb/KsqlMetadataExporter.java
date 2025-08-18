@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KsqlMetadataExporter {
-    private static final String KSQLDB_SERVER = "http://datagov-kfk01.deltaww.com:8083";
+    private static final String KSQLDB_SERVER = "http://host:port";
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final OkHttpClient client = new OkHttpClient();
 
