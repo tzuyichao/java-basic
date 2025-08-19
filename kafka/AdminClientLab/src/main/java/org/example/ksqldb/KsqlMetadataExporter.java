@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KsqlMetadataExporter {
-    private static final String KSQLDB_SERVER = "http://host:port";
+    private static String KSQLDB_SERVER = null;
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final OkHttpClient client = new OkHttpClient();
 
@@ -21,6 +21,7 @@ public class KsqlMetadataExporter {
             LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
 
     public static void main(String[] args) throws IOException {
+        KSQLDB_SERVER = args[0];
         new File(BACKUP_DIR).mkdirs();
         JsonNode streamsResponse = backup("SHOW STREAMS;", "streams.json");
 
@@ -29,6 +30,7 @@ public class KsqlMetadataExporter {
             for (JsonNode stream : streams) {
                 String streamName = stream.get("name").asText();
                 backup("DESCRIBE " + streamName + ";", "stream_" + streamName + ".json");
+                backup("DESCRIBE " + streamName + " EXTENDED;", "stream_" + streamName + "_extended.json");
             }
         }
 
