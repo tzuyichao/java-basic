@@ -1,14 +1,12 @@
 package org.example.topic;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.KafkaAdminClient;
-import org.apache.kafka.clients.admin.ListTopicsOptions;
-import org.apache.kafka.clients.admin.ListTopicsResult;
+import org.apache.kafka.clients.admin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class DescribeTopicsOffsets {
@@ -32,19 +30,21 @@ public class DescribeTopicsOffsets {
             ListTopicsOptions options = new ListTopicsOptions();
             options.listInternal(true);
             ListTopicsResult listTopicsResult = adminClient.listTopics(options);
-            listTopicsResult.names().get().forEach(topic -> {
-                adminClient.describeTopics(List.of(topic)).topicNameValues().forEach((name, entry) -> {
-                    entry.whenComplete((topicDescription, throwable) -> {
-                        if (throwable != null) {
-                            logger.error("Error getting topic description: ", throwable);
-                            return;
-                        }
-                        topicDescription.partitions().forEach(partitionInfo -> {
+            for (String topic : listTopicsResult.names().get()) {
+                DescribeTopicsResult describeResult = adminClient.describeTopics(List.of(topic));
+                Map<String, TopicDescription> descriptions = describeResult.all().get();  // <-- block until done
+
+                for (Map.Entry<String, TopicDescription> entry : descriptions.entrySet()) {
+                    TopicDescription topicDescription = entry.getValue();
+                    topicDescription.partitions().forEach(partitionInfo -> {
+                        if (partitionInfo.replicas().size() > 3) {
+                            logger.warn("Topic: {}, Partition: {}, has more than 3 replicas: {}", topicDescription.name(), partitionInfo.partition(), partitionInfo.replicas());
+                        } else {
                             logger.info("Topic: {}, Partition: {}, Leader: {}, Replicas: {}, ISR: {}", topicDescription.name(), partitionInfo.partition(), partitionInfo.leader().id(), partitionInfo.replicas(), partitionInfo.isr());
-                        });
+                        }
                     });
-                });
-            });
+                }
+            }
         } catch (Exception e) {
             logger.error("Error listing topics: ", e);
         }
