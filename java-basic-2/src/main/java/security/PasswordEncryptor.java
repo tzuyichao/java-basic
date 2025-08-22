@@ -21,7 +21,6 @@ public class PasswordEncryptor {
         cipher.init(Cipher.ENCRYPT_MODE, key, new GCMParameterSpec(GCM_TAG_LENGTH, iv));
         byte[] cipherText = cipher.doFinal(plainText.getBytes("UTF-8"));
 
-        // 組合 IV + CIPHERTEXT(+TAG)
         byte[] combined = new byte[iv.length + cipherText.length];
         System.arraycopy(iv, 0, combined, 0, iv.length);
         System.arraycopy(cipherText, 0, combined, iv.length, cipherText.length);
@@ -32,7 +31,6 @@ public class PasswordEncryptor {
     public static String decrypt(String base64CipherText, SecretKey key) throws Exception {
         byte[] decoded = Base64.getDecoder().decode(base64CipherText);
 
-        // 分離 IV 與 CIPHERTEXT(+TAG)
         byte[] iv = Arrays.copyOfRange(decoded, 0, IV_LENGTH);
         byte[] cipherText = Arrays.copyOfRange(decoded, IV_LENGTH, decoded.length);
 
