@@ -12,14 +12,21 @@ import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class DecryptAES {
-    private static final byte[] LOCAL_KEY_CACHE = new byte[] { -70, -69, 74, -97, 119, 74, -72, 83, -55, 108, 45, 101, 61, -2, 84, 74 };
+    private static final String ENV_KEY_NAME = "AES_KEY";
     public static final String KEY_ALGORITHM = "AES";
     public static final String CIPHER_NAME = "AES/CBC/PKCS5Padding";
 
     public static SecretKey getLocalSecretKey() {
-        return new SecretKeySpec(LOCAL_KEY_CACHE, KEY_ALGORITHM);
+        String base64Key = System.getenv(ENV_KEY_NAME);
+        if (base64Key == null || base64Key.isEmpty()) {
+            throw new IllegalStateException("Missing environment variable: " + ENV_KEY_NAME);
+        }
+
+        byte[] rawKey = Base64.getDecoder().decode(base64Key);
+        return new SecretKeySpec(rawKey, KEY_ALGORITHM);
     }
 
     public static void main(String[] args) throws IOException {

@@ -51,5 +51,7 @@ public class PasswordEncryptor {
 
         String decrypted = decrypt(encryptedPassword, key);
         System.out.println("Decrypted: " + decrypted);
+
+        System.out.println(decrypt("2m3FVJQ/wbEBx5IUDHdNKzJbXES+8/lrHbnQL7MXTMrCvSD7vw==", key));
     }
 }
