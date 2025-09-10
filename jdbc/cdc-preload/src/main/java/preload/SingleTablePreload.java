@@ -36,6 +36,7 @@ public class SingleTablePreload {
             DbOptimizationStrategy targetStrategy = target.getDbType().getOptimizationStrategy();
 
             try (
+                    Statement stmt = targetConn.createStatement();
                     PreparedStatement psSrc = sourceConn.prepareStatement(
                             source.getQuery(),
                             ResultSet.TYPE_FORWARD_ONLY,
@@ -44,7 +45,7 @@ public class SingleTablePreload {
                     PreparedStatement psDst = targetConn.prepareStatement(target.getInsertSql())
             ) {
                 if(target.getPreStatement() != null && !target.getPreStatement().isEmpty()) {
-                    targetConn.prepareStatement(target.getPreStatement()).execute();
+                    stmt.execute(target.getPreStatement());
                 }
                 sourceStrategy.applySourceOptimization(psSrc);
                 targetStrategy.applyTargetOptimization(targetConn);
@@ -59,8 +60,9 @@ public class SingleTablePreload {
                         int idx = i + 1;
                         switch (col.getType().toUpperCase()) {
                             case "INTEGER" -> psDst.setInt(idx, rs.getInt(col.getName()));
+                            case "DECIMAL" -> psDst.setBigDecimal(idx, rs.getBigDecimal(col.getName()));
                             case "BIGINT" -> psDst.setLong(idx, rs.getLong(col.getName()));
-                            case "VARCHAR", "NVARCHAR", "CHAR" -> psDst.setString(idx, rs.getString(col.getName()));
+                            case "VARCHAR", "NVARCHAR", "CHAR" -> psDst.setNString(idx, rs.getNString(col.getName()));
                             case "TIMESTAMP" -> psDst.setTimestamp(idx, rs.getTimestamp(col.getName()));
                             case "DATE" -> psDst.setDate(idx, rs.getDate(col.getName()));
                             default -> psDst.setObject(idx, rs.getObject(col.getName()));
@@ -71,6 +73,7 @@ public class SingleTablePreload {
                     if (++count % BATCH_SIZE == 0) {
                         psDst.executeBatch();
                         System.out.println("Inserted rows: " + count);
+                        targetConn.commit();
                     }
                 }
                 psDst.executeBatch(); // flush remaining
