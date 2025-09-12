@@ -5,6 +5,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerBulkCopy;
 import com.microsoft.sqlserver.jdbc.SQLServerBulkCopyOptions;
 import preload.config.DbConfig;
 import preload.config.PreloadConfig;
+import preload.db.SqlServerBulkCopyOptionsHelper;
 
 import java.io.File;
 import java.sql.*;
@@ -67,9 +68,7 @@ public class SingleTablePreloadToMSSQL {
                     );
                 }
 
-                SQLServerBulkCopyOptions copyOptions = new SQLServerBulkCopyOptions();
-                copyOptions.setBatchSize(50_000);
-                copyOptions.setBulkCopyTimeout(0); // unit seconds
+                SQLServerBulkCopyOptions copyOptions = SqlServerBulkCopyOptionsHelper.preloadDefault();
                 bulkCopy.setBulkCopyOptions(copyOptions);
                 bulkCopy.setDestinationTableName(target.getTableName());
                 bulkCopy.writeToServer(rs);
