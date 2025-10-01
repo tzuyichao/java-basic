@@ -10,6 +10,8 @@ public class DbConfig {
     private String preStatement;
     private String query;
     private String insertSql;
+    private OptionConfig option;
+    private String tableName;
     private List<ColumnConfig> columns;
 
     public DbType getDbType() { return dbType; }
@@ -20,4 +22,6 @@ public class DbConfig {
     public String getQuery() { return query; }
     public String getInsertSql() { return insertSql; }
     public List<ColumnConfig> getColumns() { return columns; }
+    public OptionConfig getOption() { return option; }
+    public String getTableName() { return tableName; }
 }
