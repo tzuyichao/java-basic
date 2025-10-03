@@ -1,0 +1,19 @@
+POST http://localhost:8083/connectors HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "my-sink",
+    "config": {
+        "connector.class": "demo.MySinkConnector",
+        "tasks.max": "1",
+
+        "topics": "demo.sink.in",
+
+        "connection.url": "jdbc:sqlserver://mssql:1433;databaseName=master;encrypt=true;trustServerCertificate=true",
+        "connection.user": "sa",
+        "connection.password": "YourStrong!Passw0rd",
+
+        "table.name": "dbo.demo"
+    }
+}

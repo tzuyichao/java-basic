@@ -1,0 +1,3 @@
+DELETE http://localhost:8083/connectors/my-sink HTTP/1.1
+Accept: application/json
+Content-Type: application/json
