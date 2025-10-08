@@ -2,7 +2,7 @@ package demo;
 
 import org.apache.kafka.common.Configurable;
 import org.apache.kafka.common.config.ConfigDef;
-import org.apache.kafka.connect.connector.ConnectRecord;
+import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.transforms.Transformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.util.Locale;
 import java.util.Map;
 
-public class LowercaseTopic<R extends ConnectRecord<R>> implements Transformation<R>, Configurable {
+public class LowercaseTopic implements Transformation<SourceRecord>, Configurable {
     private static final Logger log = LoggerFactory.getLogger(LowercaseTopic.class);
 
     @Override
-    public R apply(R record) {
+    public SourceRecord apply(SourceRecord record) {
         if (record == null || record.topic() == null) return record;
         String lower = record.topic().toLowerCase(Locale.ROOT);
         if (lower.equals(record.topic())) return record;
