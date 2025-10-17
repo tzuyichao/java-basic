@@ -1,0 +1,39 @@
+{
+  "schema": {
+    "type": "struct",
+    "fields": [
+      {
+        "type": "int32",
+        "optional": false,
+        "field": "id"
+      },
+      {
+        "type": "string",
+        "optional": false,
+        "field": "name"
+      },
+      {
+        "type": "int32",
+        "optional": true,
+        "name": "org.apache.kafka.connect.data.Date",
+        "version": 1,
+        "field": "publish_date"
+      },
+      {
+        "type": "int64",
+        "optional": true,
+        "name": "org.apache.kafka.connect.data.Timestamp",
+        "version": 1,
+        "field": "modify_date"
+      }
+    ],
+    "optional": false,
+    "name": "book"
+  },
+  "payload": {
+    "id": 3,
+    "name": "擁有超常技能的異世界流浪美食家",
+    "publish_date": 17136,
+    "modify_date": 1760708370000
+  }
+}
