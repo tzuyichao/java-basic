@@ -9,7 +9,7 @@
 
     <properties>
         <maven.compiler.release>12</maven.compiler.release>
-        <vertx-version>3.9.4</vertx-version>
+        <vertx-version>4.5.22</vertx-version>
     </properties>
 
     <dependencies>
