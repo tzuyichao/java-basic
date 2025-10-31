@@ -14,7 +14,7 @@
         <netty.version>4.1.44.Final</netty.version>
         <lombok.version>1.18.10</lombok.version>
 		<slf4j.version>1.7.29</slf4j.version>
-		<logback.version>1.3.15</logback.version>
+		<logback.version>1.5.19</logback.version>
 		<jupiter.version>5.5.2</jupiter.version>
     </properties>
     
