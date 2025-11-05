@@ -7,7 +7,9 @@ import org.apache.kafka.clients.admin.DescribeConfigsResult;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.common.config.ConfigResource;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -26,17 +28,26 @@ public class BrokerInfo {
         props.put("auto.offset.reset","earliest");
         //String jaas = "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"ACCOUNT\" password=\"PASSWORD\";";
         props.put("sasl.jaas.config", dotenv.get("JAAS"));
-        getBrokerParamInfo(props);
+        getBrokerParamInfo(props, List.of("message.max.bytes", "replica.fetch.max.bytes", "compression.type"));
+        System.out.println("==============");
+        getBrokerParamInfo(props, null);
     }
 
-    private static void getBrokerParamInfo(Properties props) {
+    private static void getBrokerParamInfo(Properties props, Collection<String> keys) {
         try(AdminClient adminClient = KafkaAdminClient.create(props)) {
             ConfigResource brokerResource = new ConfigResource(ConfigResource.Type.BROKER, "1");
             DescribeConfigsResult result = adminClient.describeConfigs(Collections.singleton(brokerResource));
             Config config = result.all().get().get(brokerResource);
 
-            System.out.println("message.max.bytes = " + config.get("message.max.bytes").value());
-            System.out.println("replica.fetch.max.bytes = " + config.get("replica.fetch.max.bytes").value());
+            if(keys != null && !keys.isEmpty()) {
+                keys.forEach(key -> {
+                    System.out.printf("%s = %s%n", key, config.get(key).value());
+                });
+            } else {
+                config.entries().forEach(entry -> {
+                    System.out.printf("%s = %s%n", entry.name(), entry.value());
+                });
+            }
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
